@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export default function SignupForm() {
+export default function SignupModal(closeModal) {
     const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -33,7 +33,7 @@ export default function SignupForm() {
     //implementing sign up button which will have linked functionality
     return (
         <>
-            <div className="container">
+            <div className="container" id="signupModal">
                 <form onSubmit={handleSubmit} className="create-account-form">
                     <div className="form-row">
                         <label className="form-label" htmlFor="username">Username</label>
