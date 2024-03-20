@@ -1,6 +1,9 @@
+import SignupForm from "../components/SignupForm";
+
 function Home() {
   return (
     <>
+    <SignupForm />
       <div>
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
           <div className="container-fluid">
