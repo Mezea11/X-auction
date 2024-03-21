@@ -1,2 +1,9 @@
-/*:root {
-}*/
+#nav-link-container {
+  display: flex;
+  margin-left: auto;
+}
+
+#signupModal {
+  position: absolute !important;
+  z-index: 1 !important;
+}
