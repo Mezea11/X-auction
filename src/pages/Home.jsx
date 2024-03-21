@@ -1,4 +1,5 @@
 import SignupButton from "../components/SignupButton";
+import LoginButton from "../components/LoginButton";
 
 function Home() {
   return (
@@ -17,7 +18,6 @@ function Home() {
           </div>
         </div>
       </div>
-      <SignupButton />
     </>
   );
 }

@@ -1,5 +1,6 @@
 import SignupForm from "./SignupForm.jsx";
 import { useState } from "react";
+import SignupForm from "./SignupForm.jsx";
 
 export default function SignupModal({ closeModal }) {
   return (
