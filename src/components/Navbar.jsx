@@ -29,14 +29,14 @@ function Navbar() {
               <div id="nav-link-container">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                   <li className="nav-item" id="nav-faq-link">
-                    <a className="nav-link" href="#">
+                    <Link to={"/faq"} className="nav-link">
                       FAQ
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item" id="nav-mypage-link">
-                    <a className="nav-link" href="#">
+                    <Link to={"/mypage"} className="nav-link" >
                       My page
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item" id="">
                     <a className="nav-link" href="#">
