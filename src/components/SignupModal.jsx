@@ -1,6 +1,4 @@
 import SignupForm from "./SignupForm.jsx";
-import { useState } from "react";
-import SignupForm from "./SignupForm.jsx";
 
 export default function SignupModal({ closeModal }) {
   return (
@@ -10,7 +8,7 @@ export default function SignupModal({ closeModal }) {
         id="signupModal"
         tabIndex="-1"
         role="dialog"
-        style={{ display: "flex", position: "initial" }}
+        style={{ display: "flex" }}
       >
         <div className="modal-dialog" role="document">
           <div className="modal-content">

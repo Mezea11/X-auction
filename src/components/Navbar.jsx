@@ -1,5 +1,5 @@
-//import SignupButton from "../components/SignupButton";
-//import SignupModal from "../components/SignupButton";
+import SignupButton from "../components/SignupButton.jsx";
+import LoginButton from "../components/LoginButton.jsx";
 import { Link } from "react-router-dom";
 
 function Navbar() {
@@ -28,19 +28,24 @@ function Navbar() {
             >
               <div id="nav-link-container">
                 <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li className="nav-item" id="">
+                  <li className="nav-item" id="nav-faq-link">
                     <a className="nav-link" href="#">
                       FAQ
                     </a>
                   </li>
-                  <li className="nav-item" id="">
+                  <li className="nav-item" id="nav-mypage-link">
                     <a className="nav-link" href="#">
-                      Log In
+                      My page
                     </a>
                   </li>
                   <li className="nav-item" id="">
                     <a className="nav-link" href="#">
-                      Create account
+                      <LoginButton />
+                    </a>
+                  </li>
+                  <li className="nav-item" id="">
+                    <a className="nav-link" href="#">
+                      <SignupButton />
                     </a>
                   </li>
                 </ul>

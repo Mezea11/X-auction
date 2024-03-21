@@ -3,7 +3,14 @@
   margin-left: auto;
 }
 
-#signupModal {
-  position: absolute !important;
-  z-index: 1 !important;
+#nav-faq-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#nav-mypage-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
