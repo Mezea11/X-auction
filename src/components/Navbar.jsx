@@ -1,11 +1,7 @@
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 
 function Navbar() {
-  return (
-    <>
-      <Link to="/">Homepage</Link>
-    </>
-  )
+  return <></>;
 }
 
-export default Navbar
+export default Navbar;
