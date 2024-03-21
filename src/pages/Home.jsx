@@ -1,5 +1,6 @@
 //import SignupButton from "../components/SignupButton";
 //import LoginButton from "../components/LoginButton";
+import ProductForm from "../components/ProductForm";
 
 function Home() {
   return (
@@ -17,6 +18,7 @@ function Home() {
             </a>
           </div>
         </div>
+        <ProductForm />
       </div>
     </>
   );
