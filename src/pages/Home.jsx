@@ -1,4 +1,5 @@
 import SignupButton from "../components/SignupButton";
+import LoginButton from "../components/LoginButton";
 
 function Home() {
   return (
@@ -71,6 +72,9 @@ function Home() {
                     Disabled
                   </a>
                 </li>
+                <SignupButton />
+          <LoginButton />
+                
               </ul>
               <form className="d-flex" role="search">
                 <input
@@ -102,7 +106,6 @@ function Home() {
           </div>
         </div>
 
-        <>
           <button type="button" className="btn btn-primary">
             Primary
           </button>
@@ -130,9 +133,7 @@ function Home() {
           <button type="button" className="btn btn-link">
             Link
           </button>
-        </>
       </div>
-      <SignupButton />
     </>
   );
 }
