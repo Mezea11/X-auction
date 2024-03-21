@@ -1,5 +1,5 @@
-import SignupButton from "../components/SignupButton";
-import SignupModal from "../components/SignupButton";
+//import SignupButton from "../components/SignupButton";
+//import SignupModal from "../components/SignupButton";
 import { Link } from "react-router-dom";
 
 function Navbar() {
