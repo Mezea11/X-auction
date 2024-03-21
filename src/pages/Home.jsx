@@ -1,10 +1,8 @@
 import SignupButton from "../components/SignupButton";
-import SignupForm from "../components/SignupModal";
 
 function Home() {
   return (
     <>
-    <SignupButton />
       <div>
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
           <div className="container-fluid">
@@ -134,6 +132,7 @@ function Home() {
           </button>
         </>
       </div>
+      <SignupButton />
     </>
   );
 }
