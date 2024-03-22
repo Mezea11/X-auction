@@ -1,6 +1,3 @@
-//import SignupButton from "../components/SignupButton";
-//import LoginButton from "../components/LoginButton";
-import ProductForm from "../components/ProductForm";
 import { Link } from "react-router-dom";
 
 function Home() {
@@ -29,7 +26,7 @@ function Home() {
             </li>
           </ul>
           <div className="card-body" id="home-card-btn">
-            <Link to={"/productPage.jsx"}>
+            <Link to={"/ProductPage"}>
               <button type="button" className="btn btn-primary">
                 View Product
               </button>
@@ -37,7 +34,6 @@ function Home() {
             &nbsp;
           </div>
         </div>
-        <ProductForm />
       </div>
     </>
   );
