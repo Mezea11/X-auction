@@ -9,6 +9,7 @@ function Home() {
   const [searchItem, setSearchItem] = useState("");
   /* HOOK: filtrera sökta produkter - från början (när inget söks) "matchar" alla objekt i mockproducts */
   const [filteredItems, setFilteredItems] = useState(mockproducts);
+  //const [errorMessage, setErrorMessage] = useState(undefined);
 
   const handleSearchInputChange = (event) => {
     /* ta in value av search och sätt till lowercase i variable searchTerm - setSearchItem förändrar värdet av searchItem */
@@ -49,6 +50,9 @@ function Home() {
           />
         </form>
         <div className="mockdataoutput">
+          {/* {errorMessage?.type === "error" && (
+            <p>Inga produkter matchade din sökning</p>
+          )} */}
           {filteredItems.map((product) => (
             <div key={product.id}>
               <h3>{product.name}</h3>
