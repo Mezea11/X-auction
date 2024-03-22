@@ -1,5 +1,6 @@
 //import SignupButton from "../components/SignupButton";
 //import LoginButton from "../components/LoginButton";
+import ProductForm from "../components/ProductForm";
 import { Link } from "react-router-dom";
 
 function Home() {
@@ -36,6 +37,7 @@ function Home() {
             &nbsp;
           </div>
         </div>
+        <ProductForm />
       </div>
     </>
   );
