@@ -5,9 +5,9 @@ import mockproducts from "../assets/mockproducts.jsx";
 import { useState } from "react";
 
 function Home() {
-  /* HOOK: fångar sökord som användaren matar in - från början tom sträng */
+  /* STATE HOOK: sökord som användaren matar in - från början tom sträng (= inget har sökts) */
   const [searchItem, setSearchItem] = useState("");
-  /* HOOK: filtrera sökta produkter - från början (när inget söks) "matchar" alla objekt i mockproducts */
+  /* STATEHOOK: filtrera sökta produkter - från början alla objekt i mockproducts (= inget har sökts - alla objekt "matchar" */
   const [filteredItems, setFilteredItems] = useState(mockproducts);
   //const [errorMessage, setErrorMessage] = useState(undefined);
 
@@ -24,6 +24,7 @@ function Home() {
       const matchingDescription =
         product.description &&
         product.description.toLocaleLowerCase().includes(searchTerm);
+      /* ta ut matchande sökning baserat på produktens keywords */
       const matchingKeywords =
         product.keywords &&
         product.keywords.some((keyword) =>
@@ -33,7 +34,7 @@ function Home() {
       return matchingName || matchingDescription || matchingKeywords;
     });
 
-    /* ändrar värdet av filteredItems till en array av objekt där name och/eller description matchar sökning */
+    /* ändrar värdet av filteredItems till en array av objekt där name och/eller description och/eller keywords matchar sökning */
     setFilteredItems(filteredItems);
   };
   return (
@@ -53,6 +54,7 @@ function Home() {
           {/* {errorMessage?.type === "error" && (
             <p>Inga produkter matchade din sökning</p>
           )} */}
+          {/* skriver ut filtrerade produkter (= alla produkter om inget sökord har matats in)*/}
           {filteredItems.map((product) => (
             <div key={product.id}>
               <h3>{product.name}</h3>
