@@ -1,20 +1,39 @@
 //import SignupButton from "../components/SignupButton";
 //import LoginButton from "../components/LoginButton";
+import { Link } from "react-router-dom";
 
 function Home() {
   return (
     <>
-      <div className="classContainer">
+      <div id="home-card-container">
         <div className="card" style={{ width: "18rem" }}>
+          <img
+            src="https://geauction.com/wp-content/uploads/2018/07/5-Auction-Tips-for-Beginners2.jpg"
+            className="card-img-top"
+            alt="..."
+          />
           <div className="card-body">
-            <h5 className="card-title">Card title</h5>
+            <h5 className="card-title">Product</h5>
             <p className="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card s content.
+              This product is up for auction. Underneath you can see the highest
+              bid and the time left.
             </p>
-            <a href="#" className="btn btn-primary">
-              Go somewhere
-            </a>
+          </div>
+          <ul className="list-group list-group-flush">
+            <li className="list-group-item">
+              Highest bid: <strong style={{ color: "green" }}>4325:-</strong>
+            </li>
+            <li className="list-group-item">
+              Time left: <strong style={{ color: "red" }}>3d 22h</strong>
+            </li>
+          </ul>
+          <div className="card-body" id="home-card-btn">
+            <Link to={"/productPage.jsx"}>
+              <button type="button" className="btn btn-primary">
+                View Product
+              </button>
+            </Link>
+            &nbsp;
           </div>
         </div>
       </div>
