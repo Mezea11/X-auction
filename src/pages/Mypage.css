@@ -1,0 +1,49 @@
+#mypage-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.section-titles-mypage {
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+#mypage-card {
+    max-width: 25rem;
+    margin-right: 10vw;
+}
+
+#user-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mypage-sections {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 75vw;
+    margin: 0 auto;
+    background-color: gray;
+    margin-bottom: 3rem;
+    border-radius: 4rem;
+}
+
+.ads-card-container-mypage {
+    display: flex;
+    width: 50vw;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}
+
+#bid-history-title {
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+#bid-history-section {
+    width: 50vw;
+}
