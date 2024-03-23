@@ -7,7 +7,7 @@ import { useState } from "react";
 function Home() {
   /* STATE HOOK: sökord som användaren matar in - från början tom sträng (= inget har sökts) */
   const [searchItem, setSearchItem] = useState("");
-  /* STATEHOOK: filtrera sökta produkter - från början alla objekt i mockproducts (= inget har sökts - alla objekt "matchar" */
+  /* STATE HOOK: filtrera sökta produkter - från början alla objekt i mockproducts (= inget har sökts - alla objekt "matchar") */
   const [filteredItems, setFilteredItems] = useState(mockproducts);
   //const [errorMessage, setErrorMessage] = useState(undefined);
 
@@ -18,19 +18,23 @@ function Home() {
 
     const filteredItems = mockproducts.filter((product) => {
       /* ta ut matchande sökning baserat på produktens namn */
+      /* om objektet (product) har en property name och om den propertyn inkluderar söktermen */
       const matchingName =
         product.name && product.name.toLowerCase().includes(searchTerm);
       /* ta ut matchande sökning baserat på produktens beskrivning */
+      /* om objektet (product) har en property description och om den inkluderar söktermen */
       const matchingDescription =
         product.description &&
         product.description.toLocaleLowerCase().includes(searchTerm);
       /* ta ut matchande sökning baserat på produktens keywords */
+      /* om objektet (product) har en property keywords och om den inkluderar söktermen */
       const matchingKeywords =
         product.keywords &&
         product.keywords.some((keyword) =>
           keyword.toLowerCase().includes(searchTerm)
         );
 
+      /* returnerar alla objekt som matchar sökning */
       return matchingName || matchingDescription || matchingKeywords;
     });
 
@@ -47,6 +51,7 @@ function Home() {
             value={searchItem}
             placeholder="Search"
             aria-label="Search"
+            // "lyssnar" på sökrutan
             onChange={handleSearchInputChange}
           />
         </form>
