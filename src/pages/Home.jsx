@@ -3,6 +3,7 @@
 //import Searchbar from "../components/Searchbar.jsx";
 import mockproducts from "../assets/mockproducts.jsx";
 import { useState } from "react";
+import ProductsList from "../components/ProductsList.jsx";
 
 function Home() {
   /* STATE HOOK: sökord som användaren matar in - från början tom sträng (= inget har sökts) */
@@ -55,21 +56,11 @@ function Home() {
             onChange={handleSearchInputChange}
           />
         </form>
-        <div className="mockdataoutput">
-          {/* {errorMessage?.type === "error" && (
+        {/* skriver ut filtrerade produkter (= alla produkter om inget sökord har matats in)*/}
+        <ProductsList products={filteredItems} />
+        {/* {errorMessage?.type === "error" && (
             <p>Inga produkter matchade din sökning</p>
           )} */}
-          {/* skriver ut filtrerade produkter (= alla produkter om inget sökord har matats in)*/}
-          {filteredItems.map((product) => (
-            <div key={product.id}>
-              <h3>{product.name}</h3>
-              <p>{product.description}</p>
-              <h6>
-                {product.keywords.map((keyword) => "#" + keyword).join(" ")}
-              </h6>
-            </div>
-          ))}
-        </div>
         {/* <div className="card" style={{ width: "18rem" }}>
           <div className="card-body">
             <h5 className="card-title">Card title</h5>
