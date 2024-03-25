@@ -1,4 +1,5 @@
-import "./Mypage.css";
+<<<<<<< HEAD
+import "./Mypage.css"
 
 import { useEffect, useState } from "react";
 
@@ -156,3 +157,10 @@ export default function Mypage() {
 }
 
 //export default Mypage;
+=======
+function Mypage() {
+    return <>This is my page</>
+}
+
+export default Mypage
+>>>>>>> 5d08b089dbcd5f8010b0fb0acf01ae681478e325
