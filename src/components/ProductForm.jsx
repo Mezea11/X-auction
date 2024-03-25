@@ -1,7 +1,6 @@
-import Mypage from "../pages/Mypage";
 import { useState } from "react";
 
-export default function ProductForm( {onSubmit} ) {
+export default function ProductForm({ onSubmit }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
@@ -9,7 +8,7 @@ export default function ProductForm( {onSubmit} ) {
   const [endDate, setEndDate] = useState("");
   const [price, setPrice] = useState("");
   const [img, setImg] = useState("");
-  
+
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -20,10 +19,10 @@ export default function ProductForm( {onSubmit} ) {
       keywords: keywords,
       endDate: endDate,
       price: price,
-      img: img
+      img: img,
     };
 
-    onSubmit(title, description, category, keywords, endDate, price, img)
+    onSubmit(title, description, category, keywords, endDate, price, img);
 
     console.log(formData);
 
@@ -77,12 +76,12 @@ export default function ProductForm( {onSubmit} ) {
               className="form-control w-75"
               id="category"
               required
-              >
-        <option value="">Select category</option>
-        <option value="Bird">Bird</option>
-        <option value="Fish">Fish</option>
-        <option value="Inbetween">Inbetween</option>
-      </select>
+            >
+              <option value="">Select category</option>
+              <option value="Bird">Bird</option>
+              <option value="Fish">Fish</option>
+              <option value="Inbetween">Inbetween</option>
+            </select>
           </div>
           <div className="form-row">
             <label className="form-label" htmlFor="keywords">
@@ -125,7 +124,7 @@ export default function ProductForm( {onSubmit} ) {
           </div>
           <div className="form-row">
             <label className="form-label" htmlFor="img">
-                Insert image url:
+              Insert image url:
             </label>
             <input
               value={img}

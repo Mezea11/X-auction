@@ -1,11 +1,13 @@
-import ProductForm from "../components/ProductForm";
+// ProductPage.jsx
+import ProductPageComponent from "../components/ProductPageComponent";
 
-export default function ProductPage() {
+function ProductPage() {
   return (
     <>
-      <div>
-        <ProductForm />
-      </div>
+      <h1>Loading product data...</h1>
+      <ProductPageComponent />
     </>
   );
 }
+
+export default ProductPage;
