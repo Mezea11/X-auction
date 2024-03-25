@@ -1,16 +1,22 @@
-import "./Mypage.css"
+import "./Mypage.css";
 import ProductForm from "../components/ProductForm";
-import { useEffect, useState } from "react";
 
 export default function Mypage() {
-  
-  const postProduct = async (title, description, category, keywords, endDate, price, img ) => {
+  const postProduct = async (
+    title,
+    description,
+    category,
+    keywords,
+    endDate,
+    price,
+    img
+  ) => {
     try {
-      console.log('hello')
+      console.log("hello");
       const response = await fetch("http://localhost:3000/products", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           title,
@@ -19,27 +25,25 @@ export default function Mypage() {
           keywords,
           endDate,
           price,
-          img
-        })
+          img,
+        }),
       });
       if (!response.ok) {
         throw new Error("Failed to post product");
       }
-      
+
       //fetchAllProducts();
     } catch (error) {
       console.error("Error posting product:", error);
     }
-    
   };
 
   return (
     <>
-    <ProductForm onSubmit={postProduct} />
+      <ProductForm onSubmit={postProduct} />
     </>
-  )
+  );
 }
-
 
 /* 
 <div id="mypage-container">
