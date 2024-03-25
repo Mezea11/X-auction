@@ -13,26 +13,29 @@ function Home() {
   //const [errorMessage, setErrorMessage] = useState(undefined);
 
   const handleSearchInputChange = (event) => {
-    /* ta in value av search och sätt till lowercase i variable searchTerm - setSearchItem förändrar värdet av searchItem */
-    const searchTerm = event.target.value.toLowerCase();
-    setSearchItem(searchTerm);
+    /* ta in value av search och sätt till lowercase i variable searchItem - setSearchItem förändrar värdet av searchItem */
+    setSearchItem(event.target.value.toLowerCase());
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
     const filteredItems = mockproducts.filter((product) => {
       /* ta ut matchande sökning baserat på produktens namn */
       /* om objektet (product) har en property name och om den propertyn inkluderar söktermen */
       const matchingName =
-        product.name && product.name.toLowerCase().includes(searchTerm);
+        product.name && product.name.toLowerCase().includes(searchItem);
       /* ta ut matchande sökning baserat på produktens beskrivning */
       /* om objektet (product) har en property description och om den inkluderar söktermen */
       const matchingDescription =
         product.description &&
-        product.description.toLocaleLowerCase().includes(searchTerm);
+        product.description.toLocaleLowerCase().includes(searchItem);
       /* ta ut matchande sökning baserat på produktens keywords */
       /* om objektet (product) har en property keywords och om den inkluderar söktermen */
       const matchingKeywords =
         product.keywords &&
         product.keywords.some((keyword) =>
-          keyword.toLowerCase().includes(searchTerm)
+          keyword.toLowerCase().includes(searchItem)
         );
 
       /* returnerar alla objekt som matchar sökning */
@@ -45,7 +48,7 @@ function Home() {
   return (
     <>
       <div className="classContainer">
-        <form className="d-flex" role="search">
+        <form className="d-flex" role="search" onSubmit={handleSubmit}>
           <input
             className="form-control me-2"
             type="search"
@@ -55,24 +58,15 @@ function Home() {
             // "lyssnar" på sökrutan
             onChange={handleSearchInputChange}
           />
+          <button className="btn btn-outline-success" type="submit">
+            Submit
+          </button>
         </form>
         {/* skriver ut filtrerade produkter (= alla produkter om inget sökord har matats in)*/}
         <ProductsList products={filteredItems} />
         {/* {errorMessage?.type === "error" && (
             <p>Inga produkter matchade din sökning</p>
           )} */}
-        {/* <div className="card" style={{ width: "18rem" }}>
-          <div className="card-body">
-            <h5 className="card-title">Card title</h5>
-            <p className="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card s content.
-            </p>
-            <a href="#" className="btn btn-primary">
-              Go somewhere
-            </a>
-          </div>
-        </div> */}
       </div>
     </>
   );
