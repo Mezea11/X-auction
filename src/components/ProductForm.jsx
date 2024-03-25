@@ -1,6 +1,7 @@
+import Mypage from "../pages/Mypage";
 import { useState } from "react";
 
-export default function ProductForm() {
+export default function ProductForm( {onSubmit} ) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
@@ -8,7 +9,7 @@ export default function ProductForm() {
   const [endDate, setEndDate] = useState("");
   const [price, setPrice] = useState("");
   const [img, setImg] = useState("");
-
+  
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -19,8 +20,10 @@ export default function ProductForm() {
       keywords: keywords,
       endDate: endDate,
       price: price,
-      img: img,
+      img: img
     };
+
+    onSubmit(title, description, category, keywords, endDate, price, img)
 
     console.log(formData);
 

@@ -1,19 +1,39 @@
 {
-    "products": [
-        {
-            "id": "12jknasd",
-            "name": "a new name",
-            "description": "ett object",
-            "category": "string",
-            "keywords": [
-                "string",
-                "string",
-                "string"
-            ],
-            "end_dateTime": "2024-10-10",
-            "asking_price": "1223",
-            "highest_bid": "10 500",
-            "img_url": "https://www.w3schools.com/images/w3schools_green.jpg"        
-        }
-    ]
+  "products": [
+    {
+      "id": "12jknasd",
+      "name": "a new name",
+      "description": "ett object",
+      "category": "string",
+      "keywords": [
+        "string",
+        "string",
+        "string"
+      ],
+      "end_dateTime": "2024-10-10",
+      "asking_price": "1223",
+      "highest_bid": "10 500",
+      "img_url": "https://www.w3schools.com/images/w3schools_green.jpg"
+    },
+    {
+      "id": "2ae7",
+      "title": "asd",
+      "description": "asd",
+      "category": "Bird",
+      "keywords": "now i'm editing the description",
+      "endDate": "2022-02-24T10:47",
+      "price": "3",
+      "img": "https://www.w3schools.com/images/w3schools_green.jpg"
+    },
+    {
+      "id": "72f1",
+      "title": "asd",
+      "description": "sdf",
+      "category": "Inbetween",
+      "keywords": "aand again i'm editing the description",
+      "endDate": "2030-07-28T13:51",
+      "price": "10",
+      "img": "https://www.w3schools.com/images/w3schools_green.jpg"
+    }
+  ]
 }

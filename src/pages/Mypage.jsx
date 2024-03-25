@@ -1,19 +1,48 @@
-<<<<<<< HEAD
 import "./Mypage.css"
-
+import ProductForm from "../components/ProductForm";
 import { useEffect, useState } from "react";
 
 export default function Mypage() {
-  const [numbersList, setNumbersList] = useState(null);
+  
+  const postProduct = async (title, description, category, keywords, endDate, price, img ) => {
+    try {
+      console.log('hello')
+      const response = await fetch("http://localhost:3000/products", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          title,
+          description,
+          category,
+          keywords,
+          endDate,
+          price,
+          img
+        })
+      });
+      if (!response.ok) {
+        throw new Error("Failed to post product");
+      }
+      
+      //fetchAllProducts();
+    } catch (error) {
+      console.error("Error posting product:", error);
+    }
+    
+  };
 
-  useEffect(() => {
-    fetch("http://localhost:3000/numbers")
-      .then((res) => res.json())
-      .then((result) => setNumbersList(result));
-  }, []);
   return (
     <>
-      <div id="mypage-container">
+    <ProductForm onSubmit={postProduct} />
+    </>
+  )
+}
+
+
+/* 
+<div id="mypage-container">
         <section id="user-info">
           <div className="card border-secondary mb-3" id="mypage-card">
             <div className="card-header">Username</div>
@@ -153,14 +182,4 @@ export default function Mypage() {
         </div>
       </section>
     </>
-  );
-}
-
-//export default Mypage;
-=======
-function Mypage() {
-    return <>This is my page</>
-}
-
-export default Mypage
->>>>>>> 5d08b089dbcd5f8010b0fb0acf01ae681478e325
+  ); */
