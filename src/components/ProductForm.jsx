@@ -9,6 +9,11 @@ export default function ProductForm({ onSubmit }) {
   const [endDate, setEndDate] = useState("");
   const [price, setPrice] = useState("");
   const [img_url, setImg_url] = useState("");
+  const [descriptionLength, setDescriptionLength] = useState(0);
+
+  const handleDescriptionLength = (e) => {
+    setDescriptionLength(e.target.value.length);
+  };
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -67,15 +72,17 @@ export default function ProductForm({ onSubmit }) {
           </div>
           <div className="form-row">
             <label className="form-label" htmlFor="description">
-              Description
+              Description ({70 - descriptionLength}/70 chars remaining)
             </label>
             <input
               value={description}
               onChange={(e) => setDescription(e.target.value)}
+              onKeyUp={handleDescriptionLength}
               type="text"
               className="form-control w-75"
               id="description"
               placeholder="Describe what you are selling"
+              maxLength={70}
               required
             />
           </div>
