@@ -27,7 +27,7 @@ export default function Mypage() {
               </p>
             </div>
           </div>
-          <button type="button" class="btn btn-primary">
+          <button type="button" className="btn btn-primary">
             Post new auction ad
           </button>
         </section>
