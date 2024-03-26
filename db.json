@@ -2,7 +2,7 @@
   "products": [
     {
       "id": "12jknasd",
-      "name": "a new name",
+      "title": "a new name",
       "description": "ett object",
       "category": "string",
       "keywords": [

@@ -36,7 +36,7 @@ function Home() {
     <>
       <div id="home-card-container">
         {/* goes through products array and renders each object (product) on page */}
-      {products.map((product) => (
+        {products.map((product) => (
         // key links the element to the specific object
         <div className="card" style={{ width: "18rem" }} key={product.id}>
           <img
