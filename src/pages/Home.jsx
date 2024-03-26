@@ -1,5 +1,6 @@
-//import SignupButton from "../components/SignupButton";
-//import LoginButton from "../components/LoginButton";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import ProductPageComponent from "../components/ProductPageComponent";
 //import Searchbar from "../components/Searchbar.jsx";
 import mockproducts from "../assets/mockproducts.jsx";
 import { useState } from "react";
