@@ -1,49 +1,10 @@
 import "./Mypage.css";
-import ProductForm from "../components/ProductForm";
+import PostProductButton from "../components/PostProductButton.jsx"
 import { useEffect, useState } from "react";
 import MyAuctionObjectsList from "../components/MyAuctionObjectsList.jsx";
 
 export default function Mypage() {
   const [products, setProducts] = useState("");
-
-  const postProduct = async (
-    title,
-    description,
-    extended_Description,
-    category,
-    keywords,
-    endDate,
-    price,
-    img_url
-  ) => {
-    try {
-            
-      const response = await fetch("http://localhost:3000/products", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title,
-          description,
-          extended_Description,
-          category,
-          keywords,
-          endDate,
-          price,
-          img_url,
-        }),
-      });
-      if (!response.ok) {
-        throw new Error("Failed to post product");
-      }
-      
-      fetchAllProducts();
-    } catch (error) {
-      console.error("Error posting product:", error);
-    }
-  };
-  
 
   useEffect(() => {
     fetchAllProducts();
@@ -84,13 +45,6 @@ export default function Mypage() {
     }
   return (
     <>
-      <ProductForm onSubmit={postProduct} />
-    <PostProductButton />
-      {/* <ProductForm onSubmit={postProduct} /> */}
-    </>
-  );
-}
-
       <div id="mypage-container">
         <section id="user-info">
           <div className="card border-secondary mb-3" id="mypage-card">
@@ -106,9 +60,7 @@ export default function Mypage() {
               </p>
             </div>
           </div>
-          <button type="button" className="btn btn-primary">
-            Post new auction ad
-          </button>
+          <PostProductButton />
         </section>
       </div>
 

@@ -64,23 +64,6 @@ function Home() {
               &nbsp;
             </div>
           </div>
-          <ul className="list-group list-group-flush">
-            <li className="list-group-item">
-              Highest bid: <strong style={{ color: "green" }}>{product.highest_bid}:-</strong>
-            </li>
-            <li className="list-group-item">
-              Time left: <strong style={{ color: "red" }}>{product.end_dateTime}</strong>
-            </li>
-          </ul>
-          <div className="card-body" id="home-card-btn">
-            <Link to={"/ProductPage"}>
-              <button type="button" className="btn btn-primary">
-                View Product
-              </button>
-            </Link>
-            &nbsp;
-          </div>
-        </div>
         ))}
       </div>
     </>
