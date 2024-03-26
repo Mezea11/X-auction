@@ -10,7 +10,7 @@ function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   /* STATE HOOK: filtrera sökta produkter - från början alla objekt i mockproducts (= inget har sökts - alla objekt "matchar") */
   const [filteredItems, setFilteredItems] = useState(mockproducts);
-  //const [errorMessage, setErrorMessage] = useState(undefined);
+  const [successOrErrorMessage, setSuccessOrErrorMessage] = useState(undefined);
 
   const handleSearchInputChange = (event) => {
     /* ta in value av search och sätt till lowercase i variable searchItem - setSearchItem förändrar värdet av searchItem */
@@ -44,7 +44,15 @@ function Home() {
 
     /* ändrar värdet av filteredItems till en array av objekt där name och/eller description och/eller keywords matchar sökning */
     setFilteredItems(filteredItems);
+    if (filteredItems.length === 0) {
+      setSuccessOrErrorMessage("Inga produkter matchade din sökning");
+    } else if (filteredItems.length > 0) {
+      setSuccessOrErrorMessage(
+        `Din sökning fick ${filteredItems.length} träffar`
+      );
+    }
   };
+
   return (
     <>
       <div className="classContainer">
@@ -62,11 +70,10 @@ function Home() {
             Submit
           </button>
         </form>
+        {/* skriver ut antal träffar eller om inga träffar fanns */}
+        <p>{successOrErrorMessage}</p>
         {/* skriver ut filtrerade produkter */}
         <ProductsList products={filteredItems} />
-        {/* {errorMessage?.type === "error" && (
-            <p>Inga produkter matchade din sökning</p>
-          )} */}
       </div>
     </>
   );
