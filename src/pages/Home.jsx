@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import ProductPageComponent from "../components/ProductPageComponent";
+//import ProductPageComponent from "../components/ProductPageComponent";
 
 function Home() {
   // create variables that contain useState to fetch product objects
@@ -52,7 +52,7 @@ function Home() {
               </li>
               <li className="list-group-item">
                 Time left:{" "}
-                <strong style={{ color: "red" }}>{product.end_dateTime}</strong>
+                <strong style={{ color: "red" }}>{product.endDate}</strong>
               </li>
             </ul>
             <div className="card-body" id="home-card-btn">
