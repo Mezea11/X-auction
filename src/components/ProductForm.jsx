@@ -3,6 +3,7 @@ import { useState } from "react";
 export default function ProductForm({ onSubmit }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [extended_Description, setExtended_Description] = useState("");
   const [category, setCategory] = useState("");
   const [keywords, setKeywords] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -15,6 +16,7 @@ export default function ProductForm({ onSubmit }) {
     const formData = {
       title: title,
       description: description,
+      extended_Description: extended_Description,
       category: category,
       keywords: keywords,
       endDate: endDate,
@@ -22,12 +24,22 @@ export default function ProductForm({ onSubmit }) {
       img_url: img_url,
     };
 
-    onSubmit(title, description, category, keywords, endDate, price, img_url);
+    onSubmit(
+      title,
+      description,
+      extended_Description,
+      category,
+      keywords,
+      endDate,
+      price,
+      img_url
+    );
 
     console.log(formData);
 
     setTitle("");
     setDescription("");
+    setExtended_Description("");
     setCategory("");
     setKeywords("");
     setEndDate("");
@@ -62,6 +74,19 @@ export default function ProductForm({ onSubmit }) {
               type="text"
               className="form-control w-75"
               id="description"
+              required
+            />
+          </div>
+          <div className="form-row">
+            <label className="form-label" htmlFor="extended_Description">
+              Extended Description
+            </label>
+            <input
+              value={extended_Description}
+              onChange={(e) => setExtended_Description(e.target.value)}
+              type="text"
+              className="form-control w-75"
+              id="extended_Description"
               required
             />
           </div>
@@ -123,15 +148,15 @@ export default function ProductForm({ onSubmit }) {
             />
           </div>
           <div className="form-row">
-            <label className="form-label" htmlFor="img">
+            <label className="form-label" htmlFor="img_url">
               Insert image url:
             </label>
             <input
-              value={img}
-              onChange={(e) => setImg(e.target.value)}
+              value={img_url}
+              onChange={(e) => setImg_url(e.target.value)}
               type="url"
               className="form-control w-75"
-              id="img"
+              id="img_url"
               required
             />
           </div>

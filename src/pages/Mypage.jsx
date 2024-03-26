@@ -5,11 +5,12 @@ export default function Mypage() {
   const postProduct = async (
     title,
     description,
+    extended_Description,
     category,
     keywords,
     endDate,
     price,
-    img
+    img_url
   ) => {
     try {
       console.log("hello");
@@ -21,11 +22,12 @@ export default function Mypage() {
         body: JSON.stringify({
           title,
           description,
+          extended_Description,
           category,
           keywords,
           endDate,
           price,
-          img,
+          img_url,
         }),
       });
       if (!response.ok) {
