@@ -7,7 +7,7 @@ export default function ProductForm({ onSubmit }) {
   const [keywords, setKeywords] = useState("");
   const [endDate, setEndDate] = useState("");
   const [price, setPrice] = useState("");
-  const [img, setImg] = useState("");
+  const [img_url, setImg_url] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -19,10 +19,10 @@ export default function ProductForm({ onSubmit }) {
       keywords: keywords,
       endDate: endDate,
       price: price,
-      img: img,
+      img_url: img_url,
     };
 
-    onSubmit(title, description, category, keywords, endDate, price, img);
+    onSubmit(title, description, category, keywords, endDate, price, img_url);
 
     console.log(formData);
 
@@ -32,7 +32,7 @@ export default function ProductForm({ onSubmit }) {
     setKeywords("");
     setEndDate("");
     setPrice("");
-    setImg("");
+    setImg_url("");
   }
 
   return (
