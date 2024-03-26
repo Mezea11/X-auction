@@ -14,6 +14,8 @@ export default function LoginForm() {
 
         console.log(formData);
 
+        sessionStorage.setItem("isLoggedIn", "true");
+        
         setEmail("");
         setPassword("");
 

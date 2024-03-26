@@ -1,3 +1,4 @@
+
 import { Link } from "react-router-dom";
 export default function MyAuctionObjectCard({
   id,
@@ -11,6 +12,10 @@ export default function MyAuctionObjectCard({
   img_url,
   deleteProduct
 }) {
+
+    const isLoggedIn = sessionStorage.getItem("isLoggedIn");
+    console.log(isLoggedIn)
+
   return (
     <div
       className="card"
@@ -40,12 +45,14 @@ export default function MyAuctionObjectCard({
           </button>
         </Link>
         &nbsp;
+        {isLoggedIn &&
         <button onClick={() => deleteProduct(id)} type="button" className="btn btn-danger">
           Delete Product
-        </button>
+        </button>}
       </div>
     </div>
   );
+
 
   /* return (
         <div className="card" >
