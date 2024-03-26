@@ -7,35 +7,35 @@ import ProductsList from "../components/ProductsList.jsx";
 
 function Home() {
   /* STATE HOOK: sökord som användaren matar in - från början tom sträng (= inget har sökts) */
-  const [searchItem, setSearchItem] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
   /* STATE HOOK: filtrera sökta produkter - från början alla objekt i mockproducts (= inget har sökts - alla objekt "matchar") */
   const [filteredItems, setFilteredItems] = useState(mockproducts);
   //const [errorMessage, setErrorMessage] = useState(undefined);
 
   const handleSearchInputChange = (event) => {
     /* ta in value av search och sätt till lowercase i variable searchItem - setSearchItem förändrar värdet av searchItem */
-    setSearchItem(event.target.value.toLowerCase());
+    setSearchTerm(event.target.value.toLowerCase());
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-
+    /* filtrerar data vid submit */
     const filteredItems = mockproducts.filter((product) => {
       /* ta ut matchande sökning baserat på produktens namn */
       /* om objektet (product) har en property name och om den propertyn inkluderar söktermen */
       const matchingName =
-        product.name && product.name.toLowerCase().includes(searchItem);
+        product.name && product.name.toLowerCase().includes(searchTerm);
       /* ta ut matchande sökning baserat på produktens beskrivning */
       /* om objektet (product) har en property description och om den inkluderar söktermen */
       const matchingDescription =
         product.description &&
-        product.description.toLocaleLowerCase().includes(searchItem);
+        product.description.toLocaleLowerCase().includes(searchTerm);
       /* ta ut matchande sökning baserat på produktens keywords */
       /* om objektet (product) har en property keywords och om den inkluderar söktermen */
       const matchingKeywords =
         product.keywords &&
         product.keywords.some((keyword) =>
-          keyword.toLowerCase().includes(searchItem)
+          keyword.toLowerCase().includes(searchTerm)
         );
 
       /* returnerar alla objekt som matchar sökning */
@@ -52,7 +52,7 @@ function Home() {
           <input
             className="form-control me-2"
             type="search"
-            value={searchItem}
+            value={searchTerm}
             placeholder="Search"
             aria-label="Search"
             // "lyssnar" på sökrutan
@@ -62,7 +62,7 @@ function Home() {
             Submit
           </button>
         </form>
-        {/* skriver ut filtrerade produkter (= alla produkter om inget sökord har matats in)*/}
+        {/* skriver ut filtrerade produkter */}
         <ProductsList products={filteredItems} />
         {/* {errorMessage?.type === "error" && (
             <p>Inga produkter matchade din sökning</p>
