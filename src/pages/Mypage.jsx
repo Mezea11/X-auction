@@ -1,4 +1,4 @@
-import "./Mypage.css"
+import "./Mypage.css";
 import ProductForm from "../components/ProductForm";
 import { useEffect, useState } from "react";
 import MyAuctionObjectsList from "../components/MyAuctionObjectsList.jsx";
@@ -12,7 +12,7 @@ export default function Mypage() {
       const response = await fetch("http://localhost:3000/products", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           title,
@@ -21,8 +21,8 @@ export default function Mypage() {
           keywords,
           endDate,
           price,
-          img
-        })
+          img,
+        }),
       });
       if (!response.ok) {
         throw new Error("Failed to post product");
@@ -32,7 +32,6 @@ export default function Mypage() {
     } catch (error) {
       console.error("Error posting product:", error);
     }
-    
   };
 
   useEffect(() => {

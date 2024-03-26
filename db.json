@@ -5,11 +5,7 @@
       "title": "a new name",
       "description": "ett object",
       "category": "string",
-      "keywords": [
-        "string",
-        "string",
-        "string"
-      ],
+      "keywords": ["string", "string", "string"],
       "end_dateTime": "2024-10-10",
       "asking_price": "1223",
       "highest_bid": "10 500",
@@ -17,7 +13,7 @@
     },
     {
       "id": "2ae7",
-      "title": "asd",
+      "name": "asd",
       "description": "asd",
       "category": "Bird",
       "keywords": "now i'm editing the description",
@@ -27,7 +23,7 @@
     },
     {
       "id": "72f1",
-      "title": "asd",
+      "name": "asd",
       "description": "sdf",
       "category": "Inbetween",
       "keywords": "aand again i'm editing the description",
