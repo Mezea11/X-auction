@@ -1,4 +1,24 @@
 {
+  "users": [
+    {
+      "id": "b753d0b4-4c68-4ef0-af3c-dfd908d06e2a",
+      "username": "name",
+      "email": "pelle.hanspers@learnet.se",
+      "password": "set"
+    },
+    {
+      "id": "a676d53d-3291-40a5-be18-dc025be02987",
+      "username": "a user",
+      "email": "hej@hej.se",
+      "password": "set"
+    },
+    {
+      "id": "6049fa70-900f-4d34-87a7-55f06da0558f",
+      "username": "a new user",
+      "email": "p@h.com",
+      "password": "set"
+    }
+  ],
   "products": [
     {
       "id": "47c8",

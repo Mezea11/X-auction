@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-export default function SignupForm() {
+export default function SignupForm( {onSubmit} ) {
     const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -15,14 +15,18 @@ export default function SignupForm() {
             return;
         }
 
+        const id = crypto.randomUUID();
+
         const formData = {
-            id: crypto.randomUUID(),
+            id: id,
             username: username,
             email: email,
             password: password
         };
 
         console.log(formData);
+
+        onSubmit( id, username, email, password);
 
         setUsername("");
         setEmail("");
@@ -84,7 +88,7 @@ export default function SignupForm() {
                         />
                         {passwordError && <p className="passwordError">{passwordError}</p>}
                     </div>
-                    <button className="btn btn-primary">Create Account</button>
+                    <button className="btn btn-primary" style={{marginTop:"1rem"}}>Create Account</button>
                 </form>
             </div>
         </>
