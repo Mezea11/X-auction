@@ -128,7 +128,7 @@ export default function ProductForm({ onSubmit }) {
               type="text"
               placeholder="enter, keywords, like, this"
               className="form-control w-75"
-              id="description"
+              id="keywords"
               required
             />
           </div>
