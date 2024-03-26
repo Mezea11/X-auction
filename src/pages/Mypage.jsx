@@ -4,9 +4,16 @@ import { useEffect, useState } from "react";
 import MyAuctionObjectsList from "../components/MyAuctionObjectsList.jsx";
 
 export default function Mypage() {
-  const [products, setProducts] = useState([])
-  
-  const postProduct = async (title, description, category, keywords, endDate, price, img ) => {
+  const postProduct = async (
+    title,
+    description,
+    extended_Description,
+    category,
+    keywords,
+    endDate,
+    price,
+    img_url
+  ) => {
     try {
             
       const response = await fetch("http://localhost:3000/products", {
@@ -17,11 +24,12 @@ export default function Mypage() {
         body: JSON.stringify({
           title,
           description,
+          extended_Description,
           category,
           keywords,
           endDate,
           price,
-          img,
+          img_url,
         }),
       });
       if (!response.ok) {

@@ -4,7 +4,6 @@ import Navbar from "../components/Navbar.jsx";
 import Faq from "../pages/Faq.jsx";
 import Mypage from "../pages/Mypage.jsx";
 import ProductPageComponent from "./ProductPageComponent.jsx";
-import ProductPage from "../pages/ProductPage.jsx";
 
 function Router() {
   return (
@@ -16,9 +15,8 @@ function Router() {
         <Route path="/mypage" element={<Mypage />} />
         <Route
           path="/ProductPage/:productId"
-          component={ProductPageComponent}
+          element={<ProductPageComponent />}
         />
-        <Route path="/ProductPage" element={<ProductPage />} />
       </Routes>
     </BrowserRouter>
   );

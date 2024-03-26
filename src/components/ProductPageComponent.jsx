@@ -10,6 +10,8 @@ function ProductPageComponent() {
 
   useEffect(() => {
     const fetchProduct = async () => {
+      console.log("productId:", productId); // Log the productId
+
       try {
         const response = await fetch(
           `http://localhost:3000/products/${productId}`
@@ -36,7 +38,7 @@ function ProductPageComponent() {
       <h2>{product.name}</h2>
       <p>{product.description}</p>
       <p>Highest bid: {product.highest_bid}</p>
-      {}
+      <p>{product.extended_description}</p>
     </div>
   );
 }
