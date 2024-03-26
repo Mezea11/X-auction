@@ -59,6 +59,7 @@ export default function ProductForm({ onSubmit }) {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               type="text"
+              placeholder="What are you selling?"
               className="form-control w-75"
               id="title"
               required
@@ -74,6 +75,7 @@ export default function ProductForm({ onSubmit }) {
               type="text"
               className="form-control w-75"
               id="description"
+              placeholder="Describe what you are selling"
               required
             />
           </div>
@@ -87,6 +89,7 @@ export default function ProductForm({ onSubmit }) {
               type="text"
               className="form-control w-75"
               id="extended_Description"
+              placeholder="Write an extended description for the auction object."
               required
             />
           </div>
@@ -110,12 +113,13 @@ export default function ProductForm({ onSubmit }) {
           </div>
           <div className="form-row">
             <label className="form-label" htmlFor="keywords">
-              Key search words
+              Key search words. Separate keywords with a comma
             </label>
             <input
               value={keywords}
-              onChange={(e) => setKeywords(e.target.value)}
+              onChange={(e) => setKeywords(e.target.value.split(","))}
               type="text"
+              placeholder="enter, keywords, like, this"
               className="form-control w-75"
               id="description"
               required
@@ -143,6 +147,7 @@ export default function ProductForm({ onSubmit }) {
               onChange={(e) => setPrice(e.target.value)}
               type="number"
               className="form-control w-75"
+              placeholder="Enter lowest selling price"
               id="price"
               required
             />
@@ -156,6 +161,7 @@ export default function ProductForm({ onSubmit }) {
               onChange={(e) => setImg_url(e.target.value)}
               type="url"
               className="form-control w-75"
+              placeholder="Enter url for img of what you are selling"
               id="img_url"
               required
             />
