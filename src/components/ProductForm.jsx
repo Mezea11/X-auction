@@ -7,7 +7,7 @@ export default function ProductForm({ onSubmit }) {
   const [category, setCategory] = useState("");
   const [keywords, setKeywords] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [price, setPrice] = useState("");
+  const [asking_price, setAsking_price] = useState("");
   const [img_url, setImg_url] = useState("");
   const [descriptionLength, setDescriptionLength] = useState(0);
 
@@ -25,7 +25,7 @@ export default function ProductForm({ onSubmit }) {
       category: category,
       keywords: keywords,
       endDate: endDate,
-      price: price,
+      asking_price: asking_price,
       img_url: img_url,
     };
 
@@ -36,7 +36,7 @@ export default function ProductForm({ onSubmit }) {
       category,
       keywords,
       endDate,
-      price,
+      asking_price,
       img_url
     );
 
@@ -48,7 +48,7 @@ export default function ProductForm({ onSubmit }) {
     setCategory("");
     setKeywords("");
     setEndDate("");
-    setPrice("");
+    setAsking_price("");
     setImg_url("");
   }
 
@@ -146,16 +146,16 @@ export default function ProductForm({ onSubmit }) {
             />
           </div>
           <div className="form-row">
-            <label className="form-label" htmlFor="price">
-              Listing price
+            <label className="form-label" htmlFor="asking_price">
+              Listing asking_price
             </label>
             <input
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
+              value={asking_price}
+              onChange={(e) => setAsking_price(e.target.value)}
               type="number"
               className="form-control w-75"
-              placeholder="Enter lowest selling price"
-              id="price"
+              placeholder="Enter lowest selling asking_price"
+              id="asking_price"
               required
             />
           </div>

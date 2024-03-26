@@ -1,13 +1,64 @@
-export default function MyAuctionObjectCard({ title, description }) {
-    return (
-        <div className="card">
+import { Link } from "react-router-dom";
+export default function MyAuctionObjectCard({
+  id,
+  title,
+  description,
+  category,
+  keywords,
+  endDate,
+  asking_price,
+  highest_bid,
+  img_url,
+  deleteProduct
+}) {
+  return (
+    <div
+      className="card"
+      style={{ minHeight: "40rem ", maxHeight: "40rem", minWidth: "18rem", maxWidth: "18rem", borderRadius: "1rem" }}>
+      <img src={img_url} style={{ width: "100%", height: "15rem", objectFit: "cover" }}
+        alt="Product Image"/>
+      <div className="card-body">
+        <h5 className="card-title">{title}</h5>
+        <p className="card-text">{description}</p>
+        <p> {category} </p>
+        <p> {keywords} </p>
+      </div>
+      <ul className="list-group list-group-flush">
+        <li className="list-group-item">Asking price: {asking_price}</li>
+        <li className="list-group-item">
+          Highest bid:{" "}
+          <strong style={{ color: "green" }}>{highest_bid}:-</strong>
+        </li>
+        <li className="list-group-item">
+          Time left: <strong style={{ color: "red" }}>{endDate}</strong>
+        </li>
+      </ul>
+      <div className="card-body" id="home-card-btn">
+        <Link to={`http://localhost:5173/ProductPage/${id}`}>
+          <button type="button" className="btn btn-primary">
+            View Product
+          </button>
+        </Link>
+        &nbsp;
+        <button onClick={() => deleteProduct(id)} type="button" className="btn btn-danger">
+          Delete Product
+        </button>
+      </div>
+    </div>
+  );
+
+  /* return (
+        <div className="card" >
+            <img 
+            src={img_url}
+          />
             <h5>
                 {title}
             </h5>
             <p> {description} </p>
             
         </div>
-  )
+  ) */
 }
 
 /*export default function MyAuctionObjectCard ({ title }){
@@ -31,4 +82,3 @@ return (
         </div>
         )
     }*/
-
