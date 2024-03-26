@@ -43,6 +43,7 @@ export default function Mypage() {
       console.error("Error posting product:", error);
     }
   };
+  
 
   useEffect(() => {
     fetchAllProducts();
@@ -84,6 +85,11 @@ export default function Mypage() {
   return (
     <>
       <ProductForm onSubmit={postProduct} />
+    <PostProductButton />
+      {/* <ProductForm onSubmit={postProduct} /> */}
+    </>
+  );
+}
 
       <div id="mypage-container">
         <section id="user-info">
