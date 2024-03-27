@@ -41,7 +41,7 @@ export default function MyAuctionObjectCard({
       </ul>
       <div className="card-body" id="home-card-btn">
         {/* link to productpage with the uniqe id of specific product */}
-        <Link to={`http://localhost:5173/ProductPage/${id}`}>
+        <Link to={`/ProductPage/${id}`}>
           <button type="button" className="btn btn-primary">
             View Product
           </button>
