@@ -25,7 +25,7 @@ export default function Mypage() {
       }
       console.log(products);
     };
-
+    //deletes one product by id
     const deleteProduct = async (id) => {
       try {
         const response = await fetch(`${"api/products"}/${id}`, {
@@ -34,7 +34,7 @@ export default function Mypage() {
         if (!response.ok) {
           throw new Error("Failed to delete product");
         }
-        fetchAllProducts();
+        fetchAllProducts();//displays all productucts anew after specific product has been removed
       } catch (error) {
         console.error("Error deleting todo:", error);
       }
@@ -60,6 +60,7 @@ export default function Mypage() {
               </p>
             </div>
           </div>
+          {/* button-component whcih in turns triggers the modal for posting a products to show */}
           <PostProductButton />
         </section>
       </div>

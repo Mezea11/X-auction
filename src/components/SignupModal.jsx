@@ -1,9 +1,9 @@
 import SignupForm from "./SignupForm.jsx";
 import { useState } from "react";
-
-export default function SignupModal({ closeModal }) {
+//Creates the modal for the signup functionality
+export default function SignupModal({ closeModal }) { //closeModal function passed as a prop
   const [isSuccess, setIsSuccess] = useState(false);
-
+  //adds new ueser obejct to array of users in db.json
   const postNewUser = async ( id, username, email, password ) => {
     try {
       const response = await fetch("http://localhost:3000/users", {
@@ -25,7 +25,7 @@ export default function SignupModal({ closeModal }) {
     } catch (error) {
       console.error("Error posting new user:", error);
     }
-    setIsSuccess(true);
+    setIsSuccess(true);//changes value for isSuccess variable to show <p> element
   };
 
   return (
@@ -51,7 +51,9 @@ export default function SignupModal({ closeModal }) {
               </button>
             </div>
             <div className="modal-body">
+              {/* adds signup form component with function postNewUser to the body of the modal */}
               <SignupForm onSubmit={postNewUser}  />
+              {/* element shows if isSuccess = true */}
               {isSuccess && <p style={{color: "green", marginTop: "1rem"}}>Signup successful!</p>}
             </div>
           </div>

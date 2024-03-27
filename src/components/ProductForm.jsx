@@ -1,7 +1,7 @@
 import { useState } from "react";
-
+//creates the form used for posting new products to the db
 export default function ProductForm({ onSubmit }) {
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState("");//Hooks for setting the varibale values for all inputFields
   const [description, setDescription] = useState("");
   const [extended_Description, setExtended_Description] = useState("");
   const [category, setCategory] = useState("");
@@ -16,7 +16,7 @@ export default function ProductForm({ onSubmit }) {
   };
 
   function handleSubmit(e) {
-    e.preventDefault();
+    e.preventDefault();//prevent form default behaviour (reload)
 
     const formData = {
       title: title,
@@ -28,7 +28,7 @@ export default function ProductForm({ onSubmit }) {
       asking_price: asking_price,
       img_url: img_url,
     };
-
+    //calling onSubmit and specifying the data passed back to the parent component
     onSubmit(
       title,
       description,
@@ -41,7 +41,7 @@ export default function ProductForm({ onSubmit }) {
     );
 
     console.log(formData);
-
+    //reset all variables on submit
     setTitle("");
     setDescription("");
     setExtended_Description("");

@@ -1,11 +1,11 @@
 import { useState } from "react"
-
+//Creates the form used for login
 export default function LoginForm() {
-    const [email, setEmail] = useState("")
+    const [email, setEmail] = useState("")//Hook setting the value for the email variable
     const [password, setPassword] = useState("")
-
+    //triggers when submitting the form
     function handleSubmit(e) {
-        e.preventDefault()
+        e.preventDefault()//stop page reload
 
         const formData = {
             email: email,
@@ -14,14 +14,13 @@ export default function LoginForm() {
 
         console.log(formData);
 
-        sessionStorage.setItem("isLoggedIn", "true");
+        sessionStorage.setItem("isLoggedIn", "true");//use sessionStorage to simulate log in
         
-        setEmail("");
+        setEmail("");//reset variable on submit
         setPassword("");
 
     }
-    //i put the form in a container for now, thinking more css/modal is easier to deal with after
-    //implementing log in button which will have linked functionality
+
     return (
         <>
             <div className="container" id="LoginForm">

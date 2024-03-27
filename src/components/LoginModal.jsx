@@ -1,6 +1,6 @@
 import LoginForm from "./LoginForm.jsx";
-
-export default function LoginModal({closeModal}) {
+//Creates the modal component for the login form
+export default function LoginModal({closeModal}) {//closeModal function is passed as prop
 
     return (
         <>
@@ -10,6 +10,7 @@ export default function LoginModal({closeModal}) {
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title">Log in</h5>
+                            {/* closeModal function called when clicking button */}
                             <button type="button" className="close btn btn-primary" onClick={closeModal} aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>

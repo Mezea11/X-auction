@@ -1,6 +1,6 @@
 import { useState } from "react"
-
-export default function SignupForm( {onSubmit} ) {
+//Creates the form used for sign up new user
+export default function SignupForm( {onSubmit} ) {//passes onSubmit as prop
     const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
@@ -8,14 +8,14 @@ export default function SignupForm( {onSubmit} ) {
     const [passwordError, setPasswordError] = useState("");
 
     function handleSubmit(e) {
-        e.preventDefault()
-
+        e.preventDefault()//prevent form default behaviour (reload)
+        //checking that confirmPassword is the same as password, ensure user typed correct password
         if (password !== confirmPassword) {
             setPasswordError("Passwords do not match");
             return;
         }
 
-        const id = crypto.randomUUID();
+        const id = crypto.randomUUID();//sets id to randomized string
 
         const formData = {
             id: id,
@@ -25,9 +25,9 @@ export default function SignupForm( {onSubmit} ) {
         };
 
         console.log(formData);
-
+        //calling onSubmit and specifying the data passed back to the parent component
         onSubmit( id, username, email, password);
-
+        //resetting all variables on submit
         setUsername("");
         setEmail("");
         setPassword("");
@@ -86,6 +86,7 @@ export default function SignupForm( {onSubmit} ) {
                             id="confirmPassword"
                             required
                         />
+                        {/* shows if passwordError is called */}
                         {passwordError && <p className="passwordError">{passwordError}</p>}
                     </div>
                     <button className="btn btn-primary" style={{marginTop:"1rem"}}>Create Account</button>
