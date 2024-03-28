@@ -34,36 +34,39 @@ export default function SearchbarComponent() {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const filteredItems = products.filter((product) => {
-      // Check if the lowercase search term is included in the lowercase product title
-      const matchingTitle =
-        product.title && product.title.toLowerCase().includes(searchTerm);
+    const filteredItems = products.filter(
+      (product) => {
+        // Check if the lowercase search term is included in the lowercase product title
+        const matchingTitle =
+          product.title && product.title.toLowerCase().includes(searchTerm);
 
-      // Check if the lowercase search term is included in the lowercase product description
-      const matchingDescription =
-        product.description &&
-        product.description.toLowerCase().includes(searchTerm);
+        // Check if the lowercase search term is included in the lowercase product description
+        const matchingDescription =
+          product.description &&
+          product.description.toLowerCase().includes(searchTerm);
 
-      // Check if the lowercase search term is included in the lowercase product extended description
-      const matchingExtendedDescription =
-        product.extended_description &&
-        product.extended_description.toLowerCase().includes(searchTerm);
+        // Check if the lowercase search term is included in the lowercase product extended description
+        const matchingExtendedDescription =
+          product.extended_description &&
+          product.extended_description.toLowerCase().includes(searchTerm);
 
-      // Check if the lowercase search term is included in any of the lowercase product keywords
-      const matchingKeywords =
-        product.keywords &&
-        product.keywords.some((keyword) =>
-          keyword.toLowerCase().includes(searchTerm)
+        // Check if the lowercase search term is included in any of the lowercase product keywords
+        const matchingKeywords =
+          product.keywords &&
+          product.keywords.some((keyword) =>
+            keyword.toLowerCase().includes(searchTerm)
+          );
+
+        // Return bool: shall product be included in filteredItems or not?
+        return (
+          matchingTitle ||
+          matchingExtendedDescription ||
+          matchingDescription ||
+          matchingKeywords
         );
-
-      // Return array with products matching search term
-      return (
-        matchingTitle ||
-        matchingExtendedDescription ||
-        matchingDescription ||
-        matchingKeywords
-      );
-    });
+      }
+      // Function filter() returns filteredProducts without being explicitly told to
+    );
 
     // Set filtered products state to the result from function above
     setFilteredProducts(filteredItems);
