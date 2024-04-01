@@ -96,7 +96,11 @@ export default function SearchbarComponent() {
           value={searchTerm}
           onChange={handleSearchInputChange}
         />
-        <button className="btn btn-outline-success" type="submit">
+        <button
+          className="btn btn-outline-success"
+          type="submit"
+          disabled={searchTerm.trim().length === 0}
+        >
           Search
         </button>
       </form>
