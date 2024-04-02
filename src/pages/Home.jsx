@@ -50,9 +50,7 @@ function Home() {
             <ul className="list-group list-group-flush">
               <li className="list-group-item">
                 Highest bid:{" "}
-                <strong style={{ color: "green" }}>
-                  {product.highest_bid}:-
-                </strong>
+                <strong style={{ color: "green" }}>{product.price}:-</strong>
               </li>
               <li className="list-group-item">
                 Time left:{" "}
