@@ -1,121 +1,122 @@
 /* NAVBAR */
 #nav-link-container {
-  display: flex;
-  margin-left: auto;
-  display: flex;
-  margin-left: auto;
+    display: flex;
+    margin-left: auto;
+    display: flex;
+    margin-left: auto;
 }
 #nav-faq-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 #nav-mypage-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* ICON */
+#home-icon {
+    width: 7em;
+    height: auto;
 }
 
 .mockdataoutput h6 {
-  border-bottom: 1px dotted black;
+    border-bottom: 1px dotted black;
 }
 
 /* HOMEPAGE */
 #home-card-container {
-  display: flex;
-  width: 100%;
-  padding: 2rem;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 2rem;
+    display: flex;
+    width: 100%;
+    padding: 2rem;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 2rem;
 }
 
 #home-card-btn {
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
 }
 
 /* FAQ PAGE */
 #faq-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  #faq-card-container {
-    display: flex;
-    width: 50%;
-    justify-content: center;
-
-    .card {
-      margin-top: 5%;
-    }
-  }
-
-  #faq-text-section {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
-    width: 50%;
-    margin: 3rem 0 3rem 0;
-
-    div:not:first-of-type {
-    }
-  }
-  #faq-header {
-    background-color: #7749f8;
-    width: 50%;
-    border-radius: 20px;
-    color: white;
-    padding: 5%;
-    display: flex;
     align-items: center;
-    justify-content: center;
-    font-size: 30px;
-  }
+
+    #faq-card-container {
+        display: flex;
+        width: 50%;
+        justify-content: center;
+
+        .card {
+            margin-top: 5%;
+        }
+    }
+
+    #faq-text-section {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        width: 50%;
+        margin: 3rem 0 3rem 0;
+
+        div:not:first-of-type {
+        }
+    }
+    #faq-header {
+        background-color: #7749f8;
+        width: 50%;
+        border-radius: 20px;
+        color: white;
+        padding: 5%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 30px;
+    }
 }
 
 /* SEARCHBAR */
 #searchbar-results-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: left;
-  border: 1px solid black;
-  border-style: dotted;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+}
+
+.searchbar-results-container-active {
+    border: 1px solid black;
+    border-style: dotted;
 }
 
 /* PRODUCT PAGE */
 #product-page-container {
-  display: flex;
-  width: 100% !important;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    width: 100% !important;
+    justify-content: center;
+    align-items: center;
 }
 
 #product-page-button {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /*POST PRODUCT*/
 .modal-dialog {
-  width: 50% !important;
-  background-color: #7749f8;
-}
-
-.modal-content {
-  background-color: black;
+    width: 40rem;
 }
 
 #PostProductModal {
-  display: flex;
-  width: 100% !important;
-  background-color: red !important;
+    display: flex;
 }
