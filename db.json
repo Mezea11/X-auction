@@ -1,4 +1,17 @@
 {
+  "products": [
+    {
+      "id": "12jknasd",
+      "name": "a new name",
+      "description": "ett object",
+      "category": "string",
+      "keywords": ["string", "string", "string"],
+      "end_dateTime": "2024-10-10",
+      "asking_price": "1223",
+      "highest_bid": "10 500",
+      "img_url": "https://www.w3schools.com/images/w3schools_green.jpg"
+    }
+  ]
   "users": [
     {
       "id": "12jknasd",
