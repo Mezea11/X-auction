@@ -1,10 +1,11 @@
 import SignupForm from "./SignupForm.jsx";
 import { useState } from "react";
 //Creates the modal for the signup functionality
-export default function SignupModal({ closeModal }) { //closeModal function passed as a prop
+export default function SignupModal({ closeModal }) {
+  //closeModal function passed as a prop
   const [isSuccess, setIsSuccess] = useState(false);
   //adds new ueser obejct to array of users in db.json
-  const postNewUser = async ( id, username, email, password ) => {
+  const postNewUser = async (id, username, email, password) => {
     try {
       const response = await fetch("http://localhost:3000/users", {
         method: "POST",
@@ -15,17 +16,16 @@ export default function SignupModal({ closeModal }) { //closeModal function pass
           id,
           username,
           email,
-          password
+          password,
         }),
       });
       if (!response.ok) {
         throw new Error("Failed to add new user");
       }
-     
     } catch (error) {
       console.error("Error posting new user:", error);
     }
-    setIsSuccess(true);//changes value for isSuccess variable to show <p> element
+    setIsSuccess(true); //changes value for isSuccess variable to show <p> element
   };
 
   return (
@@ -46,15 +46,20 @@ export default function SignupModal({ closeModal }) { //closeModal function pass
                 className="close btn btn-primary"
                 onClick={closeModal}
                 aria-label="Close"
+                style={{ marginLeft: "9rem" }}
               >
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div className="modal-body">
               {/* adds signup form component with function postNewUser to the body of the modal */}
-              <SignupForm onSubmit={postNewUser}  />
+              <SignupForm onSubmit={postNewUser} />
               {/* element shows if isSuccess = true */}
-              {isSuccess && <p style={{color: "green", marginTop: "1rem"}}>Signup successful!</p>}
+              {isSuccess && (
+                <p style={{ color: "green", marginTop: "1rem" }}>
+                  Signup successful!
+                </p>
+              )}
             </div>
           </div>
         </div>

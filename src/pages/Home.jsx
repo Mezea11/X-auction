@@ -37,6 +37,7 @@ function Home() {
         <div className="searchbar-container">
           <SearchbarComponent />
         </div>
+
         {/* goes through products array and renders each object (product) on page */}
         {products.map((product) => (
           // key links the element to the specific object

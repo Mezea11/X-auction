@@ -1,18 +1,6 @@
 {
   "users": [
     {
-      "id": "12jknasd",
-      "title": "a new name",
-      "description": "ett object",
-      "category": "string",
-      "keywords": ["string", "string", "string"],
-      "end_dateTime": "2024-10-10",
-      "asking_price": "1223",
-      "highest_bid": "10 500",
-      "img_url": "https://www.w3schools.com/images/w3schools_green.jpg",
-      "extended_description": "This is the extended description of the first object."
-    },
-    {
       "id": "a676d53d-3291-40a5-be18-dc025be02987",
       "username": "a user",
       "email": "hej@hej.se",

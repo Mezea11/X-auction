@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 export default function SearchbarComponent() {
   /* STATE HOOK: submitted user input in searchbar */
@@ -108,7 +108,7 @@ export default function SearchbarComponent() {
       found */}
       {successOrErrorMessage && <p>{successOrErrorMessage}</p>}
       {/* Render search results, if any */}
-      <div id="searchbar-container">
+      <div id="searchbar-results-container">
         {filteredProducts.map((product) => (
           <div key={product.id}>
             <h3>{product.title}</h3>

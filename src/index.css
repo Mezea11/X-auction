@@ -1,10 +1,10 @@
+/* NAVBAR */
 #nav-link-container {
   display: flex;
   margin-left: auto;
   display: flex;
   margin-left: auto;
 }
-
 #nav-faq-link {
   display: flex;
   align-items: center;
@@ -13,7 +13,6 @@
   align-items: center;
   justify-content: center;
 }
-
 #nav-mypage-link {
   display: flex;
   align-items: center;
@@ -27,6 +26,7 @@
   border-bottom: 1px dotted black;
 }
 
+/* HOMEPAGE */
 #home-card-container {
   display: flex;
   width: 100%;
@@ -34,6 +34,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  gap: 2rem;
 }
 
 #home-card-btn {
@@ -41,6 +42,7 @@
   justify-content: center;
 }
 
+/* FAQ PAGE */
 #faq-container {
   display: flex;
   flex-direction: column;
@@ -79,10 +81,41 @@
   }
 }
 
-#searchbar-container {
+/* SEARCHBAR */
+#searchbar-results-container {
   display: flex;
   flex-direction: column;
   justify-content: left;
   border: 1px solid black;
   border-style: dotted;
+}
+
+/* PRODUCT PAGE */
+#product-page-container {
+  display: flex;
+  width: 100% !important;
+  justify-content: center;
+  align-items: center;
+}
+
+#product-page-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/*POST PRODUCT*/
+.modal-dialog {
+  width: 50% !important;
+  background-color: #7749f8;
+}
+
+.modal-content {
+  background-color: black;
+}
+
+#PostProductModal {
+  display: flex;
+  width: 100% !important;
+  background-color: red !important;
 }

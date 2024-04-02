@@ -1,7 +1,7 @@
 import { useState } from "react";
 //creates the form used for posting new products to the db
 export default function PostProductForm({ onSubmit }) {
-  const [title, setTitle] = useState("");//Hooks for setting the varibale values for all inputFields
+  const [title, setTitle] = useState(""); //Hooks for setting the varibale values for all inputFields
   const [description, setDescription] = useState("");
   const [extended_Description, setExtended_Description] = useState("");
   const [category, setCategory] = useState("");
@@ -16,7 +16,7 @@ export default function PostProductForm({ onSubmit }) {
   };
 
   function handleSubmit(e) {
-    e.preventDefault();//prevent form default behaviour (reload)
+    e.preventDefault(); //prevent form default behaviour (reload)
 
     const formData = {
       title: title,
@@ -54,7 +54,7 @@ export default function PostProductForm({ onSubmit }) {
 
   return (
     <>
-      <div className="container" id="ProductForm">
+      <div className="product-form-container" id="ProductForm">
         <form onSubmit={handleSubmit} className="product-form">
           <div className="form-row">
             <label className="form-label" htmlFor="title">
@@ -173,7 +173,9 @@ export default function PostProductForm({ onSubmit }) {
               required
             />
           </div>
-          <button className="btn btn-primary">Post Object</button>
+          <button className="btn btn-primary" style={{ marginTop: "1rem" }}>
+            Post Object
+          </button>
         </form>
       </div>
     </>
