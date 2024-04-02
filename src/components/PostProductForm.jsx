@@ -1,6 +1,6 @@
 import { useState } from "react";
 //creates the form used for posting new products to the db
-export default function ProductForm({ onSubmit }) {
+export default function PostProductForm({ onSubmit }) {
   const [title, setTitle] = useState("");//Hooks for setting the varibale values for all inputFields
   const [description, setDescription] = useState("");
   const [extended_Description, setExtended_Description] = useState("");
