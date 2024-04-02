@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+//import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-//import ProductPageComponent from "../components/ProductPageComponent";
+import SearchbarComponent from "../components/Searchbar.jsx";
 
 function Home() {
   return (
