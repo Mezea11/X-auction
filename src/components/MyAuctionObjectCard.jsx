@@ -1,3 +1,76 @@
+<<<<<<< HEAD
+import { Link } from "react-router-dom";
+//creates element to hold user owned product
+export default function MyAuctionObjectCard({
+  id,
+  title,
+  description,
+  category,
+  keywords,
+  endDate,
+  price,
+  highest_bid,
+  img_url,
+  deleteProduct,
+}) {
+  const isLoggedIn = sessionStorage.getItem("isLoggedIn"); //gets value of sessionStorage
+  console.log(isLoggedIn);
+
+  return (
+    <div
+      className="card"
+      style={{
+        minHeight: "min-content",
+        minWidth: "18rem",
+        maxWidth: "18rem",
+        borderRadius: "1rem",
+      }}
+    >
+      <img
+        src={img_url}
+        style={{ width: "100%", height: "15rem", objectFit: "cover" }}
+        alt="Product Image"
+      />
+      <div className="card-body">
+        <h5 className="card-title">{title}</h5>
+        <p className="card-text">{description}</p>
+        <p> {category} </p>
+        <p> {keywords} </p>
+      </div>
+      <ul className="list-group list-group-flush">
+        <li className="list-group-item">Asking price: {price}</li>
+        <li className="list-group-item">
+          Highest bid:{" "}
+          <strong style={{ color: "green" }}>{highest_bid}:-</strong>
+        </li>
+        <li className="list-group-item">
+          Time left: <strong style={{ color: "red" }}>{endDate}</strong>
+        </li>
+      </ul>
+      <div className="card-body" id="home-card-btn">
+        {/* link to productpage with the uniqe id of specific product */}
+        <Link to={`/ProductPage/${id}`}>
+          <button type="button" className="btn btn-primary">
+            View Product
+          </button>
+        </Link>
+        &nbsp;
+        {/* shows button if value in sessionStorage is thrue */}
+        {isLoggedIn && (
+          <button
+            onClick={() => deleteProduct(id)}
+            type="button"
+            className="btn btn-danger"
+          >
+            Delete Product
+          </button>
+        )}
+      </div>
+    </div>
+  );
+
+  /* return (
+=======
 import { Link } from 'react-router-dom';
 //creates element to hold user owned product
 export default function MyAuctionObjectCard({
@@ -7,7 +80,7 @@ export default function MyAuctionObjectCard({
     category,
     keywords,
     endDate,
-    asking_price,
+    price,
     highest_bid,
     img_url,
     deleteProduct,
@@ -19,8 +92,7 @@ export default function MyAuctionObjectCard({
         <div
             className="card"
             style={{
-                minHeight: '40rem ',
-                maxHeight: '40rem',
+                minHeight: 'min-content',
                 minWidth: '18rem',
                 maxWidth: '18rem',
                 borderRadius: '1rem',
@@ -39,9 +111,7 @@ export default function MyAuctionObjectCard({
                 <p> {keywords} </p>
             </div>
             <ul className="list-group list-group-flush">
-                <li className="list-group-item">
-                    Asking price: {asking_price}
-                </li>
+                <li className="list-group-item">Asking price: {price}</li>
                 <li className="list-group-item">
                     Highest bid:{' '}
                     <strong style={{ color: 'green' }}>{highest_bid}:-</strong>
@@ -74,10 +144,11 @@ export default function MyAuctionObjectCard({
     );
 
     /* return (
+>>>>>>> f4e7160dcbfdaafda6187c078229a2c01c9d2c10
         <div className="card" >
             <img 
             src={img_url}
-          />
+            />
             <h5>
                 {title}
             </h5>
