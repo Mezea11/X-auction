@@ -7,7 +7,7 @@ export default function MyAuctionObjectCard({
     category,
     keywords,
     endDate,
-    asking_price,
+    price,
     highest_bid,
     img_url,
     deleteProduct,
@@ -19,8 +19,7 @@ export default function MyAuctionObjectCard({
         <div
             className="card"
             style={{
-                minHeight: '40rem ',
-                maxHeight: '40rem',
+                minHeight: 'min-content',
                 minWidth: '18rem',
                 maxWidth: '18rem',
                 borderRadius: '1rem',
@@ -39,9 +38,7 @@ export default function MyAuctionObjectCard({
                 <p> {keywords} </p>
             </div>
             <ul className="list-group list-group-flush">
-                <li className="list-group-item">
-                    Asking price: {asking_price}
-                </li>
+                <li className="list-group-item">Asking price: {price}</li>
                 <li className="list-group-item">
                     Highest bid:{' '}
                     <strong style={{ color: 'green' }}>{highest_bid}:-</strong>
@@ -77,7 +74,7 @@ export default function MyAuctionObjectCard({
         <div className="card" >
             <img 
             src={img_url}
-          />
+            />
             <h5>
                 {title}
             </h5>
