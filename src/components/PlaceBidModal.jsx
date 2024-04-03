@@ -1,14 +1,14 @@
 //import { right } from "@popperjs/core/index.js";
-import LoginForm from "./LoginForm.jsx";
+import PlaceBidFunction from "./PlaceBidFunction.jsx";
 //Creates the modal component for the login form
-export default function LoginModal({ closeModal }) {
+export default function PlaceBidModal({ closeModal }) {
   //closeModal function is passed as prop
 
   return (
     <>
       <div
         className="modal"
-        id="LoginModal"
+        id="PlaceBidModal"
         tabIndex="-1"
         role="dialog"
         style={{ display: "flex" }}
@@ -16,7 +16,7 @@ export default function LoginModal({ closeModal }) {
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title">Log in</h5>
+              <h5 className="modal-title">Place Bid</h5>
               {/* closeModal function called when clicking button */}
               <button
                 type="button"
@@ -29,7 +29,7 @@ export default function LoginModal({ closeModal }) {
               </button>
             </div>
             <div className="modal-body">
-              <LoginForm />
+              <PlaceBidFunction />
             </div>
           </div>
         </div>
