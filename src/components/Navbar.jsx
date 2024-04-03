@@ -6,7 +6,12 @@ function Navbar() {
     return (
         <>
             <div>
-                <nav className="navbar navbar-expand-lg bg-body-tertiary">
+                <nav
+                    className="navbar navbar-expand-lg bg-body-tertiary"
+                    style={{
+                        boxShadow: '0 0 10px #719ece',
+                    }}
+                >
                     <div className="container-fluid">
                         <Link to={'/'} className="navbar-brand">
                             <img id="home-icon" src="src/assets/icon.png" />
