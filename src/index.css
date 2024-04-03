@@ -1,122 +1,167 @@
 /* NAVBAR */
 #nav-link-container {
-    display: flex;
-    margin-left: auto;
-    display: flex;
-    margin-left: auto;
+  display: flex;
+  margin-left: auto;
+  display: flex;
+  margin-left: auto;
 }
 #nav-faq-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 #nav-mypage-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 /* ICON */
 #home-icon {
-    width: 7em;
-    height: auto;
+  width: 7em;
+  height: auto;
 }
 
 .mockdataoutput h6 {
-    border-bottom: 1px dotted black;
+  border-bottom: 1px dotted black;
 }
 
 /* HOMEPAGE */
 #home-card-container {
-    display: flex;
-    width: 100%;
-    padding: 2rem;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  display: flex;
+  width: 100%;
+  padding: 2rem;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 2rem;
+  display: flex;
+  width: 100%;
+  padding: 2rem;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 2rem;
+  #homepage-products-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: 2rem;
+    background-color: #f8f9fa;
+    padding: 2rem;
+    margin: 0 5rem 2rem 5rem;
+    .card {
+      box-shadow: 0 0 10px #719ece;
+    }
+  }
 }
 
 #home-card-btn {
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
 
 /* FAQ PAGE */
 #faq-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  #faq-card-container {
+    display: flex;
+    width: 50%;
+    justify-content: center;
+
+    .card {
+      margin-top: 5%;
+    }
+  }
+
+  #faq-text-section {
     display: flex;
     flex-direction: column;
+    gap: 2rem;
+    width: 50%;
+    margin: 3rem 0 3rem 0;
+
+    div:not:first-of-type {
+    }
+  }
+  #faq-header {
+    background-color: #7749f8;
+    width: 50%;
+    border-radius: 20px;
+    color: white;
+    padding: 5%;
+    display: flex;
     align-items: center;
-
-    #faq-card-container {
-        display: flex;
-        width: 50%;
-        justify-content: center;
-
-        .card {
-            margin-top: 5%;
-        }
-    }
-
-    #faq-text-section {
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
-        width: 50%;
-        margin: 3rem 0 3rem 0;
-
-        div:not:first-of-type {
-        }
-    }
-    #faq-header {
-        background-color: #7749f8;
-        width: 50%;
-        border-radius: 20px;
-        color: white;
-        padding: 5%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 30px;
-    }
+    justify-content: center;
+    font-size: 30px;
+  }
 }
 
 /* SEARCHBAR */
 #searchbar-results-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
 }
 
 .searchbar-results-container-active {
-    border: 1px solid black;
-    border-style: dotted;
+  border: 1px solid black;
+  border-style: dotted;
 }
 
 /* PRODUCT PAGE */
 #product-page-container {
-    display: flex;
-    width: 100% !important;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  width: 100% !important;
+  justify-content: center;
+  align-items: center;
+}
+
+#product-page-card {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: stretch;
+  height: 100% !important;
+  width: 75%;
+  text-align: center;
+}
+
+#product-image {
+  display: flex;
+  width: auto;
+  height: 25rem;
 }
 
 #product-page-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: large;
+  margin-left: 47% !important;
+}
+
+#product-page-extended-description {
+  margin-top: 1rem;
+  max-width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 25% !important;
 }
 
 /*POST PRODUCT*/
 .modal-dialog {
-    width: 40rem;
+  width: 40rem;
 }
 
 #PostProductModal {
-    display: flex;
+  display: flex;
 }
