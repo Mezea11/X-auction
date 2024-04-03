@@ -37,7 +37,11 @@ export default function MyAuctionObjectCard({
         <p> {keywords} </p>
       </div>
       <ul className="list-group list-group-flush">
-        <li className="list-group-item">Asking price: {price}</li>
+        <li className="list-group-item">
+          <p>
+            Asking price: <strong style={{ color: "green" }}>{price}:-</strong>
+          </p>
+        </li>
         <li className="list-group-item">
           Highest bid:{" "}
           <strong style={{ color: "green" }}>{highest_bid}:-</strong>
