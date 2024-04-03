@@ -56,7 +56,7 @@ export default function Mypage() {
             }
             fetchAllProducts(); //displays all products anew after specific product has been removed
         } catch (error) {
-            console.error('Error deleting todo:', error);
+            console.error('Error deleting product:', error);
         }
     };
     // this is an early return: make sure there are products to render; if not, abort
