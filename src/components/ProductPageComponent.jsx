@@ -1,17 +1,15 @@
 // ProductPageComponent.js
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import PlaceBidButton from "./PlaceBidButton";
 
 // Function that GETS product by ID and renders the specific product out on the ProductPage.jsx
 function ProductPageComponent() {
   const { productId } = useParams();
-  console.log("productId:", productId); // Log the productId
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
     const fetchProduct = async () => {
-      console.log("productId:", productId); // Log the productId
-
       try {
         const response = await fetch(
           `http://localhost:3000/products/${productId}`
@@ -54,13 +52,11 @@ function ProductPageComponent() {
                 Highest bid:{" "}
                 <strong style={{ color: "green" }}>{product.price} kr</strong>
               </p>
-              <button
-                type="button"
-                className="btn btn-primary"
-                id="product-page-button"
-              >
-                Place Bid
-              </button>
+              <p>
+                End date:{" "}
+                <strong style={{ color: "red" }}>{product.endDate}</strong>
+              </p>
+              <PlaceBidButton />
             </div>
           </div>
         </>
