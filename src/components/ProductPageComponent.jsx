@@ -37,13 +37,23 @@ function ProductPageComponent() {
     <>
       <div id="product-page-container">
         <>
-          <div className="card mb-3">
-            <img src={product.img_url} className="card-img-top" alt="..." />
+          <div className="card mb-3" id="product-page-card">
+            <img
+              src={product.img_url}
+              className="card-img-top"
+              alt="..."
+              id="product-image"
+            />
             <div className="card-body">
               <h5 className="card-title">{product.title}</h5>
-              <p>{product.description}</p>
-              <p className="card-text">{product.extended_Description}</p>
-              <p className="card-text">Highest bid: {product.price}</p>
+              <h6>{product.description}</h6>
+              <p className="card-text" id="product-page-extended-description">
+                {product.extended_Description}
+              </p>
+              <p className="card-text">
+                Highest bid:{" "}
+                <strong style={{ color: "green" }}>{product.price} kr</strong>
+              </p>
               <button
                 type="button"
                 className="btn btn-primary"
