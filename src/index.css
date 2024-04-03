@@ -119,9 +119,11 @@
 /* PRODUCT PAGE */
 #product-page-container {
   display: flex;
-  width: 100% !important;
+  width: 100%;
+  height: 50%;
   justify-content: center;
   align-items: center;
+  margin-top: 2rem;
 }
 
 #product-page-card {
@@ -129,8 +131,8 @@
   flex-direction: row;
   justify-content: space-around;
   align-items: stretch;
-  height: 100% !important;
-  width: 75%;
+  height: 25% !important;
+  width: 60%;
   text-align: center;
 }
 
@@ -145,7 +147,7 @@
   justify-content: center;
   align-items: center;
   font-size: large;
-  margin-left: 47% !important;
+  margin-left: 46%;
 }
 
 #product-page-extended-description {
@@ -154,7 +156,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 25% !important;
+  margin-left: 25%;
 }
 
 /*POST PRODUCT*/
