@@ -1,7 +1,7 @@
 import { useState } from "react";
 //creates the form used for posting new products to the db
 export default function ProductForm({ onSubmit }) {
-  const [title, setTitle] = useState("");//Hooks for setting the varibale values for all inputFields
+  const [title, setTitle] = useState(""); //Hooks for setting the varibale values for all inputFields
   const [description, setDescription] = useState("");
   const [extended_Description, setExtended_Description] = useState("");
   const [category, setCategory] = useState("");
@@ -16,7 +16,7 @@ export default function ProductForm({ onSubmit }) {
   };
 
   function handleSubmit(e) {
-    e.preventDefault();//prevent form default behaviour (reload)
+    e.preventDefault(); //prevent form default behaviour (reload)
 
     const formData = {
       title: title,
@@ -124,7 +124,13 @@ export default function ProductForm({ onSubmit }) {
             </label>
             <input
               value={keywords}
-              onChange={(e) => setKeywords(e.target.value.split(","))}
+              onChange={(e) => {
+                const inputKeywords = e.target.value.split(",");
+                const trimmedKeywords = inputKeywords.map((keyword) =>
+                  keyword.trim()
+                );
+                setKeywords(trimmedKeywords);
+              }}
               type="text"
               placeholder="enter, keywords, like, this"
               className="form-control w-75"
