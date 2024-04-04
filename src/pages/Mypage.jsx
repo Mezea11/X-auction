@@ -90,6 +90,15 @@ export default function Mypage() {
           />
         </div>
       </section>
+      <section className="mypage-sections">
+        <h1 className="section-titles-mypage">My auction ads</h1>
+        <div className="ads-card-container-mypage" style={{ display: "flex" }}>
+          <MyAuctionObjectsList
+            products={products}
+            deleteProduct={deleteProduct}
+          />
+        </div>
+      </section>
 
       <section className="mypage-sections">
         <h1 className="section-titles-mypage">My auction ads</h1>
