@@ -90,18 +90,9 @@ export default function Mypage() {
           />
         </div>
       </section>
-      <section className="mypage-sections">
-        <h1 className="section-titles-mypage">My auction ads</h1>
-        <div className="ads-card-container-mypage" style={{ display: "flex" }}>
-          <MyAuctionObjectsList
-            products={products}
-            deleteProduct={deleteProduct}
-          />
-        </div>
-      </section>
 
       <section className="mypage-sections">
-        <h1 className="section-titles-mypage">My auction ads</h1>
+        <h1 className="section-titles-mypage">My active bids</h1>
         <div className="ads-card-container-mypage" style={{ display: "flex" }}>
           {products.length > 0 && (
             <div
@@ -114,32 +105,32 @@ export default function Mypage() {
               }}
             >
               <img
-                src={products[0].img_url}
+                src={products[5].img_url}
                 style={{ width: "100%", height: "15rem", objectFit: "cover" }}
                 alt="Product Image"
               />
               <div className="card-body">
-                <h5 className="card-title">{products[0].title}</h5>
-                <p className="card-text">{products[0].description}</p>
+                <h5 className="card-title">{products[5].title}</h5>
+                <p className="card-text">{products[5].description}</p>
                 <ul className="list-group list-group-flush">
                   <li className="list-group-item">
                     <p>
                       Asking price:{" "}
                       <strong style={{ color: "green" }}>
-                        {products[0].price}:-
+                        {products[5].price}:-
                       </strong>
                     </p>
                   </li>
                   <li className="list-group-item">
                     Highest bid:{" "}
                     <strong style={{ color: "green" }}>
-                      {products[0].highest_bid}:-
+                      {products[5].highest_bid}:-
                     </strong>
                   </li>
                   <li className="list-group-item">
                     Time left:{" "}
                     <strong style={{ color: "red" }}>
-                      {products[0].endDate}
+                      {products[5].endDate}
                     </strong>
                   </li>
                 </ul>
@@ -163,32 +154,32 @@ export default function Mypage() {
               }}
             >
               <img
-                src={products[0].img_url}
+                src={products[6].img_url}
                 style={{ width: "100%", height: "15rem", objectFit: "cover" }}
                 alt="Product Image"
               />
               <div className="card-body">
-                <h5 className="card-title">{products[0].title}</h5>
-                <p className="card-text">{products[0].description}</p>
+                <h5 className="card-title">{products[6].title}</h5>
+                <p className="card-text">{products[6].description}</p>
                 <ul className="list-group list-group-flush">
                   <li className="list-group-item">
                     <p>
                       Asking price:{" "}
                       <strong style={{ color: "green" }}>
-                        {products[0].price}:-
+                        {products[6].price}:-
                       </strong>
                     </p>
                   </li>
                   <li className="list-group-item">
                     Highest bid:{" "}
                     <strong style={{ color: "green" }}>
-                      {products[0].highest_bid}:-
+                      {products[6].highest_bid}:-
                     </strong>
                   </li>
                   <li className="list-group-item">
                     Time left:{" "}
                     <strong style={{ color: "red" }}>
-                      {products[0].endDate}
+                      {products[6].endDate}
                     </strong>
                   </li>
                 </ul>
@@ -217,32 +208,32 @@ export default function Mypage() {
               }}
             >
               <img
-                src={products[0].img_url}
+                src={products[7].img_url}
                 style={{ width: "100%", height: "15rem", objectFit: "cover" }}
                 alt="Product Image"
               />
               <div className="card-body">
-                <h5 className="card-title">{products[0].title}</h5>
-                <p className="card-text">{products[0].description}</p>
+                <h5 className="card-title">{products[7].title}</h5>
+                <p className="card-text">{products[7].description}</p>
                 <ul className="list-group list-group-flush">
                   <li className="list-group-item">
                     <p>
                       Asking price:{" "}
                       <strong style={{ color: "green" }}>
-                        {products[0].price}:-
+                        {products[7].price}:-
                       </strong>
                     </p>
                   </li>
                   <li className="list-group-item">
                     Highest bid:{" "}
                     <strong style={{ color: "green" }}>
-                      {products[0].highest_bid}:-
+                      {products[7].highest_bid}:-
                     </strong>
                   </li>
                   <li className="list-group-item">
                     Time left:{" "}
                     <strong style={{ color: "red" }}>
-                      {products[0].endDate}
+                      {products[7].endDate}
                     </strong>
                   </li>
                 </ul>
@@ -266,7 +257,7 @@ export default function Mypage() {
               }}
             >
               <img
-                src={products[0].img_url}
+                src={products[9].img_url}
                 style={{ width: "100%", height: "15rem", objectFit: "cover" }}
                 alt="Product Image"
               />
@@ -278,20 +269,20 @@ export default function Mypage() {
                     <p>
                       Asking price:{" "}
                       <strong style={{ color: "green" }}>
-                        {products[0].price}:-
+                        {products[9].price}:-
                       </strong>
                     </p>
                   </li>
                   <li className="list-group-item">
                     Highest bid:{" "}
                     <strong style={{ color: "green" }}>
-                      {products[0].highest_bid}:-
+                      {products[9].highest_bid}:-
                     </strong>
                   </li>
                   <li className="list-group-item">
                     Time left:{" "}
                     <strong style={{ color: "red" }}>
-                      {products[0].endDate}
+                      {products[9].endDate}
                     </strong>
                   </li>
                 </ul>
