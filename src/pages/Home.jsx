@@ -50,7 +50,7 @@ function Home() {
               }}
               key={product.id}
             >
-              <img src={product.img_url} />
+              <img src={product.img_url} style={{ width: "100%", height: "15rem", objectFit: "cover" }}/>
               <div className="card-body">
                 <h5 className="card-title">{product.name}</h5>
                 <p className="card-text">{product.description}</p>

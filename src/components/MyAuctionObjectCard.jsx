@@ -19,7 +19,7 @@ export default function MyAuctionObjectCard({
     <div
       className="card"
       style={{
-        minHeight: "min-content",
+        minHeight: "35rem",
         minWidth: "18rem",
         maxWidth: "18rem",
         borderRadius: "1rem",
@@ -33,8 +33,6 @@ export default function MyAuctionObjectCard({
       <div className="card-body">
         <h5 className="card-title">{title}</h5>
         <p className="card-text">{description}</p>
-        <p> {category} </p>
-        <p> {keywords} </p>
       </div>
       <ul className="list-group list-group-flush">
         <li className="list-group-item">
