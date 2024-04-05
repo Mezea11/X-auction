@@ -172,3 +172,7 @@ html {
 #PostProductModal {
   display: flex;
 }
+
+#patchProductModal {
+  display: flex;
+}

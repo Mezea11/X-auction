@@ -51,10 +51,10 @@ export default function MyAuctionObjectCard({
                     <strong style={{ color: 'red' }}>{endDate}</strong>
                 </li>
             </ul>
-            <div className="card-body" id="home-card-btn">
+            <div className="card-body" id="home-card-btn" >
                 {/* link to productpage with the uniqe id of specific product */}
                 <Link to={`/ProductPage/${id}`}>
-                    <button type="button" className="btn btn-primary">
+                    <button type="button" className="btn btn-primary" >
                         View Product
                     </button>
                 </Link>

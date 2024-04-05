@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar.jsx";
 import Faq from "../pages/Faq.jsx";
 import Mypage from "../pages/Mypage.jsx";
 import ProductPageComponent from "./ProductPageComponent.jsx";
+import Patchproduct from "../pages/Patchproduct.jsx";
 
 function Router() {
   return (
@@ -17,6 +18,7 @@ function Router() {
           path="/ProductPage/:productId"
           element={<ProductPageComponent />}
         />
+        <Route path="/patchproduct" element={<Patchproduct />} />
       </Routes>
     </BrowserRouter>
   );
