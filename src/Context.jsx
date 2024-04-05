@@ -1,12 +1,16 @@
-import { createContext } from "react";
-import { useState } from "react";
+import { createContext } from 'react';
+import { useState } from 'react';
 export const Context = createContext();
-export function ContextProvider({children}){
+export function ContextProvider({ children }) {
     const [LoggedIn, setLoggedIn] = useState(false);
 
-    const logIn=()=>{setLoggedIn(true);}
+    const logIn = () => {
+        setLoggedIn(true);
+    };
 
-    const logOut=()=>{setLoggedIn(false);}
+    const logOut = () => {
+        setLoggedIn(false);
+    };
 
     function handleSubmit(e) {
         e.preventDefault(); //stop page reload
@@ -18,21 +22,18 @@ export function ContextProvider({children}){
         };
 
         console.log(LoggedIn, formData);
-      }
+    }
 
-    
-    return(
-        
+    return (
         <Context.Provider
-        value={{
-            LoggedIn,
-            logIn,
-            logOut,
-            handleSubmit,
-        }}
+            value={{
+                LoggedIn,
+                logIn,
+                logOut,
+                handleSubmit,
+            }}
         >
-          {children}
+            {children}
         </Context.Provider>
-    )
-    
-};
+    );
+}
