@@ -1,10 +1,24 @@
 import { useState } from 'react';
+import { useContext } from 'react';
+import { Context } from '../Context';
 //Creates the form used for login
 export default function LoginForm() {
     const [email, setEmail] = useState(''); //Hook setting the value for the email variable
     const [password, setPassword] = useState('');
     //triggers when submitting the form
-    function handleSubmit(e) {
+    const {logIn, logOut, LoggedIn, handleSubmit} = useContext(Context);
+
+/*     const formData = {
+        email: email,
+        password: password,
+    };
+
+    logIn()
+    console.log(LoggedIn + ' vi har loggat in') */
+    
+
+
+/*     function handleSubmit(e) {
         e.preventDefault(); //stop page reload
 
         const formData = {
@@ -18,7 +32,7 @@ export default function LoginForm() {
 
         setEmail(''); //reset variable on submit
         setPassword('');
-    }
+    } */
 
     return (
         <>

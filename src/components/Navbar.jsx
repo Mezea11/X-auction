@@ -1,8 +1,14 @@
+import { useContext } from "react";
+import { Context } from "../Context.jsx";
 import SignupButton from '../components/SignupButton.jsx';
 import LoginButton from '../components/LoginButton.jsx';
+import LogoutButton from "./LogoutButton.jsx";
 import { Link } from 'react-router-dom';
 
 function Navbar() {
+
+    const { LoggedIn } = useContext(Context);
+
     return (
         <>
             <div>
@@ -38,7 +44,7 @@ function Navbar() {
                                             FAQ
                                         </Link>
                                     </li>
-                                    <li
+                                    {LoggedIn && (<li
                                         className="nav-item"
                                         id="nav-mypage-link"
                                     >
@@ -48,17 +54,17 @@ function Navbar() {
                                         >
                                             My page
                                         </Link>
-                                    </li>
+                                    </li>)}
                                     <li className="nav-item" id="">
                                         <a className="nav-link" href="#">
-                                            <LoginButton />
+                                            {LoggedIn ? (<LogoutButton />) : (<LoginButton />)}     
                                         </a>
                                     </li>
-                                    <li className="nav-item" id="">
+                                    {!LoggedIn && (<li className="nav-item" id="">
                                         <a className="nav-link" href="#">
                                             <SignupButton />
                                         </a>
-                                    </li>
+                                    </li>)}
                                 </ul>
                             </div>
                         </div>

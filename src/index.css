@@ -83,6 +83,7 @@ html {
 
     .card {
       margin-top: 5%;
+      padding: 3%;
     }
   }
 
@@ -97,10 +98,10 @@ html {
     }
   }
   #faq-header {
-    background-color: #7749f8;
+    background-color: #305160;
     width: 50%;
     border-radius: 20px;
-    color: white;
+    color: #0ac9f0;
     padding: 5%;
     display: flex;
     align-items: center;
