@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar.jsx";
 import Faq from "../pages/Faq.jsx";
 import Mypage from "../pages/Mypage.jsx";
 import ProductPageComponent from "./ProductPageComponent.jsx";
+import PlaceBidFunction from "./PlaceBidFunction.jsx";
 
 function Router() {
   return (
@@ -16,6 +17,10 @@ function Router() {
         <Route
           path="/ProductPage/:productId"
           element={<ProductPageComponent />}
+        />
+        <Route
+          path="/PlaceBidFunction/:productId"
+          element={<PlaceBidFunction />}
         />
       </Routes>
     </BrowserRouter>
