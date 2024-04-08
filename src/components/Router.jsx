@@ -5,6 +5,7 @@ import Faq from "../pages/Faq.jsx";
 import Mypage from "../pages/Mypage.jsx";
 import ProductPageComponent from "./ProductPageComponent.jsx";
 import PlaceBidFunction from "./PlaceBidFunction.jsx";
+import LoginForm from "./LoginForm.jsx";
 
 function Router() {
   return (
@@ -22,6 +23,7 @@ function Router() {
           path="/PlaceBidFunction/:productId"
           element={<PlaceBidFunction />}
         />
+        <Route path="/LoginForm/:userId" element={<LoginForm />} />
       </Routes>
     </BrowserRouter>
   );

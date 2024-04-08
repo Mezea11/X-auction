@@ -10,13 +10,19 @@
       "id": "6049fa70-900f-4d34-87a7-55f06da0558f",
       "username": "LinusBoll",
       "email": "linusboll@hotmail.com",
-      "password": "qwerty123"
+      "password": "123"
     },
     {
       "id": "a1095391-e82e-4e24-85d6-2c3f660734f0",
       "username": "meme-woman",
       "email": "hejhejmonica@yahoo.se",
       "password": "password"
+    },
+    {
+      "id": "3d402018-9d5d-44c7-8dbe-04cc5f8137be",
+      "username": "123",
+      "email": "123@123.com",
+      "password": "123"
     }
   ],
   "products": [
