@@ -5,40 +5,61 @@ export default function PlaceBidFunction({ onSubmit }) {
   const { productId } = useParams();
   const [bid, setBid] = useState("");
   const [successfulBid, setSuccessfulBid] = useState(false);
+  const [askingPrice, setAskingPrice] = useState(null);
+
+  useEffect(() => {
+    // Fetch product details to get the asking price
+    const fetchProductDetails = async () => {
+      try {
+        const response = await fetch(
+          `http://localhost:3000/products/${productId}`
+        );
+        if (!response.ok) {
+          throw new Error("Error fetching product details");
+        }
+        const data = await response.json();
+        setAskingPrice(parseFloat(data.price)); // Convert asking price to a number
+      } catch (error) {
+        console.error("Error fetching product details:", error);
+      }
+    };
+
+    fetchProductDetails();
+  }, [productId]);
 
   async function handleSubmit(e) {
     e.preventDefault(); // Prevent default form submission behavior
 
     const parsedBid = parseFloat(bid);
     try {
+      if (parsedBid < askingPrice) {
+        // Compare parsedBid with the asking price
+        alert("CANNOT PLACE BID UNDER ASKING PRICE");
+        setSuccessfulBid(false);
+        setBid(""); // Clear bid input field
+        return; // Exit early if bid is less than the asking price
+      }
+
       const response = await fetch(
         `http://localhost:3000/products/${productId}`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
-          //ska pushas till propertyn bid som är en array på produkt-objektet
           body: JSON.stringify({ bid: { userId: "2", bid: parsedBid } }),
         }
       );
-
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
       setSuccessfulBid(true);
-      onSubmit({ bid: parsedBid });
+      onSubmit({ bid: parsedBid }); // Move submission logic here for successful bids
+      setBid(""); // Resetting the bid input after successful submission
     } catch (error) {
       console.error("Error:", error);
       // Handle error if needed
     }
-    setBid(""); // Resetting the bid input after successful submission
   }
-
-  useEffect(() => {
-    // This effect is executed when the component mounts.
-    // You can perform initial data fetching or any other side effect here.
-    // Example: Fetch initial data about the product or set initial state.
-  }, []); // Empty dependency array to avoid infinite loops
 
   return (
     <>

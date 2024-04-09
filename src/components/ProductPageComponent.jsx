@@ -49,8 +49,12 @@ function ProductPageComponent() {
                 {product.extended_Description}
               </p>
               <p className="card-text">
-                Highest bid:{" "}
+                Asking price:{" "}
                 <strong style={{ color: "green" }}>{product.price} kr</strong>
+              </p>
+              <p className="card-text">
+                Highest bid:{" "}
+                <strong style={{ color: "green" }}>{product.bid.bid} kr</strong>
               </p>
               <p>
                 End date:{" "}

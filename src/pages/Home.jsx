@@ -50,15 +50,25 @@ function Home() {
               }}
               key={product.id}
             >
-              <img src={product.img_url} style={{ width: "100%", height: "15rem", objectFit: "cover" }}/>
+              <img
+                src={product.img_url}
+                style={{ width: "100%", height: "15rem", objectFit: "cover" }}
+              />
               <div className="card-body">
                 <h5 className="card-title">{product.name}</h5>
                 <p className="card-text">{product.description}</p>
               </div>
               <ul className="list-group list-group-flush">
                 <li className="list-group-item">
-                  Highest bid:{" "}
+                  Asking price:{" "}
                   <strong style={{ color: "green" }}>{product.price}:-</strong>
+                </li>
+                <li className="list-group-item">
+                  Highest bid:{" "}
+                  <strong style={{ color: "orange" }}>
+                    {product.bid ? product.bid.bid : "No bids"}
+                    {product.bid ? ":-" : ""}
+                  </strong>
                 </li>
                 <li className="list-group-item">
                   End date:{" "}
