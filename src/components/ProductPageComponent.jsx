@@ -54,7 +54,10 @@ function ProductPageComponent() {
               </p>
               <p className="card-text">
                 Highest bid:{" "}
-                <strong style={{ color: "green" }}>{product.bid.bid} kr</strong>
+                <strong style={{ color: "orange" }}>
+                  {product.bid ? product.bid.bid : "No bids"}
+                  {product.bid ? ":-" : ""}
+                </strong>
               </p>
               <p>
                 End date:{" "}
