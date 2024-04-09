@@ -158,7 +158,11 @@
       ],
       "endDate": "2024-04-24T14:30",
       "price": "500000",
-      "img_url": "https://th.bing.com/th/id/OIP.9XxX44dL5W_0kMEGIi7h2AHaJ4?rs=1&pid=ImgDetMain"
+      "img_url": "https://th.bing.com/th/id/OIP.9XxX44dL5W_0kMEGIi7h2AHaJ4?rs=1&pid=ImgDetMain",
+      "bid": {
+        "userId": "2",
+        "bid": 5000000
+      }
     },
     {
       "id": "637a",
