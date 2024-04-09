@@ -65,7 +65,7 @@ function Home() {
                 </li>
                 <li className="list-group-item">
                   Highest bid:{" "}
-                  <strong style={{ color: "orange" }}>
+                  <strong style={{ color: "darkgreen" }}>
                     {product.bid ? product.bid.bid : "No bids"}
                     {product.bid ? ":-" : ""}
                   </strong>
