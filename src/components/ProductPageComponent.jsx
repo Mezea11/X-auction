@@ -1,4 +1,5 @@
 // ProductPageComponent.js
+import "./ProductPageComponent.css";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import PlaceBidButton from "./PlaceBidButton";
@@ -67,6 +68,20 @@ function ProductPageComponent() {
             </div>
           </div>
         </>
+      </div>
+      <div id="bid-history-container">
+        <div className="card" style={{ width: "18rem" }} id="bid-history-card">
+          <ul className="list-group list-group-flush">
+            <li className="list-group-item">Bid history:</li>
+            <li className="list-group-item">
+              {" "}
+              <strong style={{ color: "darkgreen" }}>
+                {product.bid ? product.bid.bid : "No bids"}
+                {product.bid ? ":-" : ""}
+              </strong>
+            </li>
+          </ul>
+        </div>
       </div>
     </>
   );
