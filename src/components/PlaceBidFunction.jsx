@@ -47,12 +47,15 @@ export default function PlaceBidFunction({ onSubmit }) {
       const data = await response.json();
 
       let updatedData;
+      // if the product object does not have a property bid – create property bid as an array of objects
       if (!data.bid) {
         updatedData = {
           ...data,
           bid: [{ userId: "2", bid: parsedBid }],
         };
       } else {
+        //if the product object does have a property bid that is an array, use that
+        //if the product object does have a property bid that is NOT an array, change object to an array
         updatedData = {
           ...data,
           bid: [
@@ -62,6 +65,8 @@ export default function PlaceBidFunction({ onSubmit }) {
         };
       }
 
+      //patch: array + new bid to the product object if it does not already have a property bid (if statement above)
+      //or: new bid to array bid (else above)
       const patchResponse = await fetch(
         `http://localhost:3000/products/${productId}`,
         {
@@ -72,7 +77,9 @@ export default function PlaceBidFunction({ onSubmit }) {
       );
 
       setSuccessfulBid(true);
-      onSubmit({ bid: parsedBid });
+      if (typeof onSubmit === "function") {
+        onSubmit({ userId: "2", bid: parsedBid });
+      }
       setBid(""); // Resetting the bid input after successful submission
     } catch (error) {
       console.error("Error:", error);
@@ -88,14 +95,19 @@ export default function PlaceBidFunction({ onSubmit }) {
           <div className="input-group mb-3">
             <span className="input-group-text">SEK</span>
             <input
-              type="text"
+              type="number"
+              min="1"
               className="form-control"
               aria-label="Dollar amount (with dot and two decimal places)"
               value={bid}
               onChange={(e) => setBid(e.target.value)}
             />
           </div>
-          <button type="submit" className="btn btn-primary">
+          <button
+            type="submit"
+            className="btn btn-primary"
+            disabled={bid.trim().length === 0}
+          >
             Place bid
           </button>
           <div className="modal-body">
