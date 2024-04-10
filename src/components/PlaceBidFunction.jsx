@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 
 export default function PlaceBidFunction({ onSubmit }) {
-  const { productId } = useParams();
+  const { productId, userId } = useParams(); // Destructuring both parameters
   const [bid, setBid] = useState("");
   const [successfulBid, setSuccessfulBid] = useState(false);
   const [askingPrice, setAskingPrice] = useState(null);
@@ -41,23 +41,42 @@ export default function PlaceBidFunction({ onSubmit }) {
       }
 
       const response = await fetch(
+        `http://localhost:3000/products/${productId}`
+      );
+
+      const data = await response.json();
+
+      let updatedData;
+      if (!data.bid) {
+        updatedData = {
+          ...data,
+          bid: [{ userId: "2", bid: parsedBid }],
+        };
+      } else {
+        updatedData = {
+          ...data,
+          bid: [
+            ...(Array.isArray(data.bid) ? data.bid : [data.bid]),
+            { userId: "2", bid: parsedBid },
+          ],
+        };
+      }
+
+      const patchResponse = await fetch(
         `http://localhost:3000/products/${productId}`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ bid: { userId: "2", bid: parsedBid } }),
+          body: JSON.stringify(updatedData),
         }
       );
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
 
       setSuccessfulBid(true);
-      onSubmit({ bid: parsedBid }); // Move submission logic here for successful bids
+      onSubmit({ bid: parsedBid });
       setBid(""); // Resetting the bid input after successful submission
     } catch (error) {
       console.error("Error:", error);
-      // Handle error if needed
+      // Error message in consoles
     }
   }
 
