@@ -77,7 +77,9 @@ export default function PlaceBidFunction({ onSubmit }) {
       );
 
       setSuccessfulBid(true);
-      onSubmit({ bid: parsedBid });
+      if (typeof onSubmit === "function") {
+        onSubmit({ bid: parsedBid });
+      }
       setBid(""); // Resetting the bid input after successful submission
     } catch (error) {
       console.error("Error:", error);
