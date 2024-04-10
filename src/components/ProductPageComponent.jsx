@@ -1,10 +1,8 @@
-// ProductPageComponent.js
 import "./ProductPageComponent.css";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import PlaceBidButton from "./PlaceBidButton";
 
-// Function that GETS product by ID and renders the specific product out on the ProductPage.jsx
 function ProductPageComponent() {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
@@ -32,6 +30,11 @@ function ProductPageComponent() {
     return <div>Loading...</div>;
   }
 
+  // Find the highest bid
+  const highestBid = product.bid
+    ? Math.max(...product.bid.map((b) => b.bid))
+    : null;
+
   return (
     <>
       <div id="product-page-container">
@@ -56,8 +59,7 @@ function ProductPageComponent() {
               <p className="card-text">
                 Highest bid:{" "}
                 <strong style={{ color: "darkgreen" }}>
-                  {product.bid ? product.bid.bid : "No bids"}
-                  {product.bid ? ":-" : ""}
+                  {highestBid ? `${highestBid} kr` : "No bids"}
                 </strong>
               </p>
               <p>
@@ -73,13 +75,11 @@ function ProductPageComponent() {
         <div className="card" style={{ width: "18rem" }} id="bid-history-card">
           <ul className="list-group list-group-flush">
             <li className="list-group-item">Bid history:</li>
-            <li className="list-group-item">
-              {" "}
-              <strong style={{ color: "darkgreen" }}>
-                {product.bid ? product.bid.bid : "No bids"}
-                {product.bid ? ":-" : ""}
-              </strong>
-            </li>
+            {product.bid && product.bid.length > 0 && (
+              <li className="list-group-item">
+                <strong style={{ color: "darkgreen" }}>{highestBid} kr</strong>
+              </li>
+            )}
           </ul>
         </div>
       </div>
