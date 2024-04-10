@@ -100,7 +100,11 @@ export default function PlaceBidFunction({ onSubmit }) {
               onChange={(e) => setBid(e.target.value)}
             />
           </div>
-          <button type="submit" className="btn btn-primary">
+          <button
+            type="submit"
+            className="btn btn-primary"
+            disabled={bid.trim().length === 0}
+          >
             Place bid
           </button>
           <div className="modal-body">
