@@ -95,7 +95,8 @@ export default function PlaceBidFunction({ onSubmit }) {
           <div className="input-group mb-3">
             <span className="input-group-text">SEK</span>
             <input
-              type="text"
+              type="number"
+              min="1"
               className="form-control"
               aria-label="Dollar amount (with dot and two decimal places)"
               value={bid}
