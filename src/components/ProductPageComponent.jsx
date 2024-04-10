@@ -75,10 +75,14 @@ function ProductPageComponent() {
         <div className="card" style={{ width: "18rem" }} id="bid-history-card">
           <ul className="list-group list-group-flush">
             <li className="list-group-item">Bid history:</li>
-            {product.bid && product.bid.length > 0 && (
-              <li className="list-group-item">
-                <strong style={{ color: "darkgreen" }}>{highestBid} kr</strong>
-              </li>
+            {product.bid && product.bid.length > 0 ? (
+              product.bid.map((bid, index) => (
+                <li key={index} className="list-group-item">
+                  <strong style={{ color: "darkgreen" }}>{bid.bid} kr</strong>
+                </li>
+              ))
+            ) : (
+              <li className="list-group-item">No bids</li>
             )}
           </ul>
         </div>
