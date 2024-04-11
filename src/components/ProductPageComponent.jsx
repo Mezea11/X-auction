@@ -31,9 +31,10 @@ function ProductPageComponent() {
   }
 
   // Find the highest bid
-  const highestBid = product.bid
-    ? Math.max(...product.bid.map((b) => b.bid))
-    : null;
+  const highestBid =
+    product.bid && Array.isArray(product.bid) && product.bid.length > 0
+      ? Math.max(...product.bid.map((b) => b.bid))
+      : null;
 
   return (
     <>
@@ -75,7 +76,7 @@ function ProductPageComponent() {
         <div className="card" style={{ width: "18rem" }} id="bid-history-card">
           <ul className="list-group list-group-flush">
             <li className="list-group-item">Bid history:</li>
-            {product.bid && product.bid.length > 0 ? (
+            {Array.isArray(product.bid) && product.bid.length > 0 ? (
               product.bid.map((bid, index) => (
                 <li key={index} className="list-group-item">
                   <strong style={{ color: "darkgreen" }}>{bid.bid} kr</strong>
