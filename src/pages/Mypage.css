@@ -2,6 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 2rem;
     margin-bottom: 2rem;
 }
 
@@ -27,15 +28,17 @@
     align-items: center;
     width: 75vw;
     margin: 0 auto;
-    background-color: gray;
+    background-color: #f8f9fa;
     margin-bottom: 3rem;
-    border-radius: 4rem;
+    border-radius: 2rem;
 }
 
 .ads-card-container-mypage {
     display: flex;
-    width: 50vw;
-    justify-content: space-between;
+    gap: 3rem;
+    margin: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
     margin-bottom: 2rem;
 }
 

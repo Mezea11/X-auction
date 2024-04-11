@@ -1,32 +1,23 @@
-import { useState } from 'react';
-import LoginModal from './LoginModal.jsx';
+import { useState } from "react";
+import LoginModal from "./LoginModal.jsx";
 
 export default function LoginButton() {
-    const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const openModal = () => {
-        setIsModalOpen(true);
-        console.log(isModalOpen)
-        };
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
 
-    const closeModal = () => {
-        setIsModalOpen(false);
-        console.log('close')
-        };
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
-    return (
-        <>
-            <button
-                type="button"
-                className="btn btn-primary"
-                onClick={openModal}
-                data-toggle="modal"
-                data-target="#LoginModal"
-            >
-                Log in
-            </button>
-            {isModalOpen && <LoginModal closeModal={closeModal} />}
-        </>
-    );
+  return (
+    <>
+      <button type="button" className="btn btn-primary" onClick={openModal}>
+        Log in
+      </button>
+      {isModalOpen && <LoginModal closeModal={closeModal} />}
+    </>
+  );
 }
-
