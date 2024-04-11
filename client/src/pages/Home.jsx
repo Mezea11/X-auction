@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import SearchbarComponent from "../components/Searchbar.jsx";
+import SearchbarComponent from "../../src/components/Searchbar.jsx";
 
 function Home() {
   // create variables that contain useState to fetch product objects
