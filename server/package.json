@@ -14,7 +14,9 @@
   "dependencies": {
     "express": "^4.19.2",
     "express-session": "^1.18.0",
+    "mongodb": "^6.5.0",
     "mongoose": "^8.3.1",
+    "node.js": "^0.0.1-security",
     "session": "^0.1.0"
   }
 }
