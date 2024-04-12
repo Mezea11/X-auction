@@ -1,9 +1,15 @@
-//import { useState } from "react"
-import Router from "./components/Router.jsx"
-import "./App.css"
+import { GlobalProvider } from './GlobalContext.jsx';
+import Router from './components/Router.jsx';
+import './App.css';
 
 function App() {
-  return <Router />
+    return (
+        <>
+            <GlobalProvider>
+                <Router />
+            </GlobalProvider>
+        </>
+    );
 }
 
-export default App
+export default App;

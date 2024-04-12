@@ -7,7 +7,7 @@ import apiRegister from './apiRegister.js';
 const server = express();
 
 // Decide a port to litsen to
-const port = 3000;
+const port = 3001;
 
 /*
   The server uses a middleware ( express.json() ) to transform our requests to JSON.

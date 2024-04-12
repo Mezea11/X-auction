@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 const usersSchema = new mongoose.Schema({
     username: String, // Varje "user" kommer att ha ett "username".
     password: String,
+    email: String,
 });
 
 /* 
