@@ -1,7 +1,7 @@
 // Import Express to conect to web server Mongoose to interact with the MongoDB-database.
-import express from "express";
-import mongoose from "mongoose";
-import apiRegister from "./apiRegister.js";
+import express from 'express';
+import mongoose from 'mongoose';
+import apiRegister from './apiRegister.js';
 
 // Create a const with the express app - our web server
 const server = express();
@@ -22,9 +22,10 @@ server.use(express.json());
     Användarnamn - <Username>
     Lösenord - <Password>
     Databasnamnet (Optional) - <DB-Name>
+    ?retryWrites=true&w=majority&appName=
 */
 mongoose.connect(
-  "mongodb+srv://christiancastellanosmeza:123@x-auction.xvz33my.mongodb.net/?retryWrites=true&w=majority&appName=X-Auction"
+    'mongodb+srv://christiancastellanosmeza:123@x-auction.xvz33my.mongodb.net/X-Auction'
 );
 /*
   Byt ut connection-string'en med er egna. Ni hittar er på MongoDB Atlas genom att gå in på: 
@@ -46,5 +47,5 @@ apiRegister(server, mongoose);
   När servern har startat, loggas ett meddelande till konsolen.
 */
 server.listen(port, () =>
-  console.log(`Listening on port http://localhost:${port}`)
+    console.log(`Listening on port http://localhost:${port}`)
 );

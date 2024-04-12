@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "description": "Welcome to the X-auction repo. This is a fictional e-auction application that's built using React, Vite, Node.JS (Several packages) and Bootstrap HTML/CSS. This project is meant to be an introduction to JSX (React) and several dependencies to create a fully fleshed out fullstack auction web-application. This project is still a WIP and more changes will be made in the near future!",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "concurrently \"cd server && npm i\" \"cd client && npm i\"",
+    "start": "concurrently \"nodemon server/server.js\" \"cd client && npm run dev\""
   },
   "keywords": [],
   "author": "",

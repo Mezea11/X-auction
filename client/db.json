@@ -161,7 +161,13 @@
       ],
       "endDate": "2024-04-23T22:31",
       "price": "400",
-      "img_url": "https://fightandfit.co.uk/cdn/shop/products/bambooescrimaskin.jpg?v=1676991355"
+      "img_url": "https://fightandfit.co.uk/cdn/shop/products/bambooescrimaskin.jpg?v=1676991355",
+      "bid": [
+        {
+          "userId": "2",
+          "bid": 401
+        }
+      ]
     },
     {
       "id": "e931",
