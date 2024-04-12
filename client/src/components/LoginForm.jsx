@@ -91,8 +91,7 @@ export default function LoginForm() {
           <div className="modal-body">
             {successfulLogin && ( // Render success message if login was successful
               <div className="alert alert-success" role="alert">
-                You have logged in successfully. You may now{" "}
-                <Link to="/mypage">go to Mypage</Link>.
+                You have logged in successfully.
               </div>
             )}
           </div>

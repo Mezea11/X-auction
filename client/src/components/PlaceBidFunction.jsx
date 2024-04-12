@@ -5,6 +5,7 @@ export default function PlaceBidFunction({ onSubmit }) {
   const { productId, userId } = useParams(); // Destructuring both parameters
   const [bid, setBid] = useState("");
   const [successfulBid, setSuccessfulBid] = useState(false);
+  const [unsuccessfulBid, setUnsuccessfulBid] = useState(false);
   const [askingPrice, setAskingPrice] = useState(null);
 
   useEffect(() => {
@@ -34,11 +35,16 @@ export default function PlaceBidFunction({ onSubmit }) {
     try {
       if (parsedBid < askingPrice) {
         // Compare parsedBid with the asking price
-        alert("CANNOT PLACE BID UNDER ASKING PRICE");
+        setUnsuccessfulBid(true);
         setSuccessfulBid(false);
         setBid(""); // Clear bid input field
         return; // Exit early if bid is less than the asking price
       }
+
+      //MORE TRY HERE
+      //compare new bid with last bid in bid array
+      //if same or lower: reject
+      //else: patch
 
       const response = await fetch(
         `http://localhost:3000/products/${productId}`
@@ -110,6 +116,13 @@ export default function PlaceBidFunction({ onSubmit }) {
           >
             Place bid
           </button>
+          <div className="modal-body">
+            {unsuccessfulBid && ( // Render login error message if there's a login error
+              <div className="alert alert-danger" role="alert">
+                Cannot place bid under asking price.
+              </div>
+            )}
+          </div>
           <div className="modal-body">
             {successfulBid ? (
               <div className="alert alert-success" role="alert">

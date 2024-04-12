@@ -7,7 +7,7 @@ export default function PostProductForm({ onSubmit }) {
   const [category, setCategory] = useState("");
   const [keywords, setKeywords] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [asking_price, setAsking_price] = useState("");
+  const [price, setPrice] = useState("");
   const [img_url, setImg_url] = useState("");
   const [descriptionLength, setDescriptionLength] = useState(0);
 
@@ -25,7 +25,7 @@ export default function PostProductForm({ onSubmit }) {
       category: category,
       keywords: keywords,
       endDate: endDate,
-      asking_price: asking_price,
+      price: price,
       img_url: img_url,
     };
     //calling onSubmit and specifying the data passed back to the parent component
@@ -36,7 +36,7 @@ export default function PostProductForm({ onSubmit }) {
       category,
       keywords,
       endDate,
-      asking_price,
+      price,
       img_url
     );
 
@@ -48,7 +48,7 @@ export default function PostProductForm({ onSubmit }) {
     setCategory("");
     setKeywords("");
     setEndDate("");
-    setAsking_price("");
+    setPrice("");
     setImg_url("");
   }
 
@@ -146,16 +146,16 @@ export default function PostProductForm({ onSubmit }) {
             />
           </div>
           <div className="form-row">
-            <label className="form-label" htmlFor="asking_price">
-              Listing asking_price
+            <label className="form-label" htmlFor="price">
+              Listing price
             </label>
             <input
-              value={asking_price}
-              onChange={(e) => setAsking_price(e.target.value)}
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
               type="number"
               className="form-control w-75"
-              placeholder="Enter lowest selling asking_price"
-              id="asking_price"
+              placeholder="Enter lowest selling price"
+              id="price"
               required
             />
           </div>
