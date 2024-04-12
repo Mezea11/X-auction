@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { GlobalContext } from "../GlobalContext.jsx";
 
 export default function LoginForm() {
