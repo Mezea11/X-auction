@@ -8,7 +8,7 @@ const usersSchema = new mongoose.Schema({
 });
 
 /* 
-  Skapar en Mongoose-modell baserat på usersSchema.
+  Skapar en Mongoose-modell baserat 0 usersSchema.
   Detta möjliggör för oss att skapa, läsa, uppdatera och radera (CRUD) dokument i vår "users"-samling (collection).
 */
 const User = mongoose.model('users', usersSchema);
