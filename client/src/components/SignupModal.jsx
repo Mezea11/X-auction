@@ -7,20 +7,21 @@ export default function SignupModal({ closeModal }) {
     //adds new ueser obejct to array of users in db.json
     const postNewUser = async (id, username, email, password) => {
         try {
-            const response = await fetch('http://localhost:3000/users', {
+            const response = await fetch('/api/users', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    id,
+                    //id,
                     username,
                     email,
                     password,
                 }),
             });
+            
             if (!response.ok) {
-                throw new Error('Failed to add new user');
+                throw new Error('Username already taken 1');
             }
         } catch (error) {
             console.error('Error posting new user:', error);
