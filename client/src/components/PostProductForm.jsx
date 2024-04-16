@@ -1,5 +1,6 @@
 import { useState, useContext } from 'react';
-//import { GlobalContext } from '../GlobalContext';
+import PostProductModal from './PostProductModal.jsx';
+import { GlobalContext } from '../GlobalContext';
 
 //creates the form used for posting new products to the db
 export default function PostProductForm({ onSubmit }) {
@@ -12,10 +13,10 @@ export default function PostProductForm({ onSubmit }) {
     const [startingPrice, setStartingPrice] = useState('');
     const [imgUrl, setImgUrl] = useState('');
     const [descriptionLength, setDescriptionLength] = useState(0);
-    const [extendedDescriptionLength, setExtendedDescriptionLength] =
-        useState(0);
+    const [extendedDescriptionLength, setExtendedDescriptionLength] = useState(0);
     const [productNameLength, setProductNameLength] = useState(0);
-    //const { user } = useContext(GlobalContext);
+    const { user } = useContext(GlobalContext);
+    const [successfulPost, setSuccessfulPost] = useState(false);
 
     const handleProductNameLength = (e) => {
         setProductNameLength(e.target.value.length);
@@ -29,34 +30,69 @@ export default function PostProductForm({ onSubmit }) {
         setExtendedDescriptionLength(e.target.value.length);
     };
 
+    const validateStartingPrice = (e) => {
+        const value = e.target.value;
+
+        //regex only allows digits
+        if (/^\d*$/.test(value)) {
+            setStartingPrice(value);
+    }
+}
+
+    const handleStartingPriceInputBlur = () => {
+        const intValue = parseInt(startingPrice)
+        if (!isNaN(intValue) && intValue > 0) {
+      setStartingPrice(intValue);
+    } else {
+      setStartingPrice('');
+    }
+    }
+
+    async function postProduct(e) {
+        e.preventDefault();
+
+        try {
+            const response = await fetch('/api/products', {
+                method: 'post',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    productname: productName,
+                    description: description,
+                    extended_description: extendedDescription,
+                    category: category,
+                    keywords: keywords,
+                    end_dateTime: endDateTime,
+                    starting_price: startingPrice,
+                    img_url: imgUrl,
+                    seller: user.username,
+                }),
+            });
+            console.log('step 1: entering function');
+
+            const result = await response.json();
+
+            if (response.status == 201) {
+                console.log(result)
+                console.log('step 2: successful post');
+                setSuccessfulPost(true);                
+            } else {
+                console.log('step 3: else');
+                if (response.status === 404 || response.status === 409) {
+                    setLoginError(true);
+                    console.log('step 4: 404');
+                }
+                // Handle other status codes or errors
+            }
+        } catch (error) {
+            console.error('Error during post:', error);
+            console.log('error');
+            
+            // Handle network or parsing errors
+        }
+    }
+
     function handleSubmit(e) {
-        e.preventDefault(); //prevent form default behaviour (reload)
-
-        const formData = {
-            productname: productName,
-            description: description,
-            extended_description: extendedDescription,
-            category: category,
-            keywords: keywords,
-            end_dateTime: endDateTime,
-            starting_price: startingPrice,
-            img_url: imgUrl,
-            //seller: user,
-        };
-        //calling onSubmit and specifying the data passed back to the parent component
-        onSubmit(
-            productName,
-            description,
-            extendedDescription,
-            category,
-            keywords,
-            endDateTime,
-            startingPrice,
-            imgUrl
-            //user
-        );
-
-        console.log(formData);
+       postProduct(e);
         //reset all variables on submit
         setProductName('');
         setDescription('');
@@ -180,9 +216,8 @@ export default function PostProductForm({ onSubmit }) {
                         </label>
                         <input
                             value={startingPrice}
-                            onChange={(e) =>
-                                setStartingPrice(Number(e.target.value))
-                            }
+                            onChange={validateStartingPrice}
+                            onBlur={handleStartingPriceInputBlur}
                             type="number"
                             className="form-control w-75"
                             placeholder="Enter lowest selling price"
@@ -210,6 +245,13 @@ export default function PostProductForm({ onSubmit }) {
                     >
                         Post Object
                     </button>
+                    <div>
+                {successfulPost && ( // Render login error message if there's a login error
+                        <div className="alert alert-success" role="alert">
+                            Post successful!
+                        </div>
+                    )}
+                </div>
                 </form>
             </div>
         </>

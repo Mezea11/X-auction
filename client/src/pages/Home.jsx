@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import SearchbarComponent from "../../src/components/Searchbar.jsx";
+import { GlobalContext } from "../GlobalContext.jsx";
 
 function Home() {
   // create variables that contain useState to fetch product objects
   const [products, setProducts] = useState([]);
+  //const {products} = useContext(GlobalContext);
 
   // on window load and whenever state changes, fetch json data
   useEffect(() => {
