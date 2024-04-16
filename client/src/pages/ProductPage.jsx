@@ -1,13 +1,11 @@
-// ProductPage.jsx
-import ProductPageComponent from "../components/ProductPageComponent";
+import ProductPageComponent from '../components/ProductPageComponent.jsx';
 
 function ProductPage() {
-  return (
-    <>
-      <h1>Loading product data...</h1>
-      <ProductPageComponent />
-    </>
-  );
+    return (
+        <>
+            <ProductPageComponent />
+        </>
+    );
 }
 
 export default ProductPage;
