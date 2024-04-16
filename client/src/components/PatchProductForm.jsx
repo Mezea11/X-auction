@@ -2,19 +2,23 @@ import { useState, useEffect } from "react";
 
 export default function PatchProductForm({ onSubmit, initialData }) {
   const [formData, setFormData] = useState({
-    title: "",
+    productname: "",
     description: "",
-    extended_Description: "",
+    extended_description: "",
     category: "",
     keywords: "",
-    endDate: "",
-    price: "",
+    end_dateTime: "",
+    starting_price: "",
     img_url: "",
   });
 
   useEffect(() => {
     if (initialData) {
-      setFormData(initialData);
+      setFormData({
+        // Set initial form data and format date fields if necessary
+        ...initialData,
+        end_dateTime: initialData.end_dateTime ? formatDate(initialData.end_dateTime) : "",
+      });
     }
   }, [initialData]);
 
@@ -26,9 +30,22 @@ export default function PatchProductForm({ onSubmit, initialData }) {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSubmit(formData);
+    try {
+      await onSubmit({
+        ...formData,
+        // Convert date to ISO string format before sending to the server
+        end_dateTime: new Date(formData.end_dateTime).toISOString(),
+      });
+    } catch (error) {
+      console.error("Error updating product:", error);
+      // Handle error if necessary
+    }
+  };
+
+  const formatDate = (date) => {
+    return new Date(date).toISOString().slice(0, 16);
   };
 
   return (
@@ -36,16 +53,16 @@ export default function PatchProductForm({ onSubmit, initialData }) {
       <div className="product-form-container" id="ProductForm">
         <form onSubmit={handleSubmit} className="product-form">
           <div className="form-row">
-            <label className="form-label" htmlFor="title">
-              Title
+            <label className="form-label" htmlFor="productname">
+              Product Name
             </label>
             <input
-              value={formData.title}
+              value={formData.productname}
               onChange={handleChange}
               type="text"
               className="form-control w-75"
-              id="title"
-              name="title"
+              id="productname"
+              name="productname"
               required
             />
           </div>
@@ -64,16 +81,16 @@ export default function PatchProductForm({ onSubmit, initialData }) {
             />
           </div>
           <div className="form-row">
-            <label className="form-label" htmlFor="extended_Description">
+            <label className="form-label" htmlFor="extended_description">
               Extended Description
             </label>
             <input
-              value={formData.extended_Description}
+              value={formData.extended_description}
               onChange={handleChange}
               type="text"
               className="form-control w-75"
-              id="extended_Description"
-              name="extended_Description"
+              id="extended_description"
+              name="extended_description"
               required
             />
           </div>
@@ -106,30 +123,31 @@ export default function PatchProductForm({ onSubmit, initialData }) {
             />
           </div>
           <div className="form-row">
-            <label className="form-label" htmlFor="endDate">
-              End Date
+            <label className="form-label" htmlFor="end_dateTime">
+              End Date Time
             </label>
             <input
-              value={formData.endDate}
+              value={formData.end_dateTime}
               onChange={handleChange}
-              type="text"
+              type="datetime-local"
               className="form-control w-75"
-              id="endDate"
-              name="endDate"
+              id="end_dateTime"
+              name="end_dateTime"
               required
             />
           </div>
           <div className="form-row">
-            <label className="form-label" htmlFor="price">
-              Asking Price
+            <label className="form-label" htmlFor="starting_price">
+              Starting Price
             </label>
             <input
-              value={formData.price}
+              value={formData.starting_price}
               onChange={handleChange}
               type="number"
               className="form-control w-75"
-              id="price"
-              name="price"
+              id="starting_price"
+              name="starting_price"
+              min={1}
               required
             />
           </div>
@@ -148,7 +166,7 @@ export default function PatchProductForm({ onSubmit, initialData }) {
             />
           </div>
           <button className="btn btn-success" style={{ marginTop: "1rem" }}>
-            Patch Object
+            Update Object
           </button>
         </form>
       </div>

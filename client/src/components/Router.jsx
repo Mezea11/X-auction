@@ -7,6 +7,7 @@ import ProductPageComponent from './ProductPageComponent.jsx';
 import PlaceBidFunction from './PlaceBidFunction.jsx';
 import LoginForm from './LoginForm.jsx';
 import ProtectedRoute from '../validation/ProtectedRoute.jsx';
+import Patchproduct from '../pages/Patchproduct.jsx';
 
 function Router() {
     return (
@@ -32,6 +33,7 @@ function Router() {
                     element={<PlaceBidFunction />}
                 />
                 <Route path="/LoginForm/:userId" element={<LoginForm />} />
+                <Route path="/Patchproduct" element={<Patchproduct />} />
             </Routes>
         </BrowserRouter>
     );

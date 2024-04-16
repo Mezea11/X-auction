@@ -2,19 +2,20 @@ import { useEffect, useState } from "react";
 import PatchProductForm from "./PatchProductForm.jsx";
 
 export default function PatchProductModal({ closeModal }) {
-  const userId = 2; // Set the userId
+  const seller = "kalleboll"; // Set the userId
   const [products, setProducts] = useState([]);
   const [selectedProductId, setSelectedProductId] = useState("");
   const [selectedProduct, setSelectedProduct] = useState(null); // State variable to store the selected product
   const [isSuccess, setIsSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
-    fetchProductsByUserId(userId);
-  }, [userId]); // Fetch products when userId changes
+    fetchProductsByseller();
+  }, []); // Fetch products when userId changes
 
-  const fetchProductsByUserId = async (userId) => {
+  const fetchProductsByseller = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/products?userId=${userId}`);
+      const response = await fetch(`/api/products?seller=${seller}`);
       if (!response.ok) {
         throw new Error("Failed to fetch products");
       }
@@ -27,7 +28,9 @@ export default function PatchProductModal({ closeModal }) {
 
   const handleProductSelect = (productId) => {
     setSelectedProductId(productId);
-    const selectedProductData = products.find((product) => product.id === productId);
+    const selectedProductData = products.find(
+      (product) => product._id === productId
+    );
     setSelectedProduct(selectedProductData); // Update selected product data
   };
 
@@ -35,7 +38,7 @@ export default function PatchProductModal({ closeModal }) {
     try {
       formData.price = parseFloat(formData.price);
 
-      const response = await fetch(`http://localhost:3000/products/${selectedProductId}`, {
+      const response = await fetch(`/api/products/${selectedProductId}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -47,14 +50,23 @@ export default function PatchProductModal({ closeModal }) {
       }
 
       setIsSuccess(true);
+      setErrorMessage(""); 
     } catch (error) {
       console.error("Error patching product:", error);
+      setIsSuccess(false); // Reset success state
+      setErrorMessage("Failed to patch product. Please try again."); // Set error message
     }
   };
 
   return (
     <>
-      <div className="modal" id="patchProductModal" tabIndex="-1" role="dialog" style={{ display: "flex" }}>
+      <div
+        className="modal"
+        id="patchProductModal"
+        tabIndex="-1"
+        role="dialog"
+        style={{ display: "flex" }}
+      >
         <div className="modal-dialog modal-lg" role="document">
           <div className="modal-content">
             <div className="modal-header" style={{ flexDirection: "column" }}>
@@ -70,21 +82,28 @@ export default function PatchProductModal({ closeModal }) {
               </button>
             </div>
             <div className="modal-body">
-            <label htmlFor="productSelect">Select Product:</label>
-                <select
-                  id="productSelect"
-                  className="form-control"
-                  value={selectedProductId}
-                  onChange={(e) => handleProductSelect(e.target.value)}
-                  style={{ width: "100%", cursor: "pointer" }} // Set cursor to pointer to indicate clickable
-                >
-                  <option value="">Select a product to patch</option>
-                  {products.map((product) => (
-                    <option key={product.id} value={product.id}>{product.title}</option>
-                  ))}
-                </select>
+              <label htmlFor="productSelect">Select Product:</label>
+              <select
+                id="productSelect"
+                className="form-control"
+                value={selectedProductId}
+                onChange={(e) => handleProductSelect(e.target.value)}
+                style={{ width: "100%", cursor: "pointer" }}
+              >
+                <option key="default" value="">
+                  Select a product to patch
+                </option>
+                {products.map((product) => (
+                  <option key={product._id} value={product._id}>
+                    {product.productname}
+                  </option>
+                ))}
+              </select>
               {/* Pass selectedProduct as initialData prop to PatchProductForm */}
-              <PatchProductForm onSubmit={patchProduct} initialData={selectedProduct} />
+              <PatchProductForm
+                onSubmit={patchProduct}
+                initialData={selectedProduct}
+              />
               {isSuccess && (
                 <p
                   style={{
@@ -92,7 +111,17 @@ export default function PatchProductModal({ closeModal }) {
                     marginTop: "1rem",
                   }}
                 >
-                  Patch successful!
+                  Update successful!
+                </p>
+              )}
+              {errorMessage && (
+                <p
+                  style={{
+                    color: "red",
+                    marginTop: "1rem",
+                  }}
+                >
+                  {errorMessage}
                 </p>
               )}
             </div>
