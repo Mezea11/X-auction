@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import SearchbarComponent from "../components/Searchbar.jsx";
+import SearchbarComponent from "../../src/components/Searchbar.jsx";
+import { GlobalContext } from "../GlobalContext.jsx";
 
 function Home() {
   // create variables that contain useState to fetch product objects
   const [products, setProducts] = useState([]);
+  //const {products} = useContext(GlobalContext);
 
   // on window load and whenever state changes, fetch json data
   useEffect(() => {
@@ -50,15 +52,25 @@ function Home() {
               }}
               key={product.id}
             >
-              <img src={product.img_url} style={{ width: "100%", height: "15rem", objectFit: "cover" }}/>
+              <img
+                src={product.img_url}
+                style={{ width: "100%", height: "15rem", objectFit: "cover" }}
+              />
               <div className="card-body">
                 <h5 className="card-title">{product.name}</h5>
                 <p className="card-text">{product.description}</p>
               </div>
               <ul className="list-group list-group-flush">
                 <li className="list-group-item">
-                  Highest bid:{" "}
+                  Asking price:{" "}
                   <strong style={{ color: "green" }}>{product.price}:-</strong>
+                </li>
+                <li className="list-group-item">
+                  Highest bid:{" "}
+                  <strong style={{ color: "darkgreen" }}>
+                    {product.bid ? product.bid.bid : "No bids"}
+                    {product.bid ? ":-" : ""}
+                  </strong>
                 </li>
                 <li className="list-group-item">
                   End date:{" "}

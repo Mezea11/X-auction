@@ -1,8 +1,12 @@
+import { useContext } from 'react';
+import { GlobalContext } from '../GlobalContext.jsx';
 import SignupButton from '../components/SignupButton.jsx';
 import LoginButton from '../components/LoginButton.jsx';
+import LogOutButton from './LogOutButton.jsx';
 import { Link } from 'react-router-dom';
 
 function Navbar() {
+    const { user } = useContext(GlobalContext);
     return (
         <>
             <div>
@@ -38,27 +42,35 @@ function Navbar() {
                                             FAQ
                                         </Link>
                                     </li>
-                                    <li
-                                        className="nav-item"
-                                        id="nav-mypage-link"
-                                    >
-                                        <Link
-                                            to={'/mypage'}
-                                            className="nav-link"
+                                    {user && (
+                                        <li
+                                            className="nav-item"
+                                            id="nav-mypage-link"
                                         >
-                                            My page
-                                        </Link>
-                                    </li>
+                                            <Link
+                                                to={'/mypage'}
+                                                className="nav-link"
+                                            >
+                                                My page
+                                            </Link>
+                                        </li>
+                                    )}
                                     <li className="nav-item" id="">
                                         <a className="nav-link" href="#">
-                                            <LoginButton />
+                                            {user ? (
+                                                <LogOutButton />
+                                            ) : (
+                                                <LoginButton />
+                                            )}
                                         </a>
                                     </li>
-                                    <li className="nav-item" id="">
-                                        <a className="nav-link" href="#">
-                                            <SignupButton />
-                                        </a>
-                                    </li>
+                                    {!user && (
+                                        <li className="nav-item" id="">
+                                            <a className="nav-link" href="#">
+                                                <SignupButton />
+                                            </a>
+                                        </li>
+                                    )}
                                 </ul>
                             </div>
                         </div>

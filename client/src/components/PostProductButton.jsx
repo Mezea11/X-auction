@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import PostProductModal from './PostProductModal.jsx';
+import PostProductForm from './PostProductForm.jsx';
 
 export default function PostProductButton() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -12,6 +13,7 @@ export default function PostProductButton() {
     const closeModal = () => {
         setIsModalOpen(false);
         console.log('close')
+        setSuccessfulpost(false)
         };
 
     return (
