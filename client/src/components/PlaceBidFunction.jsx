@@ -1,15 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router";
+import { GlobalContext } from "../GlobalContext";
 
 export default function PlaceBidFunction({ onSubmit }) {
-  const { productId, userId } = useParams(); // Destructuring both parameters
+  const { productId, username } = useParams(); // Destructuring both parameters
   const [bid, setBid] = useState("");
   const [successfulBid, setSuccessfulBid] = useState(false);
   const [unsuccessfulBid, setUnsuccessfulBid] = useState(false);
-  const [askingPrice, setAskingPrice] = useState(null);
+  const [startingPrice, setStartingPrice] = useState(null);
+  const { user } = useContext(GlobalContext);
 
   useEffect(() => {
-    // Fetch product details to get the asking price
+    // Fetch product details to get the starting price
     const fetchProductDetails = async () => {
       try {
         const response = await fetch(
@@ -19,7 +21,7 @@ export default function PlaceBidFunction({ onSubmit }) {
           throw new Error("Error fetching product details");
         }
         const data = await response.json();
-        setAskingPrice(parseFloat(data.price)); // Convert asking price to a number
+        setStartingPrice(parseInt(data.price)); // Convert starting price to a number
       } catch (error) {
         console.error("Error fetching product details:", error);
       }
@@ -31,14 +33,14 @@ export default function PlaceBidFunction({ onSubmit }) {
   async function handleSubmit(e) {
     e.preventDefault(); // Prevent default form submission behavior
 
-    const parsedBid = parseFloat(bid);
+    const parsedBid = parseInt(bid);
     try {
-      if (parsedBid < askingPrice) {
-        // Compare parsedBid with the asking price
+      if (parsedBid < startingPrice) {
+        // Compare parsedBid with the starting price
         setUnsuccessfulBid(true);
         setSuccessfulBid(false);
         setBid(""); // Clear bid input field
-        return; // Exit early if bid is less than the asking price
+        return; // Exit early if bid is less than the starting price
       }
 
       //MORE TRY HERE
@@ -57,7 +59,7 @@ export default function PlaceBidFunction({ onSubmit }) {
       if (!data.bid) {
         updatedData = {
           ...data,
-          bid: [{ userId: "2", bid: parsedBid }],
+          bid: [{ username: user.username, bid: parsedBid }],
         };
       } else {
         //if the product object does have a property bid that is an array, use that
@@ -66,7 +68,7 @@ export default function PlaceBidFunction({ onSubmit }) {
           ...data,
           bid: [
             ...(Array.isArray(data.bid) ? data.bid : [data.bid]),
-            { userId: "2", bid: parsedBid },
+            { username: user.username, bid: parsedBid },
           ],
         };
       }
@@ -84,7 +86,7 @@ export default function PlaceBidFunction({ onSubmit }) {
 
       setSuccessfulBid(true);
       if (typeof onSubmit === "function") {
-        onSubmit({ userId: "2", bid: parsedBid });
+        onSubmit({ username: user.username, bid: parsedBid });
       }
       setBid(""); // Resetting the bid input after successful submission
     } catch (error) {
@@ -119,7 +121,7 @@ export default function PlaceBidFunction({ onSubmit }) {
           <div className="modal-body">
             {unsuccessfulBid && ( // Render login error message if there's a login error
               <div className="alert alert-danger" role="alert">
-                Cannot place bid under asking price.
+                Cannot place bid under starting price.
               </div>
             )}
           </div>

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import SearchbarComponent from "../../src/components/Searchbar.jsx";
 import { GlobalContext } from "../GlobalContext.jsx";
+import ProductPageComponent from "../components/ProductPageComponent.jsx";
 
 function Home() {
   // create variables that contain useState to fetch product objects
@@ -16,7 +17,7 @@ function Home() {
   const fetchAllProducts = async () => {
     try {
       //get data from json-server at db.json
-      const response = await fetch("http://localhost:3000/products");
+      const response = await fetch("/api/products");
       if (!response.ok) {
         throw new Error("error");
       }
@@ -78,7 +79,7 @@ function Home() {
                 </li>
               </ul>
               <div className="card-body" id="home-card-btn">
-                <Link to={`/ProductPage/${product.id}`}>
+                <Link to={`productpage/${product.id}`}>
                   <button type="button" className="btn btn-primary">
                     View Product
                   </button>

@@ -1,18 +1,15 @@
 import "./ProductPageComponent.css";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import PlaceBidButton from "./PlaceBidButton";
 
 function ProductPageComponent() {
-  const { productId } = useParams();
   const [product, setProduct] = useState(null);
+  const productId = "661d289c4e4ab36c7381ab27";
 
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:3000/products/${productId}`
-        );
+        const response = await fetch(`/api/products/${productId}`);
         if (!response.ok) {
           throw new Error("Error fetching product details");
         }
