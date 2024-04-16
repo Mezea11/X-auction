@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-// Skapar ett schema för "users", vilket definierar strukturen för varje "user"-dokument i databasen.
+// Creates "users" schema: defines the structure of every "user" document in our database
 const usersSchema = new mongoose.Schema({
     username: String, // Varje "user" kommer att ha ett "username".
     password: String,
@@ -8,8 +8,8 @@ const usersSchema = new mongoose.Schema({
 });
 
 /* 
-  Skapar en Mongoose-modell baserat 0 usersSchema.
-  Detta möjliggör för oss att skapa, läsa, uppdatera och radera (CRUD) dokument i vår "users"-samling (collection).
+  Creates mongoose model based on usersSchema
+  Allows us to create/read/update/delete (CRUD) documents in our "users" collection
 */
 const User = mongoose.model('users', usersSchema);
 

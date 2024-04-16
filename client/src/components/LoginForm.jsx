@@ -1,7 +1,6 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { GlobalContext } from '../GlobalContext.jsx';
-import User from '../../../server/model/User.js';
 
 export default function LoginForm() {
     const navigate = useNavigate();
