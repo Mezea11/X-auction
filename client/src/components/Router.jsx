@@ -4,7 +4,6 @@ import Home from '../pages/Home.jsx';
 import Navbar from '../components/Navbar.jsx';
 import Faq from '../pages/Faq.jsx';
 import Mypage from '../pages/Mypage.jsx';
-import ProductPageComponent from './ProductPageComponent.jsx';
 import PlaceBidFunction from './PlaceBidFunction.jsx';
 import LoginForm from './LoginForm.jsx';
 import ProtectedRoute from '../validation/ProtectedRoute.jsx';
@@ -30,7 +29,7 @@ function Router() {
                     element={<ProductPage />}
                 />
                 <Route
-                    path="/place-bid/:productId"
+                    path="/Productpage/:productId"
                     element={<PlaceBidFunction />}
                 />
                 <Route path="/login/:userId" element={<LoginForm />} />

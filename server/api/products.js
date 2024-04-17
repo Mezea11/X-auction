@@ -60,4 +60,31 @@ export default function (server, db) {
             res.status(500).json({ message: error.message });
         }
     });
+
+
+server.patch('/api/products/:id', async (req, res) => {
+    const productId = req.params.id; // Get the product ID from the request parameters
+    const updatedData = req.body; // Get the updated data from the request body
+
+    try {
+        const existingProduct = await Product.findById(productId); // Find the product by its ID
+        if (!existingProduct) {
+            // If no product found with the provided ID, return a 404 response
+            return res.status(404).json({ message: 'Product not found' });
+        }
+
+        // Update the existing product with the new data
+        // You may want to validate the updated data before applying it to the product
+        Object.assign(existingProduct, updatedData);
+
+        // Save the updated product to the database
+        const updatedProduct = await existingProduct.save();
+
+        res.status(200).json(updatedProduct); // Return the updated product in the response
+    } catch (error) {
+        // If an error occurs during the database query or update, return a 500 response
+        console.error('Error updating product:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
 }

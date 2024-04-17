@@ -55,28 +55,18 @@ export default function PlaceBidFunction({ onSubmit }) {
 
       const data = await response.json();
 
-      let updatedData;
-      // if the product object does not have a property bids – create property bid as an array of objects
-      if (!data.bids) {
-        updatedData = {
-          ...data,
-          bids: [{ username: user, bid: parsedBid }],
-        };
-      } else {
-        //if the product object does have a property bids that is an array, use that
-        //if the product object does have a property bids that is NOT an array, change object to an array
-        updatedData = {
+      let updatedData = {
           ...data,
           bids: [
-            ...(Array.isArray(data.bids) ? data.bids : [data.bids]),
-            { username: user, bid: parsedBid },
+            ...(Array.isArray(data.bids) ? data.bids : [data.bids || []]),
+            { username: user.username, bid: parsedBid },
           ],
         };
-      }
+      
 
       //patch: array + new bid to the product object if it does not already have a property bids (if statement above)
       //or: new bid to array bids (else above)
-      const patchResponse = await fetch(
+     await fetch(
         `/api/products/${productId}`,
         {
           method: "PATCH",
@@ -88,7 +78,7 @@ export default function PlaceBidFunction({ onSubmit }) {
 
       setSuccessfulBid(true);
       if (typeof onSubmit === "function") {
-        onSubmit({ username: user, bid: parsedBid });
+        onSubmit({ username: user.username, bid: parsedBid });
       }
       setBid(""); // Resetting the bid input after successful submission
     } catch (error) {
