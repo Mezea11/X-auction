@@ -173,6 +173,7 @@ export default function PostProductForm({ onSubmit }) {
                             //onChange={handleCategoryChange}
                             className="form-control w-75"
                             id="category"
+                            name="category"
                             required
                         >
                             <option value="">Select category</option>

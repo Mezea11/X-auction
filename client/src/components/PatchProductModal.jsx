@@ -34,10 +34,30 @@ export default function PatchProductModal({ closeModal }) {
       (product) => product._id === productId
     );
     setSelectedProduct(selectedProductData); // Update selected product data
+    setErrorMessage(""); // Reset error message when a new product is selected
+    setIsSuccess(false); // Reset update success message when a new product is selected
   };
 
   const patchProduct = async (formData) => {
     try {
+      console.log("formData:", formData);
+      console.log("selectedProduct:", selectedProduct);
+      if (
+        selectedProduct &&
+        formData.productname == selectedProduct.productname &&
+        formData.description == selectedProduct.description &&
+        formData.extended_description == selectedProduct.extended_description &&
+        formData.category == selectedProduct.category &&
+        formData.keywords == selectedProduct.keywords &&
+        formData.end_dateTime == selectedProduct.end_dateTime &&
+        formData.starting_price == selectedProduct.starting_price &&
+        formData.img_url == selectedProduct.img_url
+  
+      ) {
+        setErrorMessage("No changes were made.");
+        return;
+      }
+
       if (
         selectedProduct &&
         formData.starting_price == selectedProduct.starting_price
@@ -72,7 +92,7 @@ export default function PatchProductModal({ closeModal }) {
       } else {
         setErrorMessage(
           error.message || "Failed to patch product. Please try again."
-        ); 
+        );
       }
     }
   };

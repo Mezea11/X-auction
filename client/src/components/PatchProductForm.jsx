@@ -40,14 +40,23 @@ export default function PatchProductForm({ onSubmit, initialData }) {
         // Convert date to ISO string format before sending to the server
         end_dateTime: new Date(formData.end_dateTime).toISOString(),
       });
+      resetFormData();
     } catch (error) {
       console.error("Error updating product:", error);
-      // Handle error if necessary
     }
   };
 
   const formatDate = (date) => {
-    return new Date(date).toISOString().slice(0, 16);
+    const options = {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+      timeZone: "Europe/Stockholm"
+    };
+    return new Date(date).toLocaleString("sv-SE", options);
   };
 
   return (
@@ -110,6 +119,7 @@ export default function PatchProductForm({ onSubmit, initialData }) {
               onChange={handleChange}
               className="form-control w-75"
               id="category"
+              name="category"
               required
             >
               <option value="">Select category</option>
