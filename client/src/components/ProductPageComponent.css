@@ -1,0 +1,10 @@
+#bid-history-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20rem;
+}
+
+#bid-history-card {
+  background-color: green;
+  width: 25rem !important;
+}

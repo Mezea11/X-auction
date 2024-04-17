@@ -1,10 +1,12 @@
 import './Mypage.css';
 import PostProductButton from '../components/PostProductButton.jsx';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import MyAuctionObjectsList from '../components/MyAuctionObjectsList.jsx';
+import { GlobalContext } from '../GlobalContext';
 
 export default function Mypage() {
     const [products, setProducts] = useState('');
+    const { user } = useContext(GlobalContext);
 
     useEffect(() => {
         fetchAllProducts();
@@ -75,7 +77,7 @@ export default function Mypage() {
                         <div className="card-header">Welcome to My Page</div>
                         <div className="card-body text-secondary">
                             <p className="card-text">
-                                You are signed in as: {users.username}
+                                You are signed in as: {user.username}
                             </p>
                         </div>
                     </div>

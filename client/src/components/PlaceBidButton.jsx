@@ -6,12 +6,10 @@ export default function PlaceBidButton() {
 
   const openModal = () => {
     setIsModalOpen(true); //Sets the value for variable isModalOpen
-    console.log(isModalOpen); //Log the state of the modal
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
-    console.log("close"); //Log the state of the modal
   };
 
   return (
