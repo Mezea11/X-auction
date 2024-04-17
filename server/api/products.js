@@ -55,7 +55,7 @@ export default function (server, db) {
 
         // Check if the request body contains the starting_price field and if there are existing bids
         if (product.bids.length > 0 && req.body.starting_price !== undefined) {
-            return res.status(400).json({ message: 'Cannot patch starting price because there are existing bids.' });
+            return res.status(400).json({ message: 'Cannot update starting price because there are existing bids.' });
         }
 
         // If no bids or starting_price not in request body, proceed with updating the product
