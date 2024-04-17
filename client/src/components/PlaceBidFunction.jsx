@@ -10,27 +10,28 @@ export default function PlaceBidFunction({ onSubmit }) {
   const [startingPrice, setStartingPrice] = useState(null);
   const { user } = useContext(GlobalContext);
 
+
   useEffect(() => {
-    // Fetch product details to get the starting price
+        // Fetch product details to get the starting price
     const fetchProductDetails = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:3000/products/${productId}`
-        );
-        if (!response.ok) {
-          throw new Error("Error fetching product details");
+        try {
+            console.log('PBF: fetchProductDetails step 1');
+            const response = await fetch(`/api/products/${productId}`);
+            if (!response.ok) {
+              throw new Error("Error fetching product details");
+            }
+            const data = await response.json();
+            setStartingPrice(parseInt(data.price)); // Convert starting price to a number
+        } catch (error) {
+          console.error("Error fetching product details:", error);
         }
-        const data = await response.json();
-        setStartingPrice(parseInt(data.price)); // Convert starting price to a number
-      } catch (error) {
-        console.error("Error fetching product details:", error);
-      }
     };
 
     fetchProductDetails();
-  }, [productId]);
+}, [productId]);
 
   async function handleSubmit(e) {
+    console.log("PBF: HandleSubmit: step 2")
     e.preventDefault(); // Prevent default form submission behavior
 
     const parsedBid = parseInt(bid);
@@ -44,49 +45,50 @@ export default function PlaceBidFunction({ onSubmit }) {
       }
 
       //MORE TRY HERE
-      //compare new bid with last bid in bid array
+      //compare new bid with last bid in bids array
       //if same or lower: reject
       //else: patch
 
       const response = await fetch(
-        `http://localhost:3000/products/${productId}`
+        `/api/products/${productId}`
       );
 
       const data = await response.json();
 
       let updatedData;
-      // if the product object does not have a property bid – create property bid as an array of objects
-      if (!data.bid) {
+      // if the product object does not have a property bids – create property bid as an array of objects
+      if (!data.bids) {
         updatedData = {
           ...data,
-          bid: [{ username: user.username, bid: parsedBid }],
+          bids: [{ username: user, bid: parsedBid }],
         };
       } else {
-        //if the product object does have a property bid that is an array, use that
-        //if the product object does have a property bid that is NOT an array, change object to an array
+        //if the product object does have a property bids that is an array, use that
+        //if the product object does have a property bids that is NOT an array, change object to an array
         updatedData = {
           ...data,
-          bid: [
-            ...(Array.isArray(data.bid) ? data.bid : [data.bid]),
-            { username: user.username, bid: parsedBid },
+          bids: [
+            ...(Array.isArray(data.bids) ? data.bids : [data.bids]),
+            { username: user, bid: parsedBid },
           ],
         };
       }
 
-      //patch: array + new bid to the product object if it does not already have a property bid (if statement above)
-      //or: new bid to array bid (else above)
+      //patch: array + new bid to the product object if it does not already have a property bids (if statement above)
+      //or: new bid to array bids (else above)
       const patchResponse = await fetch(
-        `http://localhost:3000/products/${productId}`,
+        `/api/products/${productId}`,
         {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(updatedData),
         }
       );
+        console.log("Step 3: Patch successful!")
 
       setSuccessfulBid(true);
       if (typeof onSubmit === "function") {
-        onSubmit({ username: user.username, bid: parsedBid });
+        onSubmit({ username: user, bid: parsedBid });
       }
       setBid(""); // Resetting the bid input after successful submission
     } catch (error) {

@@ -25,9 +25,7 @@ export default function (server, db) {
 
             if (user.length > 0) {
                 req.session.user = user[0];
-                res.status(201).json({
-                    message: `Welcome ${req.session.user.username}!`,
-                });
+                res.status(200).json(user[0]);
             } else {
                 res.status(404).json({ message: 'Post login failed!' });
             }

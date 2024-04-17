@@ -4,7 +4,7 @@ import { GlobalContext } from '../GlobalContext.jsx';
 
 export default function LoginForm() {
     const navigate = useNavigate();
-    const { setUser } = useContext(GlobalContext);
+    const { user, setUser } = useContext(GlobalContext);
     const [password, setPassword] = useState('');
     const [loginError, setLoginError] = useState(false);
     const [username, setUsername] = useState('');
@@ -25,7 +25,8 @@ export default function LoginForm() {
 
             const result = await response.json();
 
-            if (response.status == 201) {
+            if (response.status === 200) {
+                console.log("result: (should be user!)", result)
                 setUser(result);
                 navigate('/mypage');
                 console.log('step 2: successful login');
