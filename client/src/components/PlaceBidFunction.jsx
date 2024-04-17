@@ -7,11 +7,11 @@ export default function PlaceBidFunction({ onSubmit }) {
   const [bid, setBid] = useState("");
   const [successfulBid, setSuccessfulBid] = useState(false);
   const [unsuccessfulBid, setUnsuccessfulBid] = useState(false);
-  const [startingPrice, setStartingPrice] = useState(null);
   const { user } = useContext(GlobalContext);
 
 
-  useEffect(() => {
+  // ta tillbaka useEffect för att kunna rendera ut budhistorik + info om bud i "produktkortet"
+  /* useEffect(() => {
         // Fetch product details to get the starting price
     const fetchProductDetails = async () => {
         try {
@@ -21,51 +21,70 @@ export default function PlaceBidFunction({ onSubmit }) {
               throw new Error("Error fetching product details");
             }
             const data = await response.json();
-            setStartingPrice(parseInt(data.price)); // Convert starting price to a number
+            
         } catch (error) {
           console.error("Error fetching product details:", error);
         }
     };
 
     fetchProductDetails();
-}, [productId]);
+}, [productId]); */
 
   async function handleSubmit(e) {
     console.log("PBF: HandleSubmit: step 2")
     e.preventDefault(); // Prevent default form submission behavior
-
-    const parsedBid = parseInt(bid);
-    try {
-      if (parsedBid < startingPrice) {
-        // Compare parsedBid with the starting price
-        setUnsuccessfulBid(true);
-        setSuccessfulBid(false);
-        setBid(""); // Clear bid input field
-        return; // Exit early if bid is less than the starting price
-      }
-
-      //MORE TRY HERE
-      //compare new bid with last bid in bids array
-      //if same or lower: reject
-      //else: patch
-
-      const response = await fetch(
+    const response = await fetch(
         `/api/products/${productId}`
       );
+      if (!response.ok) {
+        throw new Error("Error fetching product details");
+      }
 
       const data = await response.json();
+      const startingPrice = data.starting_price;
+      const bids = data.bids;
+      const parsedBid = parseInt(bid);
+      //jobba vidare med logiken inte kunna buda på egen auktion/inte kunna buda på avslutad auktion
+      const seller = data.seller;
+      const now = Date.now();
+      const end_Datetime = data.end_dateTime;
+
+    try {
+      
+/*       if (parsedBid < startingPrice) {
+        // Compare parsedBid with the starting price
+          setUnsuccessfulBid(true);
+          setSuccessfulBid(false);
+          alert("You cannot place bid under starting price!");
+          setBid(""); // Clear bid input field
+          return; // Exit early if bid is less than the starting price
+      } */
+
+      if (bids.length === 0 && parsedBid < startingPrice) {
+      // If there are no bids and bid is lower than starting price
+        setUnsuccessfulBid(true);
+        setSuccessfulBid(false);
+        alert("You cannot place bid under starting price!");
+        return;
+    } else if (bids.length > 0 && parsedBid < bids[bids.length - 1].bid) {
+      // If there are bids but bid is lower than highest bid
+        setUnsuccessfulBid(true);
+        setSuccessfulBid(false);
+      alert("You cannot place bid under current bid!");
+      return;
+    } else if (bids.length > 0 && parsedBid === bids[bids.length - 1].bid) {
+      // If there are bids but bid is same as highest bid
+        setUnsuccessfulBid(true);
+        setSuccessfulBid(false);
+        alert("You cannot place the same bid as current bid!");
+        return;
+    }
 
       let updatedData = {
-          ...data,
-          bids: [
-            ...(Array.isArray(data.bids) ? data.bids : [data.bids || []]),
-            { username: user.username, bid: parsedBid },
-          ],
-        };
-      
+         ...data,
+      bids: [...bids, { username: user.username, bid: parsedBid }],
+    };
 
-      //patch: array + new bid to the product object if it does not already have a property bids (if statement above)
-      //or: new bid to array bids (else above)
      await fetch(
         `/api/products/${productId}`,
         {
@@ -111,11 +130,11 @@ export default function PlaceBidFunction({ onSubmit }) {
             Place bid
           </button>
           <div className="modal-body">
-            {unsuccessfulBid && ( // Render login error message if there's a login error
+            {/* {unsuccessfulBid && ( // Render login error message if there's a login error
               <div className="alert alert-danger" role="alert">
                 Cannot place bid under starting price.
               </div>
-            )}
+            )} */}
           </div>
           <div className="modal-body">
             {successfulBid ? (
