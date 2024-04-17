@@ -1,10 +1,12 @@
 import './Mypage.css';
 import PostProductButton from '../components/PostProductButton.jsx';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import MyAuctionObjectsList from '../components/MyAuctionObjectsList.jsx';
 import PatchProductButton from '../components/PatchProductButton.jsx';
+import { GlobalContext } from '../GlobalContext.jsx';
 
 export default function patchproduct() {
+   // const { user } = useContext(GlobalContext);
     const [products, setProducts] = useState('');
 
     useEffect(() => {
@@ -76,7 +78,7 @@ export default function patchproduct() {
                         <div className="card-header">Welcome to My Page</div>
                         <div className="card-body text-secondary">
                             <p className="card-text">
-                                You are signed in as: {users.username}
+                                You are signed in as: 
                             </p>
                         </div>
                     </div>

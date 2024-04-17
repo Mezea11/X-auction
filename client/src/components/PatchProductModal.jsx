@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import PatchProductForm from "./PatchProductForm.jsx";
+import { GlobalContext } from "../GlobalContext";
 
 export default function PatchProductModal({ closeModal }) {
-  const seller = "kalleboll"; // Set the userId
+  const { user } = useContext(GlobalContext);
+  // const seller = {user.username}; // Set the userId
   const [products, setProducts] = useState([]);
   const [selectedProductId, setSelectedProductId] = useState("");
   const [selectedProduct, setSelectedProduct] = useState(null); // State variable to store the selected product
@@ -15,7 +17,7 @@ export default function PatchProductModal({ closeModal }) {
 
   const fetchProductsByseller = async () => {
     try {
-      const response = await fetch(`/api/products?seller=${seller}`);
+      const response = await fetch(`/api/products?seller=${user.username}`);
       if (!response.ok) {
         throw new Error("Failed to fetch products");
       }
@@ -36,7 +38,12 @@ export default function PatchProductModal({ closeModal }) {
 
   const patchProduct = async (formData) => {
     try {
-      formData.price = parseFloat(formData.price);
+      if (
+        selectedProduct &&
+        formData.starting_price == selectedProduct.starting_price
+      ) {
+        delete formData.starting_price;
+      }
 
       const response = await fetch(`/api/products/${selectedProductId}`, {
         method: "PATCH",
@@ -46,15 +53,27 @@ export default function PatchProductModal({ closeModal }) {
         body: JSON.stringify(formData),
       });
       if (!response.ok) {
-        throw new Error("Failed to patch product");
+        const responseData = await response.json();
+        throw new Error(responseData.message || "Failed to patch product");
       }
 
       setIsSuccess(true);
-      setErrorMessage(""); 
+      setErrorMessage("");
     } catch (error) {
       console.error("Error patching product:", error);
       setIsSuccess(false); // Reset success state
-      setErrorMessage("Failed to patch product. Please try again."); // Set error message
+
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        setErrorMessage(error.response.data.message); // Error message from the backend response
+      } else {
+        setErrorMessage(
+          error.message || "Failed to patch product. Please try again."
+        ); 
+      }
     }
   };
 
@@ -85,7 +104,7 @@ export default function PatchProductModal({ closeModal }) {
               <label htmlFor="productSelect">Select Product:</label>
               <select
                 id="productSelect"
-                className="form-control"
+                className="form-control w-75"
                 value={selectedProductId}
                 onChange={(e) => handleProductSelect(e.target.value)}
                 style={{ width: "100%", cursor: "pointer" }}

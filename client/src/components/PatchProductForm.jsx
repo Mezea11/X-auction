@@ -17,7 +17,9 @@ export default function PatchProductForm({ onSubmit, initialData }) {
       setFormData({
         // Set initial form data and format date fields if necessary
         ...initialData,
-        end_dateTime: initialData.end_dateTime ? formatDate(initialData.end_dateTime) : "",
+        end_dateTime: initialData.end_dateTime
+          ? formatDate(initialData.end_dateTime)
+          : "",
       });
     }
   }, [initialData]);
@@ -54,7 +56,7 @@ export default function PatchProductForm({ onSubmit, initialData }) {
         <form onSubmit={handleSubmit} className="product-form">
           <div className="form-row">
             <label className="form-label" htmlFor="productname">
-              Product Name
+              Product Name ({70 - formData.productname.length}/70 chars remaining)
             </label>
             <input
               value={formData.productname}
@@ -63,12 +65,14 @@ export default function PatchProductForm({ onSubmit, initialData }) {
               className="form-control w-75"
               id="productname"
               name="productname"
+              maxLength={70}
               required
             />
           </div>
           <div className="form-row">
             <label className="form-label" htmlFor="description">
-              Description
+              Description ({70 - formData.description.length}/70 chars
+              remaining)
             </label>
             <input
               value={formData.description}
@@ -77,12 +81,14 @@ export default function PatchProductForm({ onSubmit, initialData }) {
               className="form-control w-75"
               id="description"
               name="description"
+              maxLength={70}
               required
             />
           </div>
           <div className="form-row">
             <label className="form-label" htmlFor="extended_description">
-              Extended Description
+              Extended Description ({2000 - formData.extended_description.length}/2000 chars
+              remaining)
             </label>
             <input
               value={formData.extended_description}
@@ -92,21 +98,25 @@ export default function PatchProductForm({ onSubmit, initialData }) {
               id="extended_description"
               name="extended_description"
               required
+               maxLength={2000}
             />
           </div>
           <div className="form-row">
             <label className="form-label" htmlFor="category">
               Category
             </label>
-            <input
+            <select
               value={formData.category}
               onChange={handleChange}
-              type="text"
               className="form-control w-75"
               id="category"
-              name="category"
               required
-            />
+            >
+              <option value="">Select category</option>
+              <option value="Bird">Bird</option>
+              <option value="Fish">Fish</option>
+              <option value="Inbetween">Inbetween</option>
+            </select>
           </div>
           <div className="form-row">
             <label className="form-label" htmlFor="keywords">
@@ -138,7 +148,7 @@ export default function PatchProductForm({ onSubmit, initialData }) {
           </div>
           <div className="form-row">
             <label className="form-label" htmlFor="starting_price">
-              Starting Price
+              Starting Price (can't be changed if any bids has been placed)
             </label>
             <input
               value={formData.starting_price}
@@ -158,7 +168,7 @@ export default function PatchProductForm({ onSubmit, initialData }) {
             <input
               value={formData.img_url}
               onChange={handleChange}
-              type="text"
+              type="url"
               className="form-control w-75"
               id="img_url"
               name="img_url"
