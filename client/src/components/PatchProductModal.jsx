@@ -4,12 +4,17 @@ import { GlobalContext } from "../GlobalContext";
 
 export default function PatchProductModal({ closeModal }) {
   const { user } = useContext(GlobalContext);
-  // const seller = {user.username}; // Set the userId
   const [products, setProducts] = useState([]);
   const [selectedProductId, setSelectedProductId] = useState("");
   const [selectedProduct, setSelectedProduct] = useState(null); // State variable to store the selected product
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+
+  const clearFormFields = () => {
+    // Define a function to clear the form fields
+    setSelectedProduct(null); // Clear selected product
+    setSelectedProductId(""); // Clear selected product ID
+  };
 
   useEffect(() => {
     fetchProductsByseller();
@@ -40,10 +45,11 @@ export default function PatchProductModal({ closeModal }) {
 
   const patchProduct = async (formData) => {
     try {
-      console.log("formData:", formData);
-      console.log("selectedProduct:", selectedProduct);
+      if (!selectedProductId) {
+        setErrorMessage("Pick an object to update.");
+        return;
+      }
       if (
-        selectedProduct &&
         formData.productname == selectedProduct.productname &&
         formData.description == selectedProduct.description &&
         formData.extended_description == selectedProduct.extended_description &&
@@ -52,7 +58,6 @@ export default function PatchProductModal({ closeModal }) {
         formData.end_dateTime == selectedProduct.end_dateTime &&
         formData.starting_price == selectedProduct.starting_price &&
         formData.img_url == selectedProduct.img_url
-  
       ) {
         setErrorMessage("No changes were made.");
         return;
@@ -77,8 +82,11 @@ export default function PatchProductModal({ closeModal }) {
         throw new Error(responseData.message || "Failed to patch product");
       }
 
+      await fetchProductsByseller();
+
       setIsSuccess(true);
       setErrorMessage("");
+      setSelectedProductId("");
     } catch (error) {
       console.error("Error patching product:", error);
       setIsSuccess(false); // Reset success state

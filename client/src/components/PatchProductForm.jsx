@@ -40,7 +40,6 @@ export default function PatchProductForm({ onSubmit, initialData }) {
         // Convert date to ISO string format before sending to the server
         end_dateTime: new Date(formData.end_dateTime).toISOString(),
       });
-      resetFormData();
     } catch (error) {
       console.error("Error updating product:", error);
     }
