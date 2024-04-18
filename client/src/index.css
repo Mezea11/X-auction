@@ -108,16 +108,46 @@ html {
 }
 
 /* SEARCHBAR */
-#searchbar-results-container {
+
+#searchbar-container {
+    /* #searchbar-results-container {
     display: flex;
     flex-direction: column;
     justify-content: left;
+    background-color: red; */
+    #filter-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        gap: 3rem;
+        .filter {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        input[type='checkbox'] {
+            height: 2rem;
+            width: 2rem;
+        }
+    }
+
+    #searchpage-products-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3rem;
+        .card {
+            box-shadow: 0 0 10px #719ece;
+        }
+    }
+
+    .searchbar-results-container-active {
+        background-color: #f8f9fa;
+        padding: 3rem 3rem 3rem 3rem;
+    }
 }
 
-.searchbar-results-container-active {
-    border: 1px solid black;
-    border-style: dotted;
-}
 /* SEARCH PAGE */
 #searchPage-container {
     display: flex;

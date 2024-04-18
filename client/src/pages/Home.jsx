@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import SearchbarComponent from '../../src/components/Searchbar.jsx';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
+    const navigate = useNavigate();
     // create variables that contain useState to fetch product objects
     const [products, setProducts] = useState([]);
 
@@ -54,7 +56,13 @@ function Home() {
             <div id="home-card-container">
                 {/* Render our search bar component */}
                 <div className="searchbar-container">
-                    <SearchbarComponent />
+                    <button
+                        type="button"
+                        className="btn btn-primary"
+                        onClick={() => navigate('/searchPage')}
+                    >
+                        Search for products
+                    </button>
                 </div>
 
                 <section id="homepage-products-container">
