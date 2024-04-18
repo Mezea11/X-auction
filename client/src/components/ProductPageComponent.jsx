@@ -1,9 +1,8 @@
-// ProductPageComponent.js
+import "./ProductPageComponent.css";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import PlaceBidButton from "./PlaceBidButton";
 
-// Function that GETS product by ID and renders the specific product out on the ProductPage.jsx
 function ProductPageComponent() {
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
@@ -31,6 +30,12 @@ function ProductPageComponent() {
     return <div>Loading...</div>;
   }
 
+  // Find the highest bid
+  const highestBid =
+    product.bid && Array.isArray(product.bid) && product.bid.length > 0
+      ? Math.max(...product.bid.map((b) => b.bid))
+      : null;
+
   return (
     <>
       <div id="product-page-container">
@@ -49,8 +54,14 @@ function ProductPageComponent() {
                 {product.extended_Description}
               </p>
               <p className="card-text">
-                Highest bid:{" "}
+                Asking price:{" "}
                 <strong style={{ color: "green" }}>{product.price} kr</strong>
+              </p>
+              <p className="card-text">
+                Highest bid:{" "}
+                <strong style={{ color: "darkgreen" }}>
+                  {highestBid ? `${highestBid} kr` : "No bids"}
+                </strong>
               </p>
               <p>
                 End date:{" "}
@@ -60,6 +71,22 @@ function ProductPageComponent() {
             </div>
           </div>
         </>
+      </div>
+      <div id="bid-history-container">
+        <div className="card" style={{ width: "18rem" }} id="bid-history-card">
+          <ul className="list-group list-group-flush">
+            <li className="list-group-item">Bid history:</li>
+            {Array.isArray(product.bid) && product.bid.length > 0 ? (
+              product.bid.map((bid, index) => (
+                <li key={index} className="list-group-item">
+                  <strong style={{ color: "darkgreen" }}>{bid.bid} kr</strong>
+                </li>
+              ))
+            ) : (
+              <li className="list-group-item">No bids</li>
+            )}
+          </ul>
+        </div>
       </div>
     </>
   );

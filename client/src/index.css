@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 /* NAVBAR */
 #nav-link-container {
   display: flex;
@@ -70,6 +74,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-top: 2rem;
 
   #faq-card-container {
     display: flex;
