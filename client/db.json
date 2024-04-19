@@ -23,6 +23,12 @@
       "username": "123",
       "email": "123@123.com",
       "password": "123"
+    },
+    {
+      "id": "5efeb62e-5c3e-4e5e-a6ee-849e72042ec5",
+      "username": "testUser",
+      "email": "test@test.test",
+      "password": "test"
     }
   ],
   "products": [

@@ -44,10 +44,6 @@ export default function PlaceBidFunction({ onSubmit }) {
       const startingPrice = data.starting_price;
       const bids = data.bids;
       const parsedBid = parseInt(bid);
-      //jobba vidare med logiken inte kunna buda på egen auktion/inte kunna buda på avslutad auktion
-      const seller = data.seller;
-      const now = Date.now();
-      const end_Datetime = data.end_dateTime;
 
     try {
       
