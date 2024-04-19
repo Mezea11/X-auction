@@ -13,7 +13,7 @@ export default function MyAuctionObjectCard({
     deleteProduct,
 }) {
     const isLoggedIn = sessionStorage.getItem('isLoggedIn'); //gets value of sessionStorage
-    console.log(isLoggedIn);
+    /*console.log(isLoggedIn);*/
 
     return (
         <div

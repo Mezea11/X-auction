@@ -8,6 +8,7 @@ import PlaceBidFunction from './PlaceBidFunction.jsx';
 import LoginForm from './LoginForm.jsx';
 import ProtectedRoute from '../validation/ProtectedRoute.jsx';
 import ProductPage from '../pages/ProductPage.jsx';
+import SearchPage from '../pages/SearchPage.jsx';
 
 function Router() {
     return (
@@ -33,6 +34,7 @@ function Router() {
                     element={<PlaceBidFunction />}
                 />
                 <Route path="/login/:userId" element={<LoginForm />} />
+                <Route path="/searchPage" element={<SearchPage />} />
             </Routes>
         </BrowserRouter>
     );
