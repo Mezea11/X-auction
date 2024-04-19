@@ -19,16 +19,16 @@ function ProductPageComponent() {
                 }
                 const data = await response.json();
                 setProduct(data);
-                setHighestBid(data.bids[data.bids.length -1].bid)
+                setHighestBid(data.bids[data.bids.length -1].bid)                 
+
             } catch (error) {
                 console.error('Error fetching product:', error);
             }
         };
-
         
         fetchProduct();
 
-    }, [productId, highestBid]);
+    }, [productId]);
 
     if (!product) {
         return <div>Loading...</div>;
