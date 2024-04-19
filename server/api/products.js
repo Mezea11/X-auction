@@ -55,12 +55,10 @@ export default function (server, db) {
 
       // Check if the request body contains the starting_price field and if there are existing bids
       if (product.bids.length > 0 && req.body.starting_price !== undefined) {
-        return res
-          .status(400)
-          .json({
-            message:
-              "Cannot update starting price because there are existing bids.",
-          });
+        return res.status(400).json({
+          message:
+            "Cannot update starting price because there are existing bids.",
+        });
       }
 
       // If no bids or starting_price not in request body, proceed with updating the product
@@ -86,7 +84,15 @@ export default function (server, db) {
   server.delete("/api/products/:id", async (req, res) => {
     try {
       const productId = req.params.id;
-      const deletedProduct = await Product.findByIdAndDelete(productId);
+      const product = await Product.findById(productId);
+
+      if (product.bids.length > 0) {
+        return res.status(400).json({
+          message: "Cannot delete the product because there are existing bids.",
+        });
+      }
+
+      const deletedProduct = await Product.findByIdAndDelete(product);
 
       if (!deletedProduct) {
         return res.status(404).json({ message: "Product not found" });
@@ -98,4 +104,29 @@ export default function (server, db) {
       res.status(500).json({ error: "Internal server error" });
     }
   });
+  
+  server.get("/api/products/bids", async (req, res) => {
+    try {
+        // Check if there's a username query parameter
+        const { username } = req.query;
+
+        // If username is provided, construct the query to filter products
+        const query = username ? { 'bids.username': username } : {};
+
+        // Find products based on the query
+        const products = await Product.find(query);
+
+        if (products.length === 0) {
+            // If no products are found matching the query
+            res.status(404).json({ message: "No products found" });
+        } else {
+            // If products are found, send them as JSON response
+            res.status(200).json(products);
+        }
+    } catch (error) {
+        // If an error occurs during the process
+        console.error("Error retrieving products:", error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
 }

@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { GlobalContext } from "../GlobalContext";
 //creates element to hold user owned product
 export default function MyAuctionObjectCard({
-    id,
+    _id,
     productname,
     description,
     end_dateTime,
@@ -52,7 +52,7 @@ export default function MyAuctionObjectCard({
             </ul>
             <div className="card-body" id="home-card-btn">
                 {/* link to productpage with the uniqe id of specific product */}
-                <Link to={`/ProductPage/${id}`}>
+                <Link to={`/ProductPage/${_id}`}>
                     <button type="button" className="btn btn-primary" style={{ padding: '0.5rem 0.5rem', maxHeight: '3rem' }}>
                         View Product
                     </button>
@@ -61,7 +61,7 @@ export default function MyAuctionObjectCard({
                 {/* shows button if value in sessionStorage is thrue */}
                 {user && (
                     <button
-                        onClick={() => deleteProduct(id)}
+                        onClick={() => deleteProduct(_id)}
                         type="button"
                         className="btn btn-danger"
                         style={{ padding: '0rem 0.5rem', maxHeight: '3rem'}}
