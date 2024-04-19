@@ -10,12 +10,6 @@ export default function PatchProductModal({ closeModal }) {
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const clearFormFields = () => {
-    // Define a function to clear the form fields
-    setSelectedProduct(null); // Clear selected product
-    setSelectedProductId(""); // Clear selected product ID
-  };
-
   useEffect(() => {
     fetchProductsByseller();
   }, []); // Fetch products when userId changes
@@ -46,6 +40,7 @@ export default function PatchProductModal({ closeModal }) {
   const patchProduct = async (formData) => {
     try {
       if (!selectedProductId) {
+        setIsSuccess(false);
         setErrorMessage("Pick an object to update.");
         return;
       }
@@ -69,6 +64,7 @@ export default function PatchProductModal({ closeModal }) {
       ) {
         delete formData.starting_price;
       }
+      console.log(selectedProductId)
 
       const response = await fetch(`/api/products/${selectedProductId}`, {
         method: "PATCH",
