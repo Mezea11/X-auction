@@ -65,6 +65,7 @@ export default function PostProductForm({ onSubmit }) {
                     starting_price: startingPrice,
                     img_url: imgUrl,
                     seller: user.username,
+                    ongoing: true
                 }),
             });
             console.log('step 1: entering function');

@@ -1,5 +1,5 @@
 import './ProductPageComponent.css';
-import { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import PlaceBidButton from './PlaceBidButton.jsx';
 import { useParams } from 'react-router';
 import { GlobalContext } from '../GlobalContext.jsx';
@@ -8,7 +8,8 @@ function ProductPageComponent() {
     const { productId } = useParams();
     const [product, setProduct] = useState(null);
     const { user } = useContext(GlobalContext);
-    const [highestBid, setHighestBid] = useState("");
+    const [currentTime, setCurrentTime] = useState(Date.now());
+    const [auctionEndTime, setAuctionEndTime] = useState(null);
 
     useEffect(() => {
         const fetchProduct = async () => {
@@ -19,25 +20,32 @@ function ProductPageComponent() {
                 }
                 const data = await response.json();
                 setProduct(data);
-                const newBid = product.bids[product.bids.length - 1].bid;
-                setHighestBid(newBid);
+                // Set auction end time
+                setAuctionEndTime(new Date(data.end_dateTime).getTime());
+                setCurrentTime(Date.now())
             } catch (error) {
                 console.error('Error fetching product:', error);
             }
         };
 
+        // Fetch product data initially
         fetchProduct();
 
-    }, [productId, product]);
+        // Fetch product data every 5 seconds
+        const interval = setInterval(fetchProduct, 1000);
+        console.log(interval);
+        console.log(auctionEndTime)
+        console.log(currentTime);
+        // Cleanup interval on component unmount
+        return () => clearInterval(interval);
+
+    }, [productId]);
 
     if (!product) {
         return <div>Loading...</div>;
     }
 
-    const endDate = new Date(product.end_dateTime);
-    const endDateToMS = endDate.getTime();
-    const currentDate = Date.now();
-    const endDateTime = endDate.toLocaleString('en-SE', {
+    const endDateTime = new Date(product.end_dateTime).toLocaleString('en-SE', {
         weekday: 'long',
         year: 'numeric',
         month: 'long',
@@ -45,6 +53,9 @@ function ProductPageComponent() {
         hour: 'numeric',
         minute: 'numeric'
     });
+
+    // Check if auction has ended
+    const auctionEnded = auctionEndTime && currentTime > auctionEndTime;
 
     return (
         <>
@@ -76,7 +87,7 @@ function ProductPageComponent() {
                         <p className="card-text">
                             Highest bid:{' '}
                             <strong style={{ color: 'darkgreen' }}>
-                                {highestBid ? `${highestBid} kr` : 'No bids'}
+                                {product.bids[product.bids.length - 1].bid} kr
                             </strong>
                         </p>
                         <p>
@@ -86,7 +97,7 @@ function ProductPageComponent() {
                             </strong>
                         </p>
                         {user ? (
-                            currentDate < endDateToMS ? (
+                            !auctionEnded ? (
                                 product.seller !== user.username ? (
                                     <PlaceBidButton />
                                 ) : (
@@ -101,6 +112,7 @@ function ProductPageComponent() {
                     </div>
                 </div>
             </div>
+
             <div id="bid-history-container">
                 <div
                     className="card"
@@ -109,12 +121,11 @@ function ProductPageComponent() {
                 >
                     <div style={{backgroundColor: "white"}}>Bid history:</div>
                     <ul className="list-group list-group-flush" style={{display: "flex", flexDirection: "column-reverse"}}>
-                        
                         {Array.isArray(product.bids) && product.bids.length > 0 ? (
                             product.bids.map((bid, index) => (
                                 <li key={index} className="list-group-item">
                                     <strong style={{ color: 'darkgreen' }}>
-                                        <span style={{display:"flex"}}>{bid.bid } kr</span> 
+                                        <span style={{display:"flex"}}>{bid.bid} kr</span> 
                                         <span style={{marginLeft: "65%", textAlign:"right", paddingLeft:"1rem", paddingRight:"1rem"}}>{bid.username}</span>
                                     </strong>
                                 </li>

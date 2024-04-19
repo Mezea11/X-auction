@@ -11,6 +11,7 @@ const productsSchema = new mongoose.Schema({
     starting_price: Number,
     img_url: String,
     seller: String,
+    ongoing: Boolean,
     bids: [
         {
             username: String,

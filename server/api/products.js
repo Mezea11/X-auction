@@ -49,6 +49,7 @@ export default function (server, db) {
                 starting_price: req.body.starting_price,
                 img_url: req.body.img_url,
                 seller: req.body.seller,
+                ongoing: req.body.ongoing,
                 bids: req.body.bids,
             });
 
