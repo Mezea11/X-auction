@@ -39,8 +39,10 @@ export default function Mypage() {
   const fetchActiveBids = async () => {
     try {
       if (user && user.username) {
-        console.log(user.username)
-        const response = await fetch(`/api/products/bids?username=${user.username}`);
+        console.log(user.username);
+        const response = await fetch(
+          `/api/products/bids?username=${user.username}`
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch products");
         }
@@ -117,8 +119,7 @@ export default function Mypage() {
             <div
               className="card"
               style={{
-                minHeight: "35rem",
-                minWidth: "18rem",
+                height: "38rem",
                 maxWidth: "18rem",
                 borderRadius: "1rem",
                 overflow: "hidden",
@@ -155,7 +156,11 @@ export default function Mypage() {
                   </strong>
                 </li>
               </ul>
-              <div className="card-body" id="home-card-btn">
+              <div
+                className="card-body"
+                id="home-card-btn"
+                style={{ maxHeight: "5rem" }}
+              >
                 {/* link to productpage with the uniqe id of specific product */}
                 <Link to={`/ProductPage/${activeBid._id}`}>
                   <button
@@ -175,16 +180,13 @@ export default function Mypage() {
 
       <section className="mypage-sections">
         <h1 className="section-titles-mypage">My won auctions</h1>
-                <div
-                    className="ads-card-container-mypage"
-                    style={{ display: 'flex' }}
-                >
-                    {activeBids.map((activeBid) => (
+        <div className="ads-card-container-mypage" style={{ display: "flex" }}>
+          {activeBids.map((activeBid) => (
             // key links the element to the specific object
             <div
               className="card"
               style={{
-                minHeight: "35rem",
+                height: "38rem",
                 minWidth: "18rem",
                 maxWidth: "18rem",
                 borderRadius: "1rem",
@@ -222,7 +224,11 @@ export default function Mypage() {
                   </strong>
                 </li>
               </ul>
-              <div className="card-body" id="home-card-btn">
+              <div
+                className="card-body"
+                id="home-card-btn"
+                style={{ maxHeight: "5rem" }}
+              >
                 {/* link to productpage with the uniqe id of specific product */}
                 <Link to={`/ProductPage/${activeBid._id}`}>
                   <button
@@ -237,7 +243,7 @@ export default function Mypage() {
               </div>
             </div>
           ))}
-                </div>
+        </div>
       </section>
 
       <section className="mypage-sections" id="bid-history-section">
