@@ -85,7 +85,7 @@ function Home() {
                                 }}
                             />
                             <div className="card-body">
-                                <h5 className="card-title">{product.name}</h5>
+                                <h5 className="card-title">{product.productname}</h5>
                                 <p className="card-text">
                                     {product.description}
                                 </p>
