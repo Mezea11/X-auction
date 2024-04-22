@@ -13,8 +13,16 @@ export default function MyAuctionObjectCard({
   img_url,
   deleteProduct,
 }) {
-  const isLoggedIn = sessionStorage.getItem("isLoggedIn"); //gets value of sessionStorage
-  console.log(isLoggedIn);
+  const { user } = useContext(GlobalContext);
+
+  const convertedDate = new Date(end_dateTime).toLocaleString("en-SE", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+  });
 
   return (
     <div
