@@ -16,7 +16,6 @@ export default function MyAuctionObjectCard({
   const { user } = useContext(GlobalContext);
 
   const convertedDate = new Date(end_dateTime).toLocaleString("en-SE", {
-    weekday: "long",
     year: "numeric",
     month: "long",
     day: "numeric",
