@@ -8,4 +8,6 @@ export default function (server, db) {
   users(server, db);
   login(server, db);
   logout(server, db);
+  signup(server, db);
+  products(server, db);
 }
