@@ -66,7 +66,7 @@ export default function PatchProductModal({ closeModal }) {
       }
       console.log(selectedProductId)
 
-      const response = await fetch(`/api/products/${selectedProductId}`, {
+      const response = await fetch(`/api/patchproducts/${selectedProductId}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

@@ -155,4 +155,37 @@ export default function (server, db) {
       res.status(500).json({ error: "Internal server error" });
     }
   });
+
+  server.patch("/api/patchproducts/:id", async (req, res) => {
+    const productId = req.params.id;
+    try {
+      const product = await Product.findById(productId);
+
+      // Check if the request body contains the starting_price field and if there are existing bids
+      if (product.bids.length > 0 && req.body.starting_price !== undefined) {
+        return res.status(400).json({
+          message:
+            "Cannot update starting price because there are existing bids.",
+        });
+      }
+
+      // If no bids or starting_price not in request body, proceed with updating the product
+      const updatedProduct = await Product.findByIdAndUpdate(
+        productId,
+        req.body,
+        {
+          new: true,
+        }
+      );
+
+      if (!updatedProduct) {
+        return res.status(404).json({ message: "Product not found" });
+      }
+
+      res.status(200).json(updatedProduct);
+    } catch (error) {
+      console.error("Error updating product:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
 }
