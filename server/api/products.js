@@ -135,4 +135,24 @@ export default function (server, db) {
       res.status(500).json({ error: "Internal server error" });
     }
   });
+
+  server.get("/api/productsbyseller", async (req, res) => {
+    try {
+      // Check if there's a seller query parameter
+      const { seller } = req.query;
+      const query = seller ? { seller } : {}; // If seller is provided, filter by seller
+
+      const products = await Product.find(query);
+      if (products.length === 0) {
+        // If there are no products in the database
+        res.status(404).json({ message: "No products found" });
+      } else {
+        // If products are found, send them as JSON response
+        res.status(200).json(products);
+      }
+    } catch (error) {
+      console.error("Error retrieving products:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+  });
 }

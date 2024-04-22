@@ -16,7 +16,7 @@ export default function Mypage() {
     const fetchProducts = async () => {
       try {
         if (user && user.username) {
-          const response = await fetch(`/api/products?seller=${user.username}`);
+          const response = await fetch(`/api/productsbyseller?seller=${user.username}`);
           if (!response.ok) {
             throw new Error("Failed to fetch products");
           }
