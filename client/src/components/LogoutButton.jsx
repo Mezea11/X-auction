@@ -18,7 +18,9 @@ export default function LogOutButton() {
 
       //navigate('/'); // if we keep this navigate as a comment, we stay on the same page unless we are on protected mypage
       console.log("Logout successful!");
-    } catch (error) {}
+    } catch (error) {
+      "Error logging out!" + error;
+    }
   }
 
   return (
