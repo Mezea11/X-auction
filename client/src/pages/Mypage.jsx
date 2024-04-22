@@ -41,13 +41,14 @@ export default function Mypage() {
       if (user && user.username) {
         console.log(user.username);
         const response = await fetch(
-          `/api/products/bids?username=${user.username}`
+          `/api/productsbybids?username=${user.username}`
         );
         if (!response.ok) {
           throw new Error("Failed to fetch products");
         }
         const data = await response.json();
         setActiveBids(data);
+        console.log("here");
       }
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -117,6 +118,7 @@ export default function Mypage() {
           {activeBids.map((activeBid) => (
             // key links the element to the specific object
             <div
+              key={activeBid._id}
               className="card"
               style={{
                 height: "38rem",
@@ -184,6 +186,7 @@ export default function Mypage() {
           {activeBids.map((activeBid) => (
             // key links the element to the specific object
             <div
+              key={activeBid._id}
               className="card"
               style={{
                 height: "38rem",
