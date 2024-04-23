@@ -5,6 +5,7 @@ import MyAuctionObjectsList from "../components/MyAuctionObjectsList.jsx";
 import { GlobalContext } from "../GlobalContext";
 import PatchProductButton from "../components/PatchProductButton.jsx";
 import { Link } from "react-router-dom";
+import SignupButton from "../components/EditUserInfoButton.jsx";
 
 export default function Mypage() {
   const [products, setProducts] = useState([]);
@@ -16,7 +17,9 @@ export default function Mypage() {
     const fetchProducts = async () => {
       try {
         if (user && user.username) {
-          const response = await fetch(`/api/productsbyseller?seller=${user.username}`);
+          const response = await fetch(
+            `/api/productsbyseller?seller=${user.username}`
+          );
           if (!response.ok) {
             throw new Error("Failed to fetch products");
           }
@@ -30,11 +33,11 @@ export default function Mypage() {
     };
 
     fetchProducts();
-  }, [user]);
+  }, [products]);
 
   useEffect(() => {
     fetchActiveBids();
-  }, []);
+  }, [activeBids]);
 
   const fetchActiveBids = async () => {
     try {
@@ -87,17 +90,22 @@ export default function Mypage() {
             <div className="card-body text-secondary">
               <p className="card-text">
                 {signedInUser
-                  ? `You are signed in as: ${signedInUser.username}`
+                  ? `You are signed in as: ${user.username}`
                   : "Loading..."}
               </p>
             </div>
           </div>
           {/* button-component which in turns triggers the modal for posting a products to show */}
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ marginBottom: "1.5rem" }}>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <div style={{ marginBottom: "0.7rem" }}>
               <PostProductButton />
             </div>
-            <PatchProductButton />
+            <div style={{ marginBottom: "0.7rem" }}>
+              <PatchProductButton />
+            </div>
+            <div>
+              <SignupButton />
+            </div>
           </div>
         </section>
       </div>
