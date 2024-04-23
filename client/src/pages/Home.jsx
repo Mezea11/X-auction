@@ -10,22 +10,30 @@ function Home() {
   //const {products} = useContext(GlobalContext);
 
   // on window load and whenever state changes, fetch json data
+  
   useEffect(() => {
-    fetchAllProducts();
+//    fetchAllProducts();
+    const interval = setInterval(fetchAllProducts, 5000);
+    // Cleanup interval on component unmount
+    return () => clearInterval(interval);
   }, []); //dependency array, with out it useEffect won't stop running
 
   const fetchAllProducts = async () => {
     try {
       //get data from json-server at db.json
       const response = await fetch("/api/products");
-      if (!response.ok) {
+        if (!response.ok) {
         throw new Error("error");
       }
       const data = await response.json();
-      setProducts(data);
+      const ongoingProducts = data.filter(product => product.ongoing);
+
+    // Update the state with filtered products
+      setProducts(ongoingProducts);
+      //setProducts(data);
     } catch (error) {
-      console.error("Error fetching products:", error);
-    }
+    }      console.error("Error fetching products:", error);
+
     console.log(products);
   };
 

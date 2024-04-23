@@ -11,6 +11,8 @@ function ProductPageComponent() {
     const [currentTime, setCurrentTime] = useState(Date.now());
     const [auctionEndTime, setAuctionEndTime] = useState(null);
 
+    
+
     useEffect(() => {
         const fetchProduct = async () => {
             try {

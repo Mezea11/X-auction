@@ -4,12 +4,22 @@ export default function (server, db) {
   // endpoint get all products
   server.get("/api/products", async (req, res) => {
     try {
+      const currentTime = new Date();
       const products = await Product.find();
       if (products.length === 0) {
         // If there are no products in the database
         res.status(404).json({ message: "No products found" });
       } else {
-        // If products are found, send them as JSON response
+        // Check each product for ongoing status and auction expiration
+        for (let product of products) {
+          if (product.ongoing && currentTime > new Date(product.end_dateTime)) {
+            // If the auction has ended, update ongoing status to false
+            product.ongoing = false;
+            await product.save();
+          }
+        }
+        // Filter products with ongoing auctions
+//        const ongoingProducts = products.filter(product => product.ongoing);
         res.status(200).json(products);
       }
     } catch (error) {
@@ -17,7 +27,7 @@ export default function (server, db) {
       res.status(500).json({ error: "Internal server error" });
     }
   });
-
+  
   server.get("/api/products/:id", async (req, res) => {
     const productId = req.params.id; // Get the product ID from the request parameters
     try {
@@ -62,6 +72,7 @@ export default function (server, db) {
     }
   });
 
+  // endpoint for patch product by id
   server.patch("/api/products/:id", async (req, res) => {
     const productId = req.params.id; // Get the product ID from the request parameters
     const updatedData = req.body; // Get the updated data from the request body
@@ -87,6 +98,8 @@ export default function (server, db) {
       res.status(500).json({ error: "Internal server error" });
     }
   });
+
+  // endpoint for delete
   server.delete("/api/products/:id", async (req, res) => {
     try {
       const productId = req.params.id;
