@@ -15,3 +15,8 @@ Feature: Visit a specific product by searching for it on the search page
         Given my search had no matching products
         When I look at the user feedback
         Then I should know if I my search term had no matched results
+
+    Scenario: Go to a products page by selecting a result from a search
+        Given I have made a successful search resulting in options of products
+        When I click on a products view more button
+        Then I get routed to that specific product page
