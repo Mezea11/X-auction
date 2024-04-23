@@ -90,18 +90,31 @@ function Home() {
               <ul className="list-group list-group-flush">
                 <li className="list-group-item">
                   Starting price:{" "}
-                  <strong style={{ color: "green" }}>{product.price}:-</strong>
+                  <strong style={{ color: "green" }}>
+                    {product.starting_price} kr
+                  </strong>
                 </li>
                 <li className="list-group-item">
                   Highest bid:{" "}
                   <strong style={{ color: "darkgreen" }}>
-                    {product.bid ? product.bid.bid : "No bids"}
-                    {product.bid ? ":-" : ""}
+                    {product.bids.length > 0
+                      ? product.bids[product.bids.length - 1].bid + " kr"
+                      : "No bids"}
                   </strong>
                 </li>
                 <li className="list-group-item">
                   End date:{" "}
-                  <strong style={{ color: "red" }}>{product.endDate}</strong>
+                  <strong style={{ color: "red" }}>
+                    {new Date(product.end_dateTime).toLocaleString(undefined, {
+                      hour12: false,
+                      hourCycle: "h23",
+                      year: "numeric",
+                      month: "numeric",
+                      day: "numeric",
+                      hour: "numeric",
+                      minute: "numeric",
+                    })}
+                  </strong>
                 </li>
               </ul>
               <div className="card-body" id="home-card-btn">
