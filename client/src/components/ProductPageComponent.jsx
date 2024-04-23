@@ -1,5 +1,5 @@
 import "./ProductPageComponent.css";
-import React, { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import PlaceBidButton from "./PlaceBidButton.jsx";
 import { useParams } from "react-router";
 import { GlobalContext } from "../GlobalContext.jsx";

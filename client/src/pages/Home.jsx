@@ -7,34 +7,32 @@ function Home() {
   // create variables that contain useState to fetch product objects
   const [products, setProducts] = useState([]);
 
-  //const {products} = useContext(GlobalContext);
-
-  // on window load and whenever state changes, fetch json data
-  
   useEffect(() => {
-//    fetchAllProducts();
+    fetchAllProducts();
     const interval = setInterval(fetchAllProducts, 5000);
     // Cleanup interval on component unmount
     return () => clearInterval(interval);
-  }, []); //dependency array, with out it useEffect won't stop running
+  }, []); //Empty dependency array to prevent infinite loop
 
   const fetchAllProducts = async () => {
     try {
       //get data from json-server at db.json
       const response = await fetch("/api/products");
-        if (!response.ok) {
+      if (!response.ok) {
         throw new Error("error");
       }
       const data = await response.json();
-      const ongoingProducts = data.filter(product => product.ongoing);
 
-    // Update the state with filtered products
+      // Filter data from json server: Checks if object: "onngoing" is true or false
+      const ongoingProducts = data.filter((product) => product.ongoing);
+
+      // Update the state with filtered products
       setProducts(ongoingProducts);
-      //setProducts(data);
-    } catch (error) {
-    }      console.error("Error fetching products:", error);
 
-    console.log(products);
+      //Error handling
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
   };
 
   // this is an early return: make sure there are products to render; if not, abort
@@ -42,26 +40,25 @@ function Home() {
     return null;
   }
 
+  // Sends user to productpage with proudctId
   const handleViewProduct = async (productId) => {
-    console.log("handle view product");
-    // Fetch individual product data
     try {
+      // Fetch product by ID
       const response = await fetch(`/api/products/${productId}`);
       if (!response.ok) {
         throw new Error("Error fetching product");
       }
+      // Store response in const and turn into JSON format
       const productData = await response.json();
-      // Now you have the product data, you can navigate to the product page
       console.log("Product data:", productData);
     } catch (error) {
-      console.log("error");
       console.error("Error fetching product:", error);
     }
   };
+
   return (
     <>
       <div id="home-card-container">
-        {/* Render our search bar component */}
         <div className="searchbar-container">
           <button
             type="button"
