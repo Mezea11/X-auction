@@ -5,6 +5,10 @@
 }
 
 #bid-history-card {
-  background-color: green;
   width: 25rem !important;
+  border-radius: 0px !important;
+}
+
+#bid-history-card li:nth-last-child(2) {
+  border-top: 1px solid rgba(0, 0, 0, 0.151);
 }
