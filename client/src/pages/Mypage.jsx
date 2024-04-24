@@ -5,6 +5,7 @@ import MyAuctionObjectsList from "../components/MyAuctionObjectsList.jsx";
 import { GlobalContext } from "../GlobalContext";
 import PatchProductButton from "../components/PatchProductButton.jsx";
 import { Link } from "react-router-dom";
+import EditUserButton from "../components/EditUserInfoButton.jsx";
 
 export default function Mypage() {
   const [products, setProducts] = useState([]);
@@ -30,11 +31,11 @@ export default function Mypage() {
     };
 
     fetchProducts();
-  }, [user]);
+  }, [products]);
 
   useEffect(() => {
     fetchActiveBids();
-  }, []);
+  }, [activeBids]);
 
   const fetchActiveBids = async () => {
     try {
@@ -93,11 +94,16 @@ export default function Mypage() {
             </div>
           </div>
           {/* button-component which in turns triggers the modal for posting a products to show */}
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ marginBottom: "1.5rem" }}>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+            <div style={{ marginBottom: "0.7rem" }}>
               <PostProductButton />
             </div>
-            <PatchProductButton />
+            <div style={{ marginBottom: "0.7rem" }}>
+              <PatchProductButton />
+            </div>
+            <div>
+              <EditUserButton />
+            </div>
           </div>
         </section>
       </div>

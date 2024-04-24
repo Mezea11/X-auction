@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import SignupModal from './SignupModal.jsx';
-//creates button that handles the show/hide of signup modal
-export default function SignupButton() {
+import EditUserModal from './EditUserInfoModal.jsx';
+
+//creates button that handles the show/hide of editUsermodal
+export default function EditUserButton() {
     const [isModalOpen, setIsModalOpen] = useState(false);//Hook to set and hold value for variable used to open/close modal
 
     const openModal = () => {
@@ -18,15 +19,15 @@ export default function SignupButton() {
         <>
             <button
                 type="button"
-                className="btn btn-primary"
+                className="btn btn-secondary"
                 onClick={openModal}//runs openModal function
                 data-toggle="modal"
-                data-target="#signupModal"//targets this specific modal
+                data-target="#editUserModal"//targets this specific modal
             >
-                Sign Up
+                Change user info
             </button>
-            {/* if isModalOpen = true, adds closeModal function to SignupModal-component */}
-            {isModalOpen && <SignupModal closeModal={closeModal} />}
+            {/* if isModalOpen = true, adds closeModal function to editUserModal-component */}
+            {isModalOpen && <EditUserModal closeModal={closeModal} />}
         </>
     );
 }

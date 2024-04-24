@@ -12,8 +12,11 @@ export default function MyAuctionObjectCard({
   highest_bid,
   img_url,
   deleteProduct,
+  bids,
 }) {
   const { user } = useContext(GlobalContext);
+
+  const hideDeleteButton = bids.length > 0;
 
   const convertedDate = new Date(end_dateTime).toLocaleString("en-SE", {
     weekday: "long",
@@ -76,7 +79,7 @@ export default function MyAuctionObjectCard({
         </Link>
         &nbsp;
         {/* shows button if value in sessionStorage is thrue */}
-        {user && (
+        {user && !hideDeleteButton &&(
           <button
             onClick={() => deleteProduct(_id)}
             type="button"

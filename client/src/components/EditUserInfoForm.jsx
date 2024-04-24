@@ -1,62 +1,52 @@
-import { useState } from "react";
-//Creates the form used for sign up new user
-export default function SignupForm({ onSubmit }) {
-  //passes onSubmit as prop
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+import { useState, useContext, useEffect } from "react";
+import { GlobalContext } from "../GlobalContext";
+
+export default function EditUserForm({ onSubmit }) {
+  const { user } = useContext(GlobalContext);
+  const [username, setUsername] = useState(user.username);
+  const [email, setEmail] = useState(""); // Set initial state to user's email
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
+  const [password, setPassword] = useState('');
 
   function handleSubmit(e) {
     e.preventDefault(); //prevent form default behaviour (reload)
     //checking that confirmPassword is the same as password, ensure user typed correct password
-    if (password !== confirmPassword) {
+    if (newPassword !== confirmNewPassword) {
       setPasswordError("Passwords do not match");
       return;
     }
 
-    const id = crypto.randomUUID(); //sets id to randomized string
+    const id = user._id //sets id to randomized string
 
     const formData = {
       id: id,
       username: username,
       email: email,
-      password: password,
+      newPassword: newPassword,
+      currentPassword: password,
     };
 
     console.log(formData);
     //calling onSubmit and specifying the data passed back to the parent component
-    onSubmit(id, username, email, password);
+    onSubmit(formData);
     //resetting all variables on submit
     setUsername("");
     setEmail("");
-    setPassword("");
-    setConfirmPassword("");
+    setNewPassword("");
+    setConfirmNewPassword("");
     setPasswordError("");
+    setPassword("");
   }
-  //i put the form in a container for now, thinking more css/modal is easier to deal with after
-  //implementing sign up button which will have linked functionality
+
   return (
     <>
-      <div className="container" id="signupForm">
+      <div className="container" id="editUserForm">
         <form onSubmit={handleSubmit} className="create-account-form">
           <div className="form-row">
-            <label className="form-label" htmlFor="username">
-              Username
-            </label>
-            <input
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              type="text"
-              className="form-control w-75"
-              id="username"
-              required
-            />
-          </div>
-          <div className="form-row">
             <label className="form-label" htmlFor="email">
-              Email
+              Set new email (optional)
             </label>
             <input
               value={email}
@@ -64,42 +54,53 @@ export default function SignupForm({ onSubmit }) {
               type="email"
               className="form-control w-75"
               id="email"
-              required
             />
           </div>
           <div className="form-row">
-            <label className="form-label" htmlFor="password">
-              Password
+            <label className="form-label" htmlFor="NewPassword">
+              Set new password (optional)
             </label>
             <input
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
               type="password"
               className="form-control w-75"
               id="password"
-              required
             />
           </div>
           <div className="form-row">
-            <label className="form-label" htmlFor="confirmPassword">
-              Confirm Password
+            <label className="form-label" htmlFor="confirmNewPassword">
+              Confirm new password
             </label>
             <input
-              value={confirmPassword}
+              value={confirmNewPassword}
               onChange={(e) => {
-                setConfirmPassword(e.target.value);
+                setConfirmNewPassword(e.target.value);
                 setPasswordError("");
               }}
               type="password"
               className="form-control w-75"
               id="confirmPassword"
-              required
             />
+            <div className="form-row">
+              <label className="form-label" htmlFor="password">
+                Current password (required to change email and/or password)
+              </label>
+              <input
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+                type="password"
+                className="form-control w-75"
+                id="password"
+              />
+            </div>
             {/* shows if passwordError is called */}
             {passwordError && <p className="passwordError">{passwordError}</p>}
           </div>
           <button className="btn btn-primary" style={{ marginTop: "1rem" }}>
-            Create Account
+            Update info
           </button>
         </form>
       </div>

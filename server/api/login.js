@@ -1,4 +1,5 @@
 import User from "../model/User.js";
+import bcrypt from "bcryptjs"; // Import bcrypt for password hashing
 
 export default function (server, db) {
   // endpoint get login
@@ -17,17 +18,26 @@ export default function (server, db) {
       const username = req.body.username;
       const password = req.body.password;
 
-      const user = await User.find(
-        { username: username, password: password },
-        "-password"
-      );
-      console.log("User - ", user);
+      try {
+        // Find user by username
+        const user = await User.findOne({ username });
 
-      if (user.length > 0) {
-        req.session.user = user[0];
-        res.status(200).json(user[0]);
-      } else {
-        res.status(404).json({ message: "Post login failed!" });
+        if (!user) {
+          return res.status(404).json({ message: "User not found." });
+        }
+
+        // Compare hashed password
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+
+        if (!isPasswordValid) {
+          return res.status(404).json({ message: "Invalid password." });
+        }
+
+        req.session.user = user;
+        res.status(200).json(user);
+      } catch (error) {
+        console.error("Error during login:", error);
+        res.status(500).json({ message: "Internal Server Error." });
       }
     } else {
       res.status(409).json({ message: "Someone is already logged in!" });
