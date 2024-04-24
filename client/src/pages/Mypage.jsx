@@ -14,6 +14,14 @@ export default function Mypage() {
   const [activeBids, setActiveBids] = useState([]);
   const [wonAuctions, setWonAuctions] = useState([]);
   const [legacyBids, setLegacyBids] = useState([]);
+  const [showBids, setShowBids] = useState({});
+
+  const toggleBidsDisplay = (productId) => {
+    setShowBids(prevState => ({
+      ...prevState,
+      [productId]: !prevState[productId]
+    }));
+  };
 
   useEffect(() => {
     fetchProducts();
@@ -313,22 +321,35 @@ export default function Mypage() {
 
       <section className="mypage-sections" id="bid-history-section">
         <h1 id="bid-history-title">My bid history</h1>
-        <div>
+        <div style={{ display: "flex", flexDirection: "column" }}>
           {legacyBids.map((legacyBid) => (
-            <p key={legacyBid._id}>
-              <Link to={`/ProductPage/${legacyBid._id}`}>
-                <img src={legacyBid.img_url} alt="Product Image" style={{ width: "50px", height: "50px" }} />
-                {legacyBid.productname}
-              </Link>
-              {legacyBid.bids.length > 0 &&
-                (legacyBid.bids[legacyBid.bids.length - 1].username === user.username ?
-                  <span style={{ color: "green" }}>won</span> :
-                  <span style={{ color: "red" }}>lost</span>)
-              }
-            </p>
+            <div key={legacyBid._id} style={{ marginBottom: "1rem" }}>
+              <p style={{ display: "flex", alignItems: "center" }}>
+                <Link to={`/ProductPage/${legacyBid._id}`}>
+                  <img src={legacyBid.img_url} alt="Product Image" style={{ width: "50px", height: "50px", marginRight: "1rem" }} />
+                  {legacyBid.productname}
+                </Link>
+                <span style={{ marginRight: "1rem", marginLeft: "1rem" }}> {/* Added marginLeft */}
+                  {legacyBid.bids.length > 0 &&
+                    (legacyBid.bids[legacyBid.bids.length - 1].username === user.username ?
+                      <span style={{ color: "green" }}>won</span> :
+                      <span style={{ color: "red" }}>lost</span>)
+                  }
+                </span>
+                <button className="btn btn-primary btn-sm" onClick={() => toggleBidsDisplay(legacyBid._id)}>Show Bids</button>
+              </p>
+              {showBids[legacyBid._id] && (
+                <ul>
+                  {legacyBid.bids.map((bid, index) => (
+                    <li key={index}>{bid.username}: {bid.bid} kr</li>
+                  ))}
+                </ul>
+              )}
+            </div>
           ))}
         </div>
       </section>
+
 
 
     </>
