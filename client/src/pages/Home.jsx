@@ -7,12 +7,12 @@ function Home() {
   // create variables that contain useState to fetch product objects
   const [products, setProducts] = useState([]);
 
-  //const {products} = useContext(GlobalContext);
-
-  // on window load and whenever state changes, fetch json data
   useEffect(() => {
     fetchAllProducts();
-  }, []); //dependency array, with out it useEffect won't stop running
+    const interval = setInterval(fetchAllProducts, 5000);
+    // Cleanup interval on component unmount
+    return () => clearInterval(interval);
+  }, []); //Empty dependency array to prevent infinite loop
 
   const fetchAllProducts = async () => {
     try {
@@ -22,11 +22,17 @@ function Home() {
         throw new Error("error");
       }
       const data = await response.json();
-      setProducts(data);
+
+      // Filter data from json server: Checks if object: "onngoing" is true or false
+      const ongoingProducts = data.filter((product) => product.ongoing);
+
+      // Update the state with filtered products
+      setProducts(ongoingProducts);
+
+      //Error handling
     } catch (error) {
       console.error("Error fetching products:", error);
     }
-    console.log(products);
   };
 
   // this is an early return: make sure there are products to render; if not, abort
@@ -34,26 +40,25 @@ function Home() {
     return null;
   }
 
+  // Sends user to productpage with proudctId
   const handleViewProduct = async (productId) => {
-    console.log("handle view product");
-    // Fetch individual product data
     try {
+      // Fetch product by ID
       const response = await fetch(`/api/products/${productId}`);
       if (!response.ok) {
         throw new Error("Error fetching product");
       }
+      // Store response in const and turn into JSON format
       const productData = await response.json();
-      // Now you have the product data, you can navigate to the product page
       console.log("Product data:", productData);
     } catch (error) {
-      console.log("error");
       console.error("Error fetching product:", error);
     }
   };
+
   return (
     <>
       <div id="home-card-container">
-        {/* Render our search bar component */}
         <div className="searchbar-container">
           <button
             type="button"
@@ -90,18 +95,31 @@ function Home() {
               <ul className="list-group list-group-flush">
                 <li className="list-group-item">
                   Starting price:{" "}
-                  <strong style={{ color: "green" }}>{product.price}:-</strong>
+                  <strong style={{ color: "green" }}>
+                    {product.starting_price} kr
+                  </strong>
                 </li>
                 <li className="list-group-item">
                   Highest bid:{" "}
                   <strong style={{ color: "darkgreen" }}>
-                    {product.bid ? product.bid.bid : "No bids"}
-                    {product.bid ? ":-" : ""}
+                    {product.bids.length > 0
+                      ? product.bids[product.bids.length - 1].bid + " kr"
+                      : "No bids"}
                   </strong>
                 </li>
                 <li className="list-group-item">
                   End date:{" "}
-                  <strong style={{ color: "red" }}>{product.endDate}</strong>
+                  <strong style={{ color: "red" }}>
+                    {new Date(product.end_dateTime).toLocaleString(undefined, {
+                      hour12: false,
+                      hourCycle: "h23",
+                      year: "numeric",
+                      month: "numeric",
+                      day: "numeric",
+                      hour: "numeric",
+                      minute: "numeric",
+                    })}
+                  </strong>
                 </li>
               </ul>
               <div className="card-body" id="home-card-btn">
