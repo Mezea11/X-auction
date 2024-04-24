@@ -31,6 +31,10 @@ export default function Mypage() {
     };
 
     fetchProducts();
+    const interval = setInterval(fetchProducts, 5000);
+    // Cleanup interval on component unmount
+    return () => clearInterval(interval);
+
   }, [products]);
 
   useEffect(() => {

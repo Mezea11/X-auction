@@ -105,6 +105,7 @@ export default function (server, db) {
         img_url: req.body.img_url,
         seller: req.body.seller,
         ongoing: req.body.ongoing,
+        won: req.body.won,
         bids: req.body.bids,
       });
 
