@@ -12,7 +12,7 @@ function Home() {
   // on window load and whenever state changes, fetch json data
   
   useEffect(() => {
-//    fetchAllProducts();
+    fetchAllProducts();
     const interval = setInterval(fetchAllProducts, 5000);
     // Cleanup interval on component unmount
     return () => clearInterval(interval);
@@ -32,9 +32,9 @@ function Home() {
       setProducts(ongoingProducts);
       //setProducts(data);
     } catch (error) {
-    }      console.error("Error fetching products:", error);
-
-    console.log(products);
+      console.error("Error fetching products:", error);
+    }
+    //console.log(products);
   };
 
   // this is an early return: make sure there are products to render; if not, abort
