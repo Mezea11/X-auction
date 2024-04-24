@@ -79,6 +79,23 @@ export default function Mypage() {
     }
   };
 
+  const formatDate = (endDateTime) => {
+    // Parse the endDateTime string into a Date object
+    const endDate = new Date(endDateTime);
+
+    // Format the date as desired
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+      locale: 'en-SE'
+    };
+
+    return endDate.toLocaleDateString('en-SE', options);
+  };
+
   return (
     <>
       <div id="mypage-container">
@@ -160,7 +177,7 @@ export default function Mypage() {
                 <li className="list-group-item">
                   Time left:{" "}
                   <strong style={{ color: "red" }}>
-                    {activeBid.end_dateTime}
+                    {formatDate(activeBid.end_dateTime)}
                   </strong>
                 </li>
               </ul>
@@ -229,7 +246,7 @@ export default function Mypage() {
                 <li className="list-group-item">
                   Time left:{" "}
                   <strong style={{ color: "red" }}>
-                    {activeBid.end_dateTime}
+                  {formatDate(activeBid.end_dateTime)}
                   </strong>
                 </li>
               </ul>
