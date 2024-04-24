@@ -13,36 +13,39 @@ export default function Mypage() {
   const [signedInUser, setSignedInUser] = useState(null);
   const [activeBids, setActiveBids] = useState([]);
   const [wonAuctions, setWonAuctions] = useState([]);
+  const [legacyBids, setLegacyBids] = useState([]);
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        if (user && user.username) {
-          const response = await fetch(`/api/productsbyseller?seller=${user.username}`);
-          if (!response.ok) {
-            throw new Error("Failed to fetch products");
-          }
-          const data = await response.json();
-          setProducts(data);
-          setSignedInUser(user);
-        }
-        console.log('fetchProducts')
-      } catch (error) {
-        console.error("Error fetching products:", error);
-      }
-    };
-
     fetchProducts();
     fetchWonAuctions();
-    fetchActiveBids();
+    fetchBids();
     const interval = setInterval(fetchProducts, 5000);
-    console.log(interval)
+    const interval2 = setInterval(fetchWonAuctions, 5000);
+    const interval3 = setInterval(fetchBids, 5000);
 
     // Cleanup interval on component unmount
-    return () => clearInterval(interval);
-  }, [user]);
+    return () => clearInterval(interval, interval2, interval3);
+  }, []);
 
-  const fetchActiveBids = async () => {
+
+  const fetchProducts = async () => {
+    try {
+      if (user && user.username) {
+        const response = await fetch(`/api/productsbyseller?seller=${user.username}`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch products");
+        }
+        const data = await response.json();
+        setProducts(data);
+        setSignedInUser(user);
+      }
+      console.log('fetchProducts')
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
+
+  const fetchBids = async () => {
     try {
       if (user && user.username) {
         console.log(user.username);
@@ -53,8 +56,11 @@ export default function Mypage() {
           throw new Error("Failed to fetch products");
         }
         const data = await response.json();
-        setActiveBids(data);
-        console.log("here");
+        const activeBids = data.filter(product => product.ongoing);
+        setActiveBids(activeBids)
+        const legacyBids = data.filter(product => !product.ongoing);
+        setLegacyBids(legacyBids);
+        console.log("fetchBids");
       }
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -64,17 +70,16 @@ export default function Mypage() {
   const fetchWonAuctions = async () => {
     try {
       //get data from mongodb database
-      const response = await fetch(`/api/products?username=${user.username}`);
+      const response = await fetch(`/api/products`);
       if (!response.ok) {
         throw new Error("error");
       }
       const data = await response.json();
-
       // Filter data from json server: Checks if won = true and user has the highest bid
-      const wonAuctions = data.filter(product => product.won && product.bids.length > 0 && product.bids[0].username === user.username);
+      const wonAuctions = data.filter(product => product.won && product.bids.length > 0 && product.bids[product.bids.length - 1].username === user.username);
       // Update the state with filtered products
       setWonAuctions(wonAuctions);
-
+      console.log('fetchWonAuctions');
       //Error handling
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -196,8 +201,15 @@ export default function Mypage() {
                 <li className="list-group-item">
                   Highest bid:{" "}
                   <strong style={{ color: "green" }}>
-                    {activeBid.highest_bid}:-
+                    {activeBid.bids.length > 0 ?
+                      (activeBid.bids[activeBid.bids.length - 1].bid + " kr") :
+                      "No bids"}
                   </strong>
+                  {activeBid.bids.length > 0 &&
+                    (activeBid.bids[activeBid.bids.length - 1].username === user.username ?
+                      <p style={{ color: "blue" }}>You have the highest bid!</p> :
+                      <p style={{ color: "red" }}>You do not have the highest bid</p>)
+                  }
                 </li>
                 <li className="list-group-item">
                   Time left:{" "}
@@ -263,15 +275,17 @@ export default function Mypage() {
                   </p>
                 </li>
                 <li className="list-group-item">
-                  Highest bid:{" "}
+                  Winning bid:{" "}
                   <strong style={{ color: "green" }}>
-                    {wonAuction.highest_bid}:-
+                    {wonAuction.bids.length > 0
+                      ? wonAuction.bids[wonAuction.bids.length - 1].bid + " kr"
+                      : "No bids"}
                   </strong>
                 </li>
                 <li className="list-group-item">
-                  Time left:{" "}
+                  End time:{" "}
                   <strong style={{ color: "red" }}>
-                  {formatDate(wonAuction.end_dateTime)}
+                    {formatDate(wonAuction.end_dateTime)}
                   </strong>
                 </li>
               </ul>
@@ -300,11 +314,23 @@ export default function Mypage() {
       <section className="mypage-sections" id="bid-history-section">
         <h1 id="bid-history-title">My bid history</h1>
         <div>
-          <p>
-            “Product”, Price: 255 kr, Date: 2024-03-19 13:15, Final price: 500 k
-          </p>
+          {legacyBids.map((legacyBid) => (
+            <p key={legacyBid._id}>
+              <Link to={`/ProductPage/${legacyBid._id}`}>
+                <img src={legacyBid.img_url} alt="Product Image" style={{ width: "50px", height: "50px" }} />
+                {legacyBid.productname}
+              </Link>
+              {legacyBid.bids.length > 0 &&
+                (legacyBid.bids[legacyBid.bids.length - 1].username === user.username ?
+                  <span style={{ color: "green" }}>won</span> :
+                  <span style={{ color: "red" }}>lost</span>)
+              }
+            </p>
+          ))}
         </div>
       </section>
+
+
     </>
   );
 }
