@@ -1,0 +1,85 @@
+#homepage-products-container {
+  background-color: red;
+}
+
+#homepage-slogan-container {
+  width: 65%;
+  border-radius: 10px;
+
+  h1 {
+    padding-top: 2rem;
+    display: flex;
+    justify-content: left;
+    font-size: 3.75rem;
+    line-height: 4.5rem;
+    color: white;
+    margin-left: 10%;
+    text-shadow: 0 2px 1px #020202, -1px 3px 1px #000000, -2px 5px 1px #000000;
+  }
+
+  p {
+    display: flex;
+    justify-content: left;
+    font-size: 20px;
+    color: white;
+    margin-left: 12%;
+    text-shadow: 0 1px 1px rgba(2, 2, 2, 0.7), -1px 2px 1px rgba(0, 0, 0, 0.5),
+      -2px 3px 1px rgba(0, 0, 0, 0.3);
+  }
+}
+
+#homepage-jumbo {
+  background-image: url("../assets/x-auction-header.jpg"); /* Replace 'your-image-url.jpg' with the URL of your background image */
+  background-size: cover; /* Ensure the background image covers the entire jumbotron */
+  background-position: center; /* Center the background image */
+  height: 10rem;
+  width: 100%;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.4) -5px 5px, rgba(0, 0, 0, 0.3) -10px 10px;
+}
+
+.card {
+  width: 16rem;
+  margin: 1% 1%;
+  position: relative;
+  display: inline-block;
+  vertical-align: top;
+  overflow: hidden;
+  transition: all 0.2s ease;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* The flip card animation appears on hover */
+@media screen and (min-width: 992px) {
+  .card:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  }
+}
+
+#card-body {
+  height: 5%;
+  h5 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+#card-prices {
+  height: 20%;
+}
+
+#home-card-btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 0;
+}

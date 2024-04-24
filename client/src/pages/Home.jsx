@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import "./Home.css";
 
 function Home() {
   const navigate = useNavigate();
@@ -68,31 +69,32 @@ function Home() {
             Search for products
           </button>
         </div>
-
+        <section id="homepage-slogan-container">
+          <div className="jumbotron text-center" id="homepage-jumbo">
+            <h1>X-Auction</h1>
+            <p>Your trusted auction for all things extreme.</p>
+          </div>
+        </section>
         <section id="homepage-products-container">
           {/* goes through products array and renders each object (product) on page */}
           {products.map((product) => (
             // key links the element to the specific object
-            <div
-              className="card"
-              style={{
-                overflow: "hidden",
-              }}
-              key={product._id}
-            >
+            <div className="card" key={product._id}>
               <img
                 src={product.img_url}
                 style={{
                   width: "100%",
-                  height: "15rem",
+                  height: "25%",
                   objectFit: "cover",
                 }}
               />
-              <div className="card-body">
+              <div className="card-body" id="card-body">
                 <h5 className="card-title">{product.productname}</h5>
-                <p className="card-text">{product.description}</p>
+                <p className="card-text" id="card-description">
+                  {product.description}
+                </p>
               </div>
-              <ul className="list-group list-group-flush">
+              <ul className="list-group list-group-flush" id="card-prices">
                 <li className="list-group-item">
                   Starting price:{" "}
                   <strong style={{ color: "green" }}>
@@ -107,7 +109,7 @@ function Home() {
                       : "No bids"}
                   </strong>
                 </li>
-                <li className="list-group-item">
+                <li className="list-group-item" id="end-date-li">
                   End date:{" "}
                   <strong style={{ color: "red" }}>
                     {new Date(product.end_dateTime).toLocaleString(undefined, {
@@ -122,12 +124,13 @@ function Home() {
                   </strong>
                 </li>
               </ul>
-              <div className="card-body" id="home-card-btn">
+              <div className="card-body" id="home-card-btn-container">
                 <Link to={`productpage/${product._id}`}>
                   <button
                     type="button"
                     className="btn btn-primary"
                     onClick={() => handleViewProduct(product._id)}
+                    id="home-card-btn"
                   >
                     View Product
                   </button>
