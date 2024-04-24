@@ -1,5 +1,5 @@
 import SignupForm from "./SignupForm.jsx";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import bcrypt from "bcryptjs"; // Import library encryption algorithm
 
 //Creates the modal for the signup functionality
@@ -37,6 +37,24 @@ export default function SignupModal({ closeModal }) {
       console.error("Error posting new user:", error);
     }
   };
+
+    //close modal when clicking outside modal
+    const handleOutsideClick = (event) => {
+      if (event.target.id === "signupModal") {
+        // Close the modal only if the click occurs outside the modal content
+        closeModal();
+      }
+    };
+    //runs after main function renders for the first time
+    useEffect(() => {
+      document.addEventListener("click", handleOutsideClick);
+      //adds event listener on click for entire document that runs handleOutsideClick
+  
+      return () => {
+        document.removeEventListener("click", handleOutsideClick);
+        //removes eventlistener when modal is closed and its not needed anymore
+      };
+    }, [closeModal]);
 
   return (
     <>

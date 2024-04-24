@@ -1,5 +1,5 @@
 import EditUserForm from "./EditUserInfoForm.jsx";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import bcrypt from "bcryptjs"; // Import library encryption algorithm
 import { GlobalContext } from "../GlobalContext";
 
@@ -41,6 +41,24 @@ export default function EditUserModal({ closeModal }) {
       console.error("Error updating user:", error);
     }
   };
+
+  //close modal when clicking outside modal
+  const handleOutsideClick = (event) => {
+    if (event.target.id === "editUserModal") {
+      // Close the modal only if the click occurs outside the modal content
+      closeModal();
+    }
+  };
+  //runs after main function renders for the first time
+  useEffect(() => {
+    document.addEventListener("click", handleOutsideClick);
+    //adds event listener on click for entire document that runs handleOutsideClick
+
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+      //removes eventlistener when modal is closed and its not needed anymore
+    };
+  }, [closeModal]);
 
   return (
     <>
