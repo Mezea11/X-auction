@@ -42,46 +42,58 @@ export default function Mypage() {
       }
     };
 
-  const fetchBids = async () => {
-    try {
-      if (user && user.username) {
-        console.log(user.username);
-        const response = await fetch(
-          `/api/productsbybids?username=${user.username}`
-        );
+    fetchProducts();
+
+    const fetchBids = async () => {
+      try {
+        if (user && user.username) {
+          console.log(user.username);
+          const response = await fetch(
+            `/api/productsbybids?username=${user.username}`
+          );
+          if (!response.ok) {
+            throw new Error("Failed to fetch products");
+          }
+          const data = await response.json();
+          const activeBids = data.filter((product) => product.ongoing);
+          setActiveBids(activeBids);
+          const legacyBids = data.filter((product) => !product.ongoing);
+          setLegacyBids(legacyBids);
+          console.log("fetchBids");
+        }
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchBids();
+
+    const fetchWonAuctions = async () => {
+      try {
+        //get data from mongodb database
+        const response = await fetch(`/api/products`);
         if (!response.ok) {
-          throw new Error("Failed to fetch products");
+          throw new Error("error");
         }
         const data = await response.json();
-        const activeBids = data.filter(product => product.ongoing);
-        setActiveBids(activeBids)
-        const legacyBids = data.filter(product => !product.ongoing);
-        setLegacyBids(legacyBids);
-        console.log("fetchBids");
+        // Filter data from json server: Checks if won = true and user has the highest bid
+        const wonAuctions = data.filter(
+          (product) =>
+            product.won &&
+            product.bids.length > 0 &&
+            product.bids[product.bids.length - 1].username === user.username
+        );
+        // Update the state with filtered products
+        setWonAuctions(wonAuctions);
+        console.log("fetchWonAuctions");
+        //Error handling
+      } catch (error) {
+        console.error("Error fetching products:", error);
       }
-    } catch (error) {
-      console.error("Error fetching products:", error);
-    }
-  };
+    };
 
-  const fetchWonAuctions = async () => {
-    try {
-      //get data from mongodb database
-      const response = await fetch(`/api/products`);
-      if (!response.ok) {
-        throw new Error("error");
-      }
-      const data = await response.json();
-      // Filter data from json server: Checks if won = true and user has the highest bid
-      const wonAuctions = data.filter(product => product.won && product.bids.length > 0 && product.bids[product.bids.length - 1].username === user.username);
-      // Update the state with filtered products
-      setWonAuctions(wonAuctions);
-      console.log('fetchWonAuctions');
-      //Error handling
-    } catch (error) {
-      console.error("Error fetching products:", error);
-    }
-  };
+    fetchWonAuctions();
+  }, [user]); // Dependency array with 'user' as dependency for useEffect
 
   //deletes one product by id
   const deleteProduct = async (_id) => {
