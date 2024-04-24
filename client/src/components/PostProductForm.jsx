@@ -65,6 +65,7 @@ export default function PostProductForm({ onSubmit }) {
           img_url: imgUrl,
           seller: user.username,
           ongoing: true,
+          won: false,
         }),
       });
       console.log("step 1: entering function");

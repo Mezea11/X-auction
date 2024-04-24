@@ -24,7 +24,9 @@ export default function (server, db) {
       );
 
       if (!isPasswordValid) {
-        return res.status(401).json({ message: "Current password is incorrect." });
+        return res
+          .status(401)
+          .json({ message: "Current password is incorrect." });
       }
 
       // Update email and/or password if provided
@@ -32,7 +34,9 @@ export default function (server, db) {
         user.email = newEmail;
       }
       if (newPassword) {
-        { user.password = newPassword; }
+        {
+          user.password = newPassword;
+        }
       }
 
       // Save the updated user

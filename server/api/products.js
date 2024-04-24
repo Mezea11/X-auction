@@ -17,6 +17,10 @@ export default function (server, db) {
             // If the auction has ended, update ongoing status to false
             product.ongoing = false;
             await product.save();
+          } else if (!product.ongoing && product.bids.length > 0) {
+            // If the product is not ongoing and has bids, set won to true
+            product.won = true;
+            await product.save();
           }
         }
         res.status(200).json(products);
@@ -105,6 +109,7 @@ export default function (server, db) {
         img_url: req.body.img_url,
         seller: req.body.seller,
         ongoing: req.body.ongoing,
+        won: req.body.won,
         bids: req.body.bids,
       });
 

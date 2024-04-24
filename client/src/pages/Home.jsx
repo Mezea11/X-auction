@@ -28,7 +28,7 @@ function Home() {
 
       // Update the state with filtered products
       setProducts(ongoingProducts);
-
+      console.log('new fetch');
       //Error handling
     } catch (error) {
       console.error("Error fetching products:", error);
