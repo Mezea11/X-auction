@@ -12,6 +12,7 @@ export default function Mypage() {
   const { user } = useContext(GlobalContext);
   const [signedInUser, setSignedInUser] = useState(null);
   const [activeBids, setActiveBids] = useState([]);
+  const [wonAuctions, setWonAuctions] = useState([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -25,21 +26,21 @@ export default function Mypage() {
           setProducts(data);
           setSignedInUser(user);
         }
+        console.log('fetchProducts')
       } catch (error) {
         console.error("Error fetching products:", error);
       }
     };
 
     fetchProducts();
+    fetchWonAuctions();
+    fetchActiveBids();
     const interval = setInterval(fetchProducts, 5000);
+    console.log(interval)
+
     // Cleanup interval on component unmount
     return () => clearInterval(interval);
-
-  }, [products]);
-
-  useEffect(() => {
-    fetchActiveBids();
-  }, [activeBids]);
+  }, [user]);
 
   const fetchActiveBids = async () => {
     try {
@@ -55,6 +56,26 @@ export default function Mypage() {
         setActiveBids(data);
         console.log("here");
       }
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
+
+  const fetchWonAuctions = async () => {
+    try {
+      //get data from mongodb database
+      const response = await fetch(`/api/products?username=${user.username}`);
+      if (!response.ok) {
+        throw new Error("error");
+      }
+      const data = await response.json();
+
+      // Filter data from json server: Checks if won = true and user has the highest bid
+      const wonAuctions = data.filter(product => product.won && product.bids.length > 0 && product.bids[0].username === user.username);
+      // Update the state with filtered products
+      setWonAuctions(wonAuctions);
+
+      //Error handling
     } catch (error) {
       console.error("Error fetching products:", error);
     }
@@ -210,10 +231,10 @@ export default function Mypage() {
       <section className="mypage-sections">
         <h1 className="section-titles-mypage">My won auctions</h1>
         <div className="ads-card-container-mypage" style={{ display: "flex" }}>
-          {activeBids.map((activeBid) => (
+          {wonAuctions.map((wonAuction) => (
             // key links the element to the specific object
             <div
-              key={activeBid._id}
+              key={wonAuction._id}
               className="card"
               style={{
                 height: "38rem",
@@ -224,33 +245,33 @@ export default function Mypage() {
               }}
             >
               <img
-                src={activeBid.img_url}
+                src={wonAuction.img_url}
                 style={{ width: "100%", height: "15rem", objectFit: "cover" }}
                 alt="Product Image"
               />
               <div className="card-body">
-                <h5 className="card-title">{activeBid.productname}</h5>
-                <p className="card-text">{activeBid.description}</p>
+                <h5 className="card-title">{wonAuction.productname}</h5>
+                <p className="card-text">{wonAuction.description}</p>
               </div>
               <ul className="list-group list-group-flush">
                 <li className="list-group-item">
                   <p>
                     Asking price:{" "}
                     <strong style={{ color: "green" }}>
-                      {activeBid.starting_price}:-
+                      {wonAuction.starting_price}:-
                     </strong>
                   </p>
                 </li>
                 <li className="list-group-item">
                   Highest bid:{" "}
                   <strong style={{ color: "green" }}>
-                    {activeBid.highest_bid}:-
+                    {wonAuction.highest_bid}:-
                   </strong>
                 </li>
                 <li className="list-group-item">
                   Time left:{" "}
                   <strong style={{ color: "red" }}>
-                  {formatDate(activeBid.end_dateTime)}
+                  {formatDate(wonAuction.end_dateTime)}
                   </strong>
                 </li>
               </ul>
@@ -260,7 +281,7 @@ export default function Mypage() {
                 style={{ maxHeight: "5rem" }}
               >
                 {/* link to productpage with the uniqe id of specific product */}
-                <Link to={`/ProductPage/${activeBid._id}`}>
+                <Link to={`/ProductPage/${wonAuction._id}`}>
                   <button
                     type="button"
                     className="btn btn-primary"
