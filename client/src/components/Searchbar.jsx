@@ -13,31 +13,43 @@ export default function SearchbarComponent() {
         useState(undefined);
     const [showResults, setShowResults] = useState(false);
 
+    // useEffect to fetch products with an interval
     useEffect(() => {
-        const fetchProducts = async () => {
-            try {
-                const response = await fetch('/api/products');
-                if (!response.ok) {
-                    throw new Error('Error fetching product details');
-                }
-                const data = await response.json();
-                setProducts(data);
-            } catch (error) {
-                console.error('Error fetching products:', error);
-            }
-        };
-
         fetchProducts();
-    }, []);
+        const interval = setInterval(fetchProducts, 5000);
+        // Cleanup interval on component unmount
+        return () => clearInterval(interval);
+    }, [products]); //Empty dependency array to prevent infinite loop
 
-    /* takes in searchterm (user input in search bar) and sets it to lowercase */
+    // fetch ongoing products from database
+    const fetchProducts = async () => {
+        try {
+            const response = await fetch('/api/products');
+            if (!response.ok) {
+                throw new Error('Error fetching product details');
+            }
+            const data = await response.json();
+
+            // Filter data from json server: Checks if object: "onngoing" is true or false
+            const ongoingProducts = data.filter((product) => product.ongoing);
+
+            // Update the state with only products that are ongoing
+            setProducts(ongoingProducts);
+        } catch (error) {
+            console.error('Error fetching products:', error);
+        }
+    };
+
+    /* takes in search term (user input in search bar) and sets it to lowercase */
     const handleSearchInputChange = (event) => {
         setSearchTerm(event.target.value.toLowerCase());
     };
 
+    // the function which handle the filtering and rendering og the products
     const handleSubmit = (event) => {
         event.preventDefault();
 
+        console.log('i submitted');
         setShowResults(true);
 
         const filteredItems = products.filter(
@@ -95,6 +107,7 @@ export default function SearchbarComponent() {
         return <div>Loading...</div>;
     }
 
+    // function so we can go to product page
     const handleViewProduct = async (productId) => {
         console.log('handle view product');
         // Fetch individual product data
@@ -113,7 +126,7 @@ export default function SearchbarComponent() {
         }
     };
 
-    const handleChecked = (e) => {
+    /*  const handleChecked = (e) => {
         // Destructuring
         const { name, checked } = e.target;
         if (checked) {
@@ -121,7 +134,7 @@ export default function SearchbarComponent() {
         } else if (!checked) {
             console.log(`${name} is ${checked}`);
         }
-    };
+    }; */
     return (
         <div id="searchbar-container">
             <form onSubmit={handleSubmit} className="d-flex" role="search">
@@ -214,22 +227,33 @@ export default function SearchbarComponent() {
                                     <li className="list-group-item">
                                         Starting price:{' '}
                                         <strong style={{ color: 'green' }}>
-                                            {product.price}:-
+                                            {product.starting_price} kr
                                         </strong>
                                     </li>
                                     <li className="list-group-item">
                                         Highest bid:{' '}
                                         <strong style={{ color: 'darkgreen' }}>
-                                            {product.bid
-                                                ? product.bid.bid
+                                            {product.bids.length > 0
+                                                ? product.bids[
+                                                      product.bids.length - 1
+                                                  ].bid + ' kr'
                                                 : 'No bids'}
-                                            {product.bid ? ':-' : ''}
                                         </strong>
                                     </li>
                                     <li className="list-group-item">
                                         End date:{' '}
                                         <strong style={{ color: 'red' }}>
-                                            {product.endDate}
+                                            {new Date(
+                                                product.end_dateTime
+                                            ).toLocaleString(undefined, {
+                                                hour12: false,
+                                                hourCycle: 'h23',
+                                                year: 'numeric',
+                                                month: 'numeric',
+                                                day: 'numeric',
+                                                hour: 'numeric',
+                                                minute: 'numeric',
+                                            })}
                                         </strong>
                                     </li>
                                 </ul>
