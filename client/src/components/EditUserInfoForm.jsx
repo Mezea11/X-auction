@@ -97,7 +97,7 @@ export default function EditUserForm({ onSubmit }) {
               />
             </div>
             {/* shows if passwordError is called */}
-            {passwordError && <p className="passwordError">{passwordError}</p>}
+            {passwordError && <p style={{ color: "red" }}>{passwordError}</p>}
           </div>
           <button className="btn btn-primary" style={{ marginTop: "1rem" }}>
             Update info

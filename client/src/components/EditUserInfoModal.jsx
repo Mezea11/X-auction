@@ -9,9 +9,24 @@ export default function EditUserModal({ closeModal }) {
   const { user } = useContext(GlobalContext);
   const [isSuccess, setIsSuccess] = useState(false);
   const [notSuccess, setNotSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   //adds new ueser obejct to array of users in db.json
   const updateUser = async (formData) => {
     try {
+      // If both email and new password are empty, display error message
+      if (!formData.email && !formData.newPassword) {
+        setErrorMessage("Nothing to change");
+        setIsSuccess(false);
+        return;
+      }
+
+      if (formData.email) {
+        formData.email = formData.email.toLowerCase();
+      } else {
+        // Remove newPassword field if it's empty
+        delete formData.email;
+      }
+
       // If newPassword field is not empty, hash it
       if (formData.newPassword) {
         formData.newPassword = await bcrypt.hash(formData.newPassword, 10);
@@ -20,7 +35,7 @@ export default function EditUserModal({ closeModal }) {
         delete formData.newPassword;
       }
 
-      console.log(formData)
+      console.log(formData);
       const response = await fetch("/api/edituser", {
         method: "PATCH",
         headers: {
@@ -32,10 +47,16 @@ export default function EditUserModal({ closeModal }) {
       if (!response.ok) {
         setNotSuccess(true);
         setIsSuccess(false);
+        if (response.status === 403) {
+          setErrorMessage("Incorrect password");
+        } else {
+          setErrorMessage("Failed to update user information");
+        }
         throw new Error("Failed to update user information.");
       } else if (response.ok) {
         setIsSuccess(true);
         setNotSuccess(false);
+        setErrorMessage(""); // Reset error message if request is successful
       }
     } catch (error) {
       console.error("Error updating user:", error);
@@ -54,7 +75,9 @@ export default function EditUserModal({ closeModal }) {
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title">Change user info for: {user.username}</h5>
+              <h5 className="modal-title">
+                Change user info for: {user.username}
+              </h5>
               <button
                 type="button"
                 className="close btn btn-primary"
@@ -69,7 +92,7 @@ export default function EditUserModal({ closeModal }) {
               {/* adds edit user form component with function edit user to the body of the modal */}
               <EditUserForm onSubmit={updateUser} />
               {/* element shows if isSuccess = true */}
-              {notSuccess && (
+              {/* {notSuccess && (
                 <p
                   style={{
                     color: "red",
@@ -78,7 +101,7 @@ export default function EditUserModal({ closeModal }) {
                 >
                   Failed to update user information.
                 </p>
-              )}
+              )} */}
               {isSuccess && (
                 <p
                   style={{
@@ -87,6 +110,16 @@ export default function EditUserModal({ closeModal }) {
                   }}
                 >
                   Update successful!
+                </p>
+              )}
+              {errorMessage && (
+                <p
+                  style={{
+                    color: "red",
+                    marginTop: "1rem",
+                  }}
+                >
+                  {errorMessage}
                 </p>
               )}
             </div>

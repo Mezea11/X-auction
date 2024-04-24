@@ -5,7 +5,7 @@ import MyAuctionObjectsList from "../components/MyAuctionObjectsList.jsx";
 import { GlobalContext } from "../GlobalContext";
 import PatchProductButton from "../components/PatchProductButton.jsx";
 import { Link } from "react-router-dom";
-import SignupButton from "../components/EditUserInfoButton.jsx";
+import EditUserButton from "../components/EditUserInfoButton.jsx";
 
 export default function Mypage() {
   const [products, setProducts] = useState([]);
@@ -33,30 +33,29 @@ export default function Mypage() {
     };
 
     fetchProducts();
-  }, [products]);
+  }, []);
 
   useEffect(() => {
-    fetchActiveBids();
-  }, [activeBids]);
-
-  const fetchActiveBids = async () => {
-    try {
-      if (user && user.username) {
-        console.log(user.username);
-        const response = await fetch(
-          `/api/productsbybids?username=${user.username}`
-        );
-        if (!response.ok) {
-          throw new Error("Failed to fetch products");
+    const fetchActiveBids = async () => {
+      try {
+        if (user && user.username) {
+          console.log(user.username);
+          const response = await fetch(
+            `/api/productsbybids?username=${user.username}`
+          );
+          if (!response.ok) {
+            throw new Error("Failed to fetch products");
+          }
+          const data = await response.json();
+          setActiveBids(data);
+          console.log("here");
         }
-        const data = await response.json();
-        setActiveBids(data);
-        console.log("here");
+      } catch (error) {
+        console.error("Error fetching products:", error);
       }
-    } catch (error) {
-      console.error("Error fetching products:", error);
-    }
-  };
+    };
+    fetchActiveBids();
+  }, []);
 
   //deletes one product by id
   const deleteProduct = async (_id) => {
@@ -102,7 +101,7 @@ export default function Mypage() {
               <PatchProductButton />
             </div>
             <div>
-              <SignupButton />
+              <EditUserButton />
             </div>
           </div>
         </section>
