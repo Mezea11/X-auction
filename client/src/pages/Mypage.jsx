@@ -89,9 +89,7 @@ export default function Mypage() {
             <div className="card-header">Welcome to My Page</div>
             <div className="card-body text-secondary">
               <p className="card-text">
-                {signedInUser
-                  ? `You are signed in as: ${user.username}`
-                  : "Loading..."}
+                {`You are signed in as: ${user.username}`}
               </p>
             </div>
           </div>
