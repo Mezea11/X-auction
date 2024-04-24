@@ -1,31 +1,41 @@
 import SignupForm from "./SignupForm.jsx";
 import { useState } from "react";
+import bcrypt from "bcryptjs"; // Import library encryption algorithm
+
 //Creates the modal for the signup functionality
 export default function SignupModal({ closeModal }) {
   //closeModal function passed as a prop
   const [isSuccess, setIsSuccess] = useState(false);
+  const [notSuccess, setNotSuccess] = useState(false);
   //adds new ueser obejct to array of users in db.json
   const postNewUser = async (id, username, email, password) => {
     try {
-      const response = await fetch("http://localhost:3000/users", {
+      // Hash the password
+      const hashedPassword = await bcrypt.hash(password, 10);
+
+      const response = await fetch("/api/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          id,
-          username,
-          email,
-          password,
+          username: username.toLowerCase(),
+          email: email.toLowerCase(),
+          password: hashedPassword, //sending hashed password
         }),
       });
+
       if (!response.ok) {
-        throw new Error("Failed to add new user");
+        setNotSuccess(true);
+        setIsSuccess(false);
+        throw new Error("Username already taken");
+      } else if (response.ok) {
+        setIsSuccess(true); //changes value for isSuccess variable to show <p> element
+        setNotSuccess(false);
       }
     } catch (error) {
       console.error("Error posting new user:", error);
     }
-    setIsSuccess(true); //changes value for isSuccess variable to show <p> element
   };
 
   return (
@@ -55,6 +65,16 @@ export default function SignupModal({ closeModal }) {
               {/* adds signup form component with function postNewUser to the body of the modal */}
               <SignupForm onSubmit={postNewUser} />
               {/* element shows if isSuccess = true */}
+              {notSuccess && (
+                <p
+                  style={{
+                    color: "red",
+                    marginTop: "1rem",
+                  }}
+                >
+                  Username or Email already in use!
+                </p>
+              )}
               {isSuccess && (
                 <p
                   style={{
