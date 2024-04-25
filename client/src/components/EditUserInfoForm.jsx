@@ -28,7 +28,6 @@ export default function EditUserForm({ onSubmit }) {
       currentPassword: password,
     };
 
-    console.log(formData);
     //calling onSubmit and specifying the data passed back to the parent component
     onSubmit(formData);
     //resetting all variables on submit

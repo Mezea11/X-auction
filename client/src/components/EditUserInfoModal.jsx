@@ -35,7 +35,6 @@ export default function EditUserModal({ closeModal }) {
         delete formData.newPassword;
       }
 
-      console.log(formData);
       const response = await fetch("/api/edituser", {
         method: "PATCH",
         headers: {
