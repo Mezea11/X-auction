@@ -48,9 +48,9 @@ export default function EditUserModal({ closeModal }) {
         setNotSuccess(true);
         setIsSuccess(false);
         if (response.status === 403) {
-          setErrorMessage("Incorrect password");
+          setErrorMessage("Incorrect password.");
         } else {
-          setErrorMessage("Failed to update user information");
+          setErrorMessage("Failed to update user information.");
         }
         throw new Error("Failed to update user information.");
       } else if (response.ok) {

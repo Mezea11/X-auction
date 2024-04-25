@@ -29,6 +29,10 @@ export default function (server, db) {
 
       // Update email and/or password if provided
       if (newEmail) {
+        const existingEmailUser = await User.findOne({ email: newEmail });
+        if (existingEmailUser && existingEmailUser._id.toString() !== userId) {
+          return res.status(400).json({ message: "Email is already in use." });
+        }
         user.email = newEmail;
       }
       if (newPassword) {
