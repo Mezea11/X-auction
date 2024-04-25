@@ -23,7 +23,7 @@ export default function PatchProductButton() {
                 data-toggle="modal"
                 data-target="#PatchProductModal"
             >
-                Patch Product
+                Update Product
             </button>
             {isModalOpen && <PatchProductModal closeModal={closeModal} />}
         </>
