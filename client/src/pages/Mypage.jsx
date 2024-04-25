@@ -222,7 +222,7 @@ export default function Mypage() {
                   </strong>
                   {activeBid.bids.length > 0 &&
                     (activeBid.bids[activeBid.bids.length - 1].username ===
-                    user.username ? (
+                      user.username ? (
                       <p style={{ color: "blue" }}>You have the highest bid!</p>
                     ) : (
                       <p style={{ color: "red" }}>
@@ -332,42 +332,48 @@ export default function Mypage() {
       </section>
 
       <section className="mypage-sections" id="bid-history-section">
+
         <h1 id="bid-history-title">My bid history</h1>
-        <div style={{ display: "flex", flexDirection: "column", marginBottom: "1rem" }}>
+
+        <div id="bid-history-body">
+
           {legacyBids.length === 0 && "You have no bid history."}
           {legacyBids.map((legacyBid) => (
-            <div key={legacyBid._id} style={{ marginBottom: "1rem" }}>
-              <p style={{ display: "flex", alignItems: "center" }}>
-                <Link to={`/ProductPage/${legacyBid._id}`}>
-                  <img
-                    src={legacyBid.img_url}
-                    alt="Product Image"
-                    style={{
-                      width: "50px",
-                      height: "50px",
-                      marginRight: "1rem",
-                    }}
-                  />
-                  {legacyBid.productname}
+            
+            <div key={legacyBid._id} className="bid-history-item">
+
+              <div className="bid-history-item-sub">
+                <Link to={`/ProductPage/${legacyBid._id}`} className="image-link">
+                <img
+                  src={legacyBid.img_url}
+                  alt="Product Image"
+                  className="product-image"
+                />
                 </Link>
-                <span style={{ marginRight: "1rem", marginLeft: "1rem" }}>
-                  {" "}
-                  {legacyBid.bids.length > 0 &&
-                    (legacyBid.bids[legacyBid.bids.length - 1].username ===
-                    user.username ? (
-                      <span style={{ color: "green" }}>won</span>
-                    ) : (
-                      <span style={{ color: "red" }}>lost</span>
-                    ))}
-                </span>
+
+                <Link to={`/ProductPage/${legacyBid._id}`} className="product-link">
+                <span className="product-name">{legacyBid.productname}</span>
+                </Link>
+
+               <span className="won-lost">
+                {legacyBid.bids.length > 0 &&
+                  (legacyBid.bids[legacyBid.bids.length - 1].username === user.username ? (
+                    <span style={{ color: "green" }}>won</span>
+                  ) : (
+                    <span style={{ color: "red" }}>lost</span>
+                  ))}
+               </span>
+
+              </div>
+
+              <div className="bid-history-btn-and-li-div">
                 <button
-                  className="btn btn-primary btn-sm"
-                  onClick={() => toggleBidsDisplay(legacyBid._id)}
+                className="btn btn-primary btn-sm show-bids-button"
+                onClick={() => toggleBidsDisplay(legacyBid._id)}
                 >
-                  Show Bids
+                Show Bids
                 </button>
-              </p>
-              {showBids[legacyBid._id] && (
+                {showBids[legacyBid._id] && (
                 <ul>
                   {legacyBid.bids.map((bid, index) => (
                     <li key={index}>
@@ -376,9 +382,11 @@ export default function Mypage() {
                   ))}
                 </ul>
               )}
+              </div>
             </div>
           ))}
         </div>
+
       </section>
     </>
   );
