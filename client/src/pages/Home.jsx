@@ -211,10 +211,24 @@ function Home() {
             </div>
           ))}
         </section>
+
+        <div className="container overflow-hidden text-center">
+          <div className="row gx-5">
+            <div className="col">
+              <div className="p-3">
+                <h3>Most affordable</h3>
+              </div>
+            </div>
+            <div className="col">
+              <div className="p-3">
+                <h3>Most Popular</h3>
+              </div>
+            </div>
+          </div>
+        </div>
         <div className="container text-center" id="filtered-products-parent">
           <div className="row" id="filtered-products-container">
             <div className="col" id="filtered-products-cards">
-              <h3>Most affordable</h3>
               {mostAffordableProducts.map((product) => (
                 <div
                   className="card"
@@ -245,7 +259,6 @@ function Home() {
             </div>
 
             <div className="col" id="filtered-products-cards">
-              <h3>Most popular</h3>
               <div className="col" style={{}}>
                 {mostPopularProducts.map((product) => (
                   <div
