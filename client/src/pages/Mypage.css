@@ -41,73 +41,72 @@
     margin-bottom: 2rem;
 }
 
-
 #bid-history-section {
     width: 50vw;
 }
 
-    #bid-history-title {
-        display: flex;
-        justify-content: center;
-        margin-top: 1.5rem;
-        margin-bottom: 1rem;
-    }
+#bid-history-title {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
 
-    #bid-history-body {
-        display: flex;
-        flex-direction: column;
-    }
-  
-        .bid-history-item {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
-            border: 1px solid gray;
-            border-radius: 4px;
-            padding: 1rem;
-        }
+#bid-history-body {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+    gap: 1rem;
+}
 
-            .bid-history-item-sub {
-                display: flex;
-                justify-content: space-between;
-            }
-  
-                .image-link {
+.bid-history-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    border: 1px solid #d2d2d2;
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 1rem;
+}
 
-                }
-                
-                .product-link {
+.bid-history-item-sub {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-                }
-                
-                .product-image {
-                    width: 50px;
-                    height: 50px;
-                    margin-right: 1rem;
-                }
-  
-                .product-name {
-                    margin-right: 1rem;
-                }
-  
-                .won-lost {                  
-                    color: inherit; /* Inherit text color from parent */
-                    margin-left: auto;
-                }
-  
-            .bid-history-btn-and-li-div {
+.product-link {
+    text-decoration: none;
+}
 
-            }
+.product-image {
+    width: 50px;
+    height: 50px;
+    margin-right: 1rem;
+}
 
-                .show-bids-button {
-                    display: flex;
-                    flex-direction: column;
-                }
-  
-                ul {
-                    display: flex;
-                    flex-direction: column;                  
-                }
-  
-        
+.product-name {
+    margin-right: 1rem;
+}
+
+.won-lost {
+    color: inherit; /* Inherit text color from parent */
+    margin-left: auto;
+}
+
+.bid-history-btn-and-li-div {
+}
+
+.show-bids-button {
+    display: flex;
+    flex-direction: column;
+}
+
+.bid-history-ul {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    text-indent: -2rem;
+    padding-top: 0.5rem;
+}
