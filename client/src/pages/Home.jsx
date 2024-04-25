@@ -5,51 +5,121 @@ import "./Home.css";
 
 function Home() {
   const navigate = useNavigate();
-  // create variables that contain useState to fetch product objects
   const [products, setProducts] = useState([]);
+  const [recentlySoldProducts, setRecentlySoldProducts] = useState([]);
+  const [mostAffordableProducts, setMostAffordableProducts] = useState([]);
+  const [mostPopularProducts, setMostPopularProducts] = useState([]);
 
-  useEffect(() => {
-    fetchAllProducts();
-    const interval = setInterval(fetchAllProducts, 5000);
-    // Cleanup interval on component unmount
-    return () => clearInterval(interval);
-  }, []); //Empty dependency array to prevent infinite loop
-
-  const fetchAllProducts = async () => {
+  const fetchRecentlySoldProducts = async () => {
     try {
-      //get data from json-server at db.json
       const response = await fetch("/api/products");
       if (!response.ok) {
         throw new Error("error");
       }
       const data = await response.json();
 
-      // Filter data from json server: Checks if object: "onngoing" is true or false
-      const ongoingProducts = data.filter((product) => product.ongoing);
+      const recentlySoldProducts = data.filter((product) => product.won);
+      recentlySoldProducts.sort(
+        (a, b) => new Date(a.end_dateTime) - new Date(b.end_dateTime)
+      );
+      const topFourProducts = recentlySoldProducts.slice(0, 4);
+      setRecentlySoldProducts(topFourProducts);
+    } catch (error) {
+      console.error("Error fetching recently sold products:", error);
+    }
+  };
 
-      // Update the state with filtered products
-      setProducts(ongoingProducts);
+  const filteredByLowestPriceProducts = async () => {
+    try {
+      const response = await fetch("/api/products");
+      if (!response.ok) {
+        throw new Error("error");
+      }
+      const data = await response.json();
 
-      //Error handling
+      const mostAffordableProducts = data.filter((product) => product.ongoing);
+      mostAffordableProducts.sort(
+        (a, b) => a.starting_price - b.starting_price
+      );
+      const topFourProducts = mostAffordableProducts.slice(0, 4);
+      setMostAffordableProducts(topFourProducts);
     } catch (error) {
       console.error("Error fetching products:", error);
     }
   };
 
-  // this is an early return: make sure there are products to render; if not, abort
+  const filteredByMostPopularProducts = async () => {
+    try {
+      const response = await fetch("/api/products");
+      if (!response.ok) {
+        throw new Error("error");
+      }
+      const data = await response.json();
+
+      const mostPopularProducts = data.filter((product) => product.ongoing);
+      mostPopularProducts.sort((a, b) => b.bids.length - a.bids.length);
+      const topFourProducts = mostPopularProducts.slice(0, 4);
+      setMostPopularProducts(topFourProducts);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchAllProducts();
+    fetchRecentlySoldProducts(); // Call fetchRecentlySoldProducts here
+    filteredByLowestPriceProducts(); // Call filteredByLowestPriceProducts here
+    filteredByMostPopularProducts(); // Call filteredByMostPopularProducts here
+
+    const interval = setInterval(fetchAllProducts, 5000);
+    // Cleanup interval on component unmount
+    return () => clearInterval(interval);
+  }, []);
+
+  const fetchAllProducts = async () => {
+    try {
+      const response = await fetch("/api/products");
+      if (!response.ok) {
+        throw new Error("error");
+      }
+      const data = await response.json();
+
+      const ongoingProducts = data.filter((product) => product.ongoing);
+      ongoingProducts.sort(
+        (a, b) => new Date(a.end_dateTime) - new Date(b.end_dateTime)
+      );
+      const shortestTimeLeftProducts = ongoingProducts.slice(0, 20);
+      setProducts(shortestTimeLeftProducts);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
+
+  /*   const fetchAllProducts = async () => {
+    try {
+      const response = await fetch("/api/products");
+      if (!response.ok) {
+        throw new Error("error");
+      }
+      const data = await response.json();
+
+      const ongoingProducts = data.filter((product) => product.ongoing);
+      setProducts(ongoingProducts);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  }; */
+
   if (!products.length) {
     return null;
   }
 
-  // Sends user to productpage with proudctId
   const handleViewProduct = async (productId) => {
     try {
-      // Fetch product by ID
       const response = await fetch(`/api/products/${productId}`);
       if (!response.ok) {
         throw new Error("Error fetching product");
       }
-      // Store response in const and turn into JSON format
       const productData = await response.json();
       console.log("Product data:", productData);
     } catch (error) {
@@ -75,16 +145,18 @@ function Home() {
             <p>Your trusted auction for all things extreme.</p>
           </div>
         </section>
+        <h1>Featured Products</h1>
+
         <section id="homepage-products-container">
           {/* goes through products array and renders each object (product) on page */}
           {products.map((product) => (
             // key links the element to the specific object
-            <div className="card" key={product._id}>
+            <div className="card" key={product._id} id="home-cards">
               <img
                 src={product.img_url}
                 style={{
+                  height: "15rem",
                   width: "100%",
-                  height: "25%",
                   objectFit: "cover",
                 }}
               />
@@ -139,6 +211,98 @@ function Home() {
             </div>
           ))}
         </section>
+        <div className="container text-center" id="filtered-products-parent">
+          <div className="row" id="filtered-products-container">
+            <div className="col" id="filtered-products-cards">
+              <h3>Most affordable</h3>
+              {mostAffordableProducts.map((product) => (
+                <div
+                  className="card"
+                  key={product._id}
+                  style={{ width: "18rem" }}
+                >
+                  <img
+                    src={product.img_url}
+                    className="card-img-top"
+                    alt={product.productname}
+                    style={{ height: "15rem", width: "auto" }}
+                  />
+                  <div className="card-body">
+                    <h5 className="card-title">{product.productname}</h5>
+                    <h6 className="card-subtitle mb-2 text-muted">
+                      Starting price: {product.starting_price} kr
+                    </h6>
+                    <Link
+                      to={`productpage/${product._id}`}
+                      onClick={() => handleViewProduct(product._id)}
+                      className="btn btn-primary"
+                    >
+                      View Product
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="col" id="filtered-products-cards">
+              <h3>Most popular</h3>
+              <div className="col" style={{}}>
+                {mostPopularProducts.map((product) => (
+                  <div
+                    className="card"
+                    key={product._id}
+                    style={{ width: "18rem" }}
+                  >
+                    <img
+                      src={product.img_url}
+                      className="card-img-top"
+                      alt={product.productname}
+                      style={{ height: "15rem", width: "auto" }}
+                    />
+                    <div className="card-body">
+                      <h5 className="card-title">{product.productname}</h5>
+                      <h6 className="card-subtitle mb-2 text-muted">
+                        Starting price: {product.starting_price} kr
+                      </h6>
+                      <Link
+                        to={`productpage/${product._id}`}
+                        onClick={() => handleViewProduct(product._id)}
+                        className="btn btn-primary"
+                      >
+                        View Product
+                      </Link>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="recent-sold-container">
+        <ul id="recent-sold-ul">
+          <li>
+            {" "}
+            {recentlySoldProducts.map((product) => (
+              <li key={product._id}>
+                <Link
+                  to={`productpage/${product._id}`}
+                  onClick={() => handleViewProduct(product._id)}
+                >
+                  <img
+                    src={product.img_url}
+                    style={{
+                      height: "50px",
+                      width: "50px",
+                      objectFit: "cover",
+                    }}
+                  />
+                  <p id="recent-sold-p">{product.productname}</p>
+                </Link>
+              </li>
+            ))}
+          </li>
+        </ul>
       </div>
     </>
   );

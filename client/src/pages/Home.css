@@ -1,9 +1,5 @@
-#homepage-products-container {
-  background-color: red;
-}
-
 #homepage-slogan-container {
-  width: 65%;
+  width: 85%;
   border-radius: 10px;
 
   h1 {
@@ -38,48 +34,81 @@
   box-shadow: rgba(0, 0, 0, 0.4) -5px 5px, rgba(0, 0, 0, 0.3) -10px 10px;
 }
 
-.card {
-  width: 16rem;
-  margin: 1% 1%;
-  position: relative;
-  display: inline-block;
-  vertical-align: top;
-  overflow: hidden;
+#home-cards {
   transition: all 0.2s ease;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 
 /* The flip card animation appears on hover */
 @media screen and (min-width: 992px) {
-  .card:hover {
+  #home-cards:hover {
     transform: translateY(-10px) scale(1.05);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   }
-}
-
-#card-body {
-  height: 5%;
-  h5 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-  p {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-}
-
-#card-prices {
-  height: 20%;
 }
 
 #home-card-btn-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 0;
+}
+
+#home-card-container {
+  overflow: hidden;
+}
+#homepage-products-container {
+  height: 80vh;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+#recent-sold-container {
+  height: 10rem;
+  z-index: -1;
+  display: flex;
+  flex-direction: column;
+}
+
+#recent-sold-ul {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  list-style: none;
+}
+
+#recent-sold-p {
+  margin-top: 5px;
+}
+
+#filtered-products-container {
+  background-color: #f8f9fa;
+  padding: 10px;
+  border-radius: 4px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 5px 0px;
+  height: 50rem;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: flex;
+}
+
+#filtered-products-container .col {
+  flex: 1; /* Ensure each column takes up equal space */
+  display: flex; /* Nested flex container */
+  flex-direction: column; /* Align items vertically */
+  justify-content: center; /* Center items vertically */
+  align-items: center; /* Center items horizontally */
+  gap: 3rem; /* Add gap between items */
+}
+
+#filtered-products-parent {
+  width: 1000rem !important;
+}
+
+#filtered-products-cards {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 3rem;
 }
