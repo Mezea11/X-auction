@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Footer from "../components/Footer";
+import ScrollToTopButton from "../components/ScrollToTopButton";
 
 function Home() {
   const navigate = useNavigate();
@@ -136,6 +138,10 @@ function Home() {
             </div>
           ))}
         </section>
+      </div>
+      <div>
+        <Footer />
+        <ScrollToTopButton />
       </div>
     </>
   );

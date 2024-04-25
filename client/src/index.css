@@ -47,6 +47,7 @@ html {
     display: flex;
     width: 100%;
     padding: 2rem;
+    padding-bottom: 0;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -57,6 +58,7 @@ html {
         gap: 2rem;
         background-color: #f8f9fa;
         padding: 2rem;
+        padding-bottom: 1rem;
         margin: 0 5rem 2rem 5rem;
         .card {
             box-shadow: 0 0 10px #719ece;
@@ -153,6 +155,7 @@ html {
     display: flex;
     flex-direction: column;
     padding: 3rem 15rem 3rem 15rem;
+    
 }
 
 /* PRODUCT PAGE */
@@ -206,3 +209,43 @@ html {
 #PostProductModal {
     display: flex;
 }
+
+/*FOOTER*/
+.footer {
+    background-color: white;
+    box-shadow: 0 0 10px #719ece;
+    padding: 1rem;
+    bottom: 0;
+    width: 100%;
+    .footer-container {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+/* SCROLL BUTTON */
+.scroll-to-top-btn {
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    background-color: #0d6efd;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    box-shadow: 0 5px 2px #719ece;
+  }
+  .scroll-to-top-btn.show {
+    opacity: 1;
+    transition: opacity 0.5s ease;
+    box-shadow: 0 5px 2px #719ece;
+  }
+  .scroll-to-top-btn:hover {
+    background-color: #0a58ca;
+  }
+  

@@ -6,6 +6,8 @@ import { GlobalContext } from "../GlobalContext";
 import PatchProductButton from "../components/PatchProductButton.jsx";
 import { Link } from "react-router-dom";
 import EditUserButton from "../components/EditUserInfoButton.jsx";
+import Footer from "../components/Footer";
+import ScrollToTopButton from "../components/ScrollToTopButton";
 
 export default function Mypage() {
   const [products, setProducts] = useState([]);
@@ -17,7 +19,9 @@ export default function Mypage() {
     const fetchProducts = async () => {
       try {
         if (user && user.username) {
-          const response = await fetch(`/api/productsbyseller?seller=${user.username}`);
+          const response = await fetch(
+            `/api/productsbyseller?seller=${user.username}`
+          );
           if (!response.ok) {
             throw new Error("Failed to fetch products");
           }
@@ -90,10 +94,10 @@ export default function Mypage() {
       day: "numeric",
       hour: "numeric",
       minute: "numeric",
-      locale: 'en-SE'
+      locale: "en-SE",
     };
 
-    return endDate.toLocaleDateString('en-SE', options);
+    return endDate.toLocaleDateString("en-SE", options);
   };
 
   return (
@@ -111,7 +115,13 @@ export default function Mypage() {
             </div>
           </div>
           {/* button-component which in turns triggers the modal for posting a products to show */}
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
             <div style={{ marginBottom: "0.7rem" }}>
               <PostProductButton />
             </div>
@@ -246,7 +256,7 @@ export default function Mypage() {
                 <li className="list-group-item">
                   Time left:{" "}
                   <strong style={{ color: "red" }}>
-                  {formatDate(activeBid.end_dateTime)}
+                    {formatDate(activeBid.end_dateTime)}
                   </strong>
                 </li>
               </ul>
@@ -280,6 +290,10 @@ export default function Mypage() {
           </p>
         </div>
       </section>
+      <div>
+        <Footer />
+        <ScrollToTopButton />
+      </div>
     </>
   );
 }
