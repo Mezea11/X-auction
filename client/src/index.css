@@ -155,7 +155,6 @@ html {
     display: flex;
     flex-direction: column;
     padding: 3rem 15rem 3rem 15rem;
-    
 }
 
 /* PRODUCT PAGE */
@@ -180,8 +179,8 @@ html {
 
 #product-image {
     display: flex;
-    width: auto;
-    height: 25rem;
+    width: 25rem;
+    max-height: 35rem;
 }
 
 #product-page-button {
@@ -239,13 +238,12 @@ html {
     opacity: 0;
     transition: opacity 0.5s ease;
     box-shadow: 0 5px 2px #719ece;
-  }
-  .scroll-to-top-btn.show {
+}
+.scroll-to-top-btn.show {
     opacity: 1;
     transition: opacity 0.5s ease;
     box-shadow: 0 5px 2px #719ece;
-  }
-  .scroll-to-top-btn:hover {
+}
+.scroll-to-top-btn:hover {
     background-color: #0a58ca;
-  }
-  
+}

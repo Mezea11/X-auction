@@ -6,13 +6,13 @@ export default function PatchProductButton() {
 
     const openModal = () => {
         setIsModalOpen(true);
-        console.log(isModalOpen)
-        };
+        console.log(isModalOpen);
+    };
 
     const closeModal = () => {
         setIsModalOpen(false);
-        console.log('close')
-        };
+        console.log('close');
+    };
 
     return (
         <>

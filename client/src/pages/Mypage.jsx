@@ -1,13 +1,13 @@
-import "./Mypage.css";
-import PostProductButton from "../components/PostProductButton.jsx";
-import { useEffect, useState, useContext } from "react";
-import MyAuctionObjectsList from "../components/MyAuctionObjectsList.jsx";
-import { GlobalContext } from "../GlobalContext";
-import PatchProductButton from "../components/PatchProductButton.jsx";
-import { Link } from "react-router-dom";
-import EditUserButton from "../components/EditUserInfoButton.jsx";
-import Footer from "../components/Footer";
-import ScrollToTopButton from "../components/ScrollToTopButton";
+import './Mypage.css';
+import PostProductButton from '../components/PostProductButton.jsx';
+import { useEffect, useState, useContext } from 'react';
+import MyAuctionObjectsList from '../components/MyAuctionObjectsList.jsx';
+import { GlobalContext } from '../GlobalContext';
+import PatchProductButton from '../components/PatchProductButton.jsx';
+import { Link } from 'react-router-dom';
+import EditUserButton from '../components/EditUserInfoButton.jsx';
+import Footer from '../components/Footer';
+import ScrollToTopButton from '../components/ScrollToTopButton';
 
 export default function Mypage() {
     const [products, setProducts] = useState([]);
@@ -33,7 +33,11 @@ export default function Mypage() {
         const interval3 = setInterval(fetchBids, 5000);
 
         // Cleanup interval on component unmount
-        return () => clearInterval(interval, interval2, interval3);
+        return () => {
+            clearInterval(interval);
+            clearInterval(interval2);
+            clearInterval(interval3);
+        };
     }, []);
 
     const fetchProducts = async () => {
