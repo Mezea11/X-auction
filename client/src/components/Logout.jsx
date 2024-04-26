@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { GlobalContext } from "../GlobalContext.jsx";
 
-export default function LogOutButton() {
+export default function LogoutButton() {
   const navigate = useNavigate();
   const { user, setUser } = useContext(GlobalContext);
 

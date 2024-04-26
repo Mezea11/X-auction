@@ -10,10 +10,10 @@ export default function MyAuctionObjectsList({ products, deleteProduct }) {
 
   return (
     <>
-      {filteredProducts.length === 0 && "No Products"}
+      {filteredProducts.length === 0 && "You haven't posted any auction ads."}
       {/* loops through products array from db an populates the Card-component with the array objects data */}
       {filteredProducts.map((product) => (
-        <div key={product.id}>
+        <div key={product._id}>
           {/* adds deleteProduct function to each card, which was passed ass a prop */}
           <MyAuctionObjectCard {...product} deleteProduct={deleteProduct} />
         </div>

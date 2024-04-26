@@ -12,6 +12,7 @@ const productsSchema = new mongoose.Schema({
   img_url: String,
   seller: String,
   ongoing: Boolean,
+  won: Boolean,
   bids: [
     {
       username: String,

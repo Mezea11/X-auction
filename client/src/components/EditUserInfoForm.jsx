@@ -8,7 +8,7 @@ export default function EditUserForm({ onSubmit }) {
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault(); //prevent form default behaviour (reload)
@@ -18,7 +18,7 @@ export default function EditUserForm({ onSubmit }) {
       return;
     }
 
-    const id = user._id //sets id to randomized string
+    const id = user._id; //sets id to randomized string
 
     const formData = {
       id: id,

@@ -3,54 +3,125 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 import ScrollToTopButton from "../components/ScrollToTopButton";
+import "./Home.css";
 
 function Home() {
   const navigate = useNavigate();
-  // create variables that contain useState to fetch product objects
   const [products, setProducts] = useState([]);
+  const [recentlySoldProducts, setRecentlySoldProducts] = useState([]);
+  const [mostAffordableProducts, setMostAffordableProducts] = useState([]);
+  const [mostPopularProducts, setMostPopularProducts] = useState([]);
 
-  useEffect(() => {
-    fetchAllProducts();
-    const interval = setInterval(fetchAllProducts, 5000);
-    // Cleanup interval on component unmount
-    return () => clearInterval(interval);
-  }, []); //Empty dependency array to prevent infinite loop
-
-  const fetchAllProducts = async () => {
+  const fetchRecentlySoldProducts = async () => {
     try {
-      //get data from json-server at db.json
       const response = await fetch("/api/products");
       if (!response.ok) {
         throw new Error("error");
       }
       const data = await response.json();
 
-      // Filter data from json server: Checks if object: "onngoing" is true or false
-      const ongoingProducts = data.filter((product) => product.ongoing);
+      const recentlySoldProducts = data.filter((product) => product.won);
+      recentlySoldProducts.sort(
+        (a, b) => new Date(a.end_dateTime) - new Date(b.end_dateTime)
+      );
+      const topFourProducts = recentlySoldProducts.slice(0, 4);
+      setRecentlySoldProducts(topFourProducts);
+    } catch (error) {
+      console.error("Error fetching recently sold products:", error);
+    }
+  };
 
-      // Update the state with filtered products
-      setProducts(ongoingProducts);
+  const filteredByLowestPriceProducts = async () => {
+    try {
+      const response = await fetch("/api/products");
+      if (!response.ok) {
+        throw new Error("error");
+      }
+      const data = await response.json();
 
-      //Error handling
+      const mostAffordableProducts = data.filter((product) => product.ongoing);
+      mostAffordableProducts.sort(
+        (a, b) => a.starting_price - b.starting_price
+      );
+      const topFourProducts = mostAffordableProducts.slice(0, 4);
+      setMostAffordableProducts(topFourProducts);
     } catch (error) {
       console.error("Error fetching products:", error);
     }
   };
 
-  // this is an early return: make sure there are products to render; if not, abort
+  const filteredByMostPopularProducts = async () => {
+    try {
+      const response = await fetch("/api/products");
+      if (!response.ok) {
+        throw new Error("error");
+      }
+      const data = await response.json();
+
+      const mostPopularProducts = data.filter((product) => product.ongoing);
+      mostPopularProducts.sort((a, b) => b.bids.length - a.bids.length);
+      const topFourProducts = mostPopularProducts.slice(0, 4);
+      setMostPopularProducts(topFourProducts);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchAllProducts();
+    fetchRecentlySoldProducts(); // Call fetchRecentlySoldProducts here
+    filteredByLowestPriceProducts(); // Call filteredByLowestPriceProducts here
+    filteredByMostPopularProducts(); // Call filteredByMostPopularProducts here
+
+    const interval = setInterval(fetchAllProducts, 5000);
+    // Cleanup interval on component unmount
+    return () => clearInterval(interval);
+  }, []);
+
+  const fetchAllProducts = async () => {
+    try {
+      const response = await fetch("/api/products");
+      if (!response.ok) {
+        throw new Error("error");
+      }
+      const data = await response.json();
+
+      const ongoingProducts = data.filter((product) => product.ongoing);
+      ongoingProducts.sort(
+        (a, b) => new Date(a.end_dateTime) - new Date(b.end_dateTime)
+      );
+      const shortestTimeLeftProducts = ongoingProducts.slice(0, 20);
+      setProducts(shortestTimeLeftProducts);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  };
+
+  /*   const fetchAllProducts = async () => {
+    try {
+      const response = await fetch("/api/products");
+      if (!response.ok) {
+        throw new Error("error");
+      }
+      const data = await response.json();
+
+      const ongoingProducts = data.filter((product) => product.ongoing);
+      setProducts(ongoingProducts);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+    }
+  }; */
+
   if (!products.length) {
     return null;
   }
 
-  // Sends user to productpage with proudctId
   const handleViewProduct = async (productId) => {
     try {
-      // Fetch product by ID
       const response = await fetch(`/api/products/${productId}`);
       if (!response.ok) {
         throw new Error("Error fetching product");
       }
-      // Store response in const and turn into JSON format
       const productData = await response.json();
       console.log("Product data:", productData);
     } catch (error) {
@@ -70,31 +141,34 @@ function Home() {
             Search for products
           </button>
         </div>
+        <section id="homepage-slogan-container">
+          <div className="jumbotron text-center" id="homepage-jumbo">
+            <h1>X-Auction</h1>
+            <p>Your trusted auction for all things extreme.</p>
+          </div>
+        </section>
+        <h1>Featured Products</h1>
 
         <section id="homepage-products-container">
           {/* goes through products array and renders each object (product) on page */}
           {products.map((product) => (
             // key links the element to the specific object
-            <div
-              className="card"
-              style={{
-                overflow: "hidden",
-              }}
-              key={product._id}
-            >
+            <div className="card" key={product._id} id="home-cards">
               <img
                 src={product.img_url}
                 style={{
-                  width: "100%",
                   height: "15rem",
+                  width: "100%",
                   objectFit: "cover",
                 }}
               />
-              <div className="card-body">
+              <div className="card-body" id="card-body">
                 <h5 className="card-title">{product.productname}</h5>
-                <p className="card-text">{product.description}</p>
+                <p className="card-text" id="card-description">
+                  {product.description}
+                </p>
               </div>
-              <ul className="list-group list-group-flush">
+              <ul className="list-group list-group-flush" id="card-prices">
                 <li className="list-group-item">
                   Starting price:{" "}
                   <strong style={{ color: "green" }}>
@@ -109,7 +183,7 @@ function Home() {
                       : "No bids"}
                   </strong>
                 </li>
-                <li className="list-group-item">
+                <li className="list-group-item" id="end-date-li">
                   End date:{" "}
                   <strong style={{ color: "red" }}>
                     {new Date(product.end_dateTime).toLocaleString(undefined, {
@@ -124,12 +198,13 @@ function Home() {
                   </strong>
                 </li>
               </ul>
-              <div className="card-body" id="home-card-btn">
+              <div className="card-body" id="home-card-btn-container">
                 <Link to={`productpage/${product._id}`}>
                   <button
                     type="button"
                     className="btn btn-primary"
                     onClick={() => handleViewProduct(product._id)}
+                    id="home-card-btn"
                   >
                     View Product
                   </button>

@@ -55,7 +55,9 @@ export default function MyAuctionObjectCard({
         </li>
         <li className="list-group-item">
           Highest bid:{" "}
-          <strong style={{ color: "green" }}>{highest_bid}:-</strong>
+          <strong style={{ color: "green" }}>
+            {bids.length > 0 ? `${bids[bids.length - 1].bid} kr` : "No bids"}
+          </strong>
         </li>
         <li className="list-group-item">
           Time left: <strong style={{ color: "red" }}>{convertedDate}</strong>
