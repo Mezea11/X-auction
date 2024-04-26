@@ -80,6 +80,7 @@ function Home() {
 
   const fetchAllProducts = async () => {
     try {
+      console.log("home fetch")
       const response = await fetch("/api/products");
       if (!response.ok) {
         throw new Error("error");
