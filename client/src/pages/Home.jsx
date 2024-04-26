@@ -134,7 +134,10 @@ function Home() {
         </section>
         <h2 style={{ marginTop: "1rem" }}>Featured Products</h2>
 
-        <section id="homepage-products-container">
+        <section
+          id="homepage-products-container"
+          style={{ borderRadius: "8px" }}
+        >
           {/* goes through products array and renders each object (product) on page */}
           {products.map((product) => (
             // key links the element to the specific object
