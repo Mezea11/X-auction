@@ -1,5 +1,5 @@
 import EditUserForm from "./EditUserInfoForm.jsx";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import bcrypt from "bcryptjs"; // Import library encryption algorithm
 import { GlobalContext } from "../GlobalContext";
 
@@ -9,9 +9,24 @@ export default function EditUserModal({ closeModal }) {
   const { user } = useContext(GlobalContext);
   const [isSuccess, setIsSuccess] = useState(false);
   const [notSuccess, setNotSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   //adds new ueser obejct to array of users in db.json
   const updateUser = async (formData) => {
     try {
+      // If both email and new password are empty, display error message
+      if (!formData.email && !formData.newPassword) {
+        setErrorMessage("Nothing to change");
+        setIsSuccess(false);
+        return;
+      }
+
+      if (formData.email) {
+        formData.email = formData.email.toLowerCase();
+      } else {
+        // Remove newPassword field if it's empty
+        delete formData.email;
+      }
+
       // If newPassword field is not empty, hash it
       if (formData.newPassword) {
         formData.newPassword = await bcrypt.hash(formData.newPassword, 10);
@@ -20,7 +35,6 @@ export default function EditUserModal({ closeModal }) {
         delete formData.newPassword;
       }
 
-      console.log(formData);
       const response = await fetch("/api/edituser", {
         method: "PATCH",
         headers: {
@@ -32,33 +46,21 @@ export default function EditUserModal({ closeModal }) {
       if (!response.ok) {
         setNotSuccess(true);
         setIsSuccess(false);
+        if (response.status === 403) {
+          setErrorMessage("Incorrect password.");
+        } else {
+          setErrorMessage("Failed to update user information.");
+        }
         throw new Error("Failed to update user information.");
       } else if (response.ok) {
         setIsSuccess(true);
         setNotSuccess(false);
+        setErrorMessage(""); // Reset error message if request is successful
       }
     } catch (error) {
       console.error("Error updating user:", error);
     }
   };
-
-  //close modal when clicking outside modal
-  const handleOutsideClick = (event) => {
-    if (event.target.id === "editUserModal") {
-      // Close the modal only if the click occurs outside the modal content
-      closeModal();
-    }
-  };
-  //runs after main function renders for the first time
-  useEffect(() => {
-    document.addEventListener("click", handleOutsideClick);
-    //adds event listener on click for entire document that runs handleOutsideClick
-
-    return () => {
-      document.removeEventListener("click", handleOutsideClick);
-      //removes eventlistener when modal is closed and its not needed anymore
-    };
-  }, [closeModal]);
 
   return (
     <>
@@ -89,7 +91,7 @@ export default function EditUserModal({ closeModal }) {
               {/* adds edit user form component with function edit user to the body of the modal */}
               <EditUserForm onSubmit={updateUser} />
               {/* element shows if isSuccess = true */}
-              {notSuccess && (
+              {/* {notSuccess && (
                 <p
                   style={{
                     color: "red",
@@ -98,7 +100,7 @@ export default function EditUserModal({ closeModal }) {
                 >
                   Failed to update user information.
                 </p>
-              )}
+              )} */}
               {isSuccess && (
                 <p
                   style={{
@@ -107,6 +109,16 @@ export default function EditUserModal({ closeModal }) {
                   }}
                 >
                   Update successful!
+                </p>
+              )}
+              {errorMessage && (
+                <p
+                  style={{
+                    color: "red",
+                    marginTop: "1rem",
+                  }}
+                >
+                  {errorMessage}
                 </p>
               )}
             </div>

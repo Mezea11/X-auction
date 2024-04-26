@@ -8,7 +8,7 @@ export default function EditUserForm({ onSubmit }) {
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [password, setPassword] = useState("");
+  const [password, setPassword] = useState('');
 
   function handleSubmit(e) {
     e.preventDefault(); //prevent form default behaviour (reload)
@@ -18,7 +18,7 @@ export default function EditUserForm({ onSubmit }) {
       return;
     }
 
-    const id = user._id; //sets id to randomized string
+    const id = user._id //sets id to randomized string
 
     const formData = {
       id: id,
@@ -28,7 +28,6 @@ export default function EditUserForm({ onSubmit }) {
       currentPassword: password,
     };
 
-    console.log(formData);
     //calling onSubmit and specifying the data passed back to the parent component
     onSubmit(formData);
     //resetting all variables on submit
@@ -97,7 +96,7 @@ export default function EditUserForm({ onSubmit }) {
               />
             </div>
             {/* shows if passwordError is called */}
-            {passwordError && <p className="passwordError">{passwordError}</p>}
+            {passwordError && <p style={{ color: "red" }}>{passwordError}</p>}
           </div>
           <button className="btn btn-primary" style={{ marginTop: "1rem" }}>
             Update info
