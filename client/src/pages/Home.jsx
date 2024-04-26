@@ -97,21 +97,6 @@ function Home() {
     }
   };
 
-  /*   const fetchAllProducts = async () => {
-    try {
-      const response = await fetch("/api/products");
-      if (!response.ok) {
-        throw new Error("error");
-      }
-      const data = await response.json();
-
-      const ongoingProducts = data.filter((product) => product.ongoing);
-      setProducts(ongoingProducts);
-    } catch (error) {
-      console.error("Error fetching products:", error);
-    }
-  }; */
-
   if (!products.length) {
     return null;
   }
@@ -131,7 +116,7 @@ function Home() {
 
   return (
     <>
-      <div id="home-card-container">
+      <div id="home-card-container" style={{ fontFamily: "Roboto" }}>
         <div className="searchbar-container">
           <button
             type="button"
@@ -147,7 +132,7 @@ function Home() {
             <p>Your trusted auction for all things extreme.</p>
           </div>
         </section>
-        <h1>Featured Products</h1>
+        <h2 style={{ marginTop: "1rem" }}>Featured Products</h2>
 
         <section id="homepage-products-container">
           {/* goes through products array and renders each object (product) on page */}
@@ -162,9 +147,17 @@ function Home() {
                   objectFit: "cover",
                 }}
               />
-              <div className="card-body" id="card-body">
+              <div
+                className="card-body"
+                id="card-body"
+                style={{ textAlign: "center" }}
+              >
                 <h5 className="card-title">{product.productname}</h5>
-                <p className="card-text" id="card-description">
+                <p
+                  className="card-text"
+                  id="card-description"
+                  style={{ textAlign: "center" }}
+                >
                   {product.description}
                 </p>
               </div>
@@ -294,22 +287,29 @@ function Home() {
           </div>
         </div>
       </div>
-      <div id="recent-sold-container">
+
+      <div id="recent-sold-container" style={{ fontFamily: "Roboto" }}>
+        <h3 id="recently-sold-h1">Recently sold products</h3>
         <ul id="recent-sold-ul">
-          <li>
+          <li id="recent-sold-li">
             {" "}
             {recentlySoldProducts.map((product) => (
-              <li key={product._id}>
+              <li id="recent-sold-item" key={product._id}>
                 <Link
                   to={`productpage/${product._id}`}
                   onClick={() => handleViewProduct(product._id)}
+                  style={{ textDecoration: "none", textOverflow: "ellipsis" }}
                 >
                   <img
                     src={product.img_url}
                     style={{
-                      height: "50px",
-                      width: "50px",
+                      height: "100px",
+                      width: "100px",
                       objectFit: "cover",
+                      overflow: "hidden",
+                      borderRadius: "6px",
+                      marginTop: "10px",
+                      border: "1px solid #0000002f",
                     }}
                   />
                   <p id="recent-sold-p">{product.productname}</p>
@@ -320,7 +320,7 @@ function Home() {
         </ul>
       </div>
       <div>
-        <Footer position="fixed-bottom" />
+        <Footer />
         <ScrollToTopButton />
       </div>
     </>
