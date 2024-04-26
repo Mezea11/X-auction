@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { GlobalContext } from "../GlobalContext.jsx";
 import SignupButton from "../components/SignupButton.jsx";
 import LoginButton from "../components/LoginButton.jsx";
-import LogoutButton from "./LogoutButton.jsx";
+import LogoutButton from "./Logout.jsx";
 import { Link } from "react-router-dom";
 
 function Navbar() {
