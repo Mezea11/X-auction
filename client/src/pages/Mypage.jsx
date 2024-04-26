@@ -449,6 +449,10 @@ export default function Mypage() {
                     ))}
                 </div>
             </section>
+            <div>
+                <Footer />
+                <ScrollToTopButton />
+            </div>
         </>
     );
 }
