@@ -297,7 +297,7 @@ function Home() {
           <li>
             {" "}
             {recentlySoldProducts.map((product) => (
-              <li key={product._id}>
+              <div key={product._id}>
                 <Link
                   to={`productpage/${product._id}`}
                   onClick={() => handleViewProduct(product._id)}
@@ -312,7 +312,7 @@ function Home() {
                   />
                   <p id="recent-sold-p">{product.productname}</p>
                 </Link>
-              </li>
+              </div>
             ))}
           </li>
         </ul>
