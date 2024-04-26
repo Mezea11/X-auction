@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import "./Home.css";
 import Footer from "../components/Footer";
 import ScrollToTopButton from "../components/ScrollToTopButton";
-import "./Home.css";
 
 function Home() {
   const navigate = useNavigate();
@@ -213,9 +213,114 @@ function Home() {
             </div>
           ))}
         </section>
+
+        <div className="container overflow-hidden text-center">
+          <div className="row gx-5">
+            <div className="col">
+              <div className="p-3">
+                <h3>Most affordable</h3>
+              </div>
+            </div>
+            <div className="col">
+              <div className="p-3">
+                <h3>Most Popular</h3>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="container text-center" id="filtered-products-parent">
+          <div className="row" id="filtered-products-container">
+            <div className="col" id="filtered-products-cards">
+              {mostAffordableProducts.map((product) => (
+                <div
+                  className="card"
+                  key={product._id}
+                  style={{ width: "18rem" }}
+                >
+                  <img
+                    src={product.img_url}
+                    className="card-img-top"
+                    alt={product.productname}
+                    style={{ height: "15rem", width: "auto" }}
+                  />
+                  <div className="card-body">
+                    <h5 className="card-title">{product.productname}</h5>
+                    <h6 className="card-subtitle mb-2 text-muted">
+                      Starting price: {product.starting_price} kr
+                    </h6>
+                    <Link
+                      to={`productpage/${product._id}`}
+                      onClick={() => handleViewProduct(product._id)}
+                      className="btn btn-primary"
+                    >
+                      View Product
+                    </Link>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="col" id="filtered-products-cards">
+              <div className="col" style={{}}>
+                {mostPopularProducts.map((product) => (
+                  <div
+                    className="card"
+                    key={product._id}
+                    style={{ width: "18rem" }}
+                  >
+                    <img
+                      src={product.img_url}
+                      className="card-img-top"
+                      alt={product.productname}
+                      style={{ height: "15rem", width: "auto" }}
+                    />
+                    <div className="card-body">
+                      <h5 className="card-title">{product.productname}</h5>
+                      <h6 className="card-subtitle mb-2 text-muted">
+                        Starting price: {product.starting_price} kr
+                      </h6>
+                      <Link
+                        to={`productpage/${product._id}`}
+                        onClick={() => handleViewProduct(product._id)}
+                        className="btn btn-primary"
+                      >
+                        View Product
+                      </Link>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="recent-sold-container">
+        <ul id="recent-sold-ul">
+          <li>
+            {" "}
+            {recentlySoldProducts.map((product) => (
+              <li key={product._id}>
+                <Link
+                  to={`productpage/${product._id}`}
+                  onClick={() => handleViewProduct(product._id)}
+                >
+                  <img
+                    src={product.img_url}
+                    style={{
+                      height: "50px",
+                      width: "50px",
+                      objectFit: "cover",
+                    }}
+                  />
+                  <p id="recent-sold-p">{product.productname}</p>
+                </Link>
+              </li>
+            ))}
+          </li>
+        </ul>
       </div>
       <div>
-        <Footer />
+        <Footer position="fixed-bottom" />
         <ScrollToTopButton />
       </div>
     </>
