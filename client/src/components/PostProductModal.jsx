@@ -1,5 +1,5 @@
 import PostProductForm from "./PostProductForm.jsx";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function PostProductModal({ closeModal }) {
   const [isSuccess, setIsSuccess] = useState(false);
@@ -44,6 +44,25 @@ export default function PostProductModal({ closeModal }) {
     }
     setIsSuccess(true);
   };
+
+    //close modal when clicking outside modal
+    const handleOutsideClick = (event) => {
+      if (event.target.id === "PostProductModal") {
+        // Close the modal only if the click occurs outside the modal content
+        closeModal();
+      }
+    };
+    //runs after main function renders for the first time
+    useEffect(() => {
+      document.addEventListener("click", handleOutsideClick);
+      //adds event listener on click for entire document that runs handleOutsideClick
+  
+      return () => {
+        document.removeEventListener("click", handleOutsideClick);
+        //removes eventlistener when modal is closed and its not needed anymore
+      };
+    }, [closeModal]);
+
   return (
     <>
       <div
