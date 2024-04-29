@@ -1,3 +1,39 @@
+/* HOMEPAGE */
+#home-card-container {
+    display: flex;
+    width: 100%;
+    padding: 2rem;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 2rem;
+    overflow: hidden;
+}
+
+/* ICON */
+#home-icon {
+    width: 7em;
+    height: auto;
+}
+
+#homepage-products-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    background-color: #f8f9fa;
+    padding: 2rem;
+    padding-bottom: 1rem;
+    margin: 0 5rem 2rem 5rem;
+}
+
+.card {
+    box-shadow: 0 0 10px #719ece;
+}
+#home-card-btn {
+    display: flex;
+    justify-content: center;
+}
+
 #homepage-slogan-container {
     width: 85%;
     border-radius: 10px;
@@ -26,9 +62,9 @@
 }
 
 #homepage-jumbo {
-    background-image: url('../assets/x-auction-header.jpg'); /* Replace 'your-image-url.jpg' with the URL of your background image */
-    background-size: cover; /* Ensure the background image covers the entire jumbotron */
-    background-position: center; /* Center the background image */
+    background-image: url('../assets/x-auction-header.jpg');
+    background-size: cover;
+    background-position: center;
     height: 10rem;
     width: 100%;
     border-radius: 4px;
@@ -56,9 +92,6 @@
     align-items: center;
 }
 
-#home-card-container {
-    overflow: hidden;
-}
 #homepage-products-container {
     height: 80vh;
     overflow-y: scroll;
@@ -156,12 +189,12 @@
 }
 
 #filtered-products-container .col {
-    flex: 1; /* Ensure each column takes up equal space */
-    display: flex; /* Nested flex container */
-    flex-direction: column; /* Align items vertically */
-    justify-content: center; /* Center items vertically */
-    align-items: center; /* Center items horizontally */
-    gap: 3rem; /* Add gap between items */
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
 }
 
 #filtered-products-parent {

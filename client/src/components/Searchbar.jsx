@@ -1,3 +1,5 @@
+//reviewed
+
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -19,7 +21,7 @@ export default function SearchbarComponent() {
         const interval = setInterval(fetchProducts, 5000); // Fetch products every 5 seconds
         // Cleanup interval on component unmount
         return () => clearInterval(interval);
-    }, []); // Remove dependency array to ensure it's called on every render
+    }, []); // Empty dependency array to ensure it's called on every render
 
     // fetch ongoing products from database
     const fetchProducts = async () => {
@@ -54,7 +56,6 @@ export default function SearchbarComponent() {
     const handleSubmit = (event) => {
         event.preventDefault();
 
-        console.log('i submit');
         setShowResults(true);
 
         const filteredItems = products.filter((product) => {
@@ -96,7 +97,6 @@ export default function SearchbarComponent() {
 
         // Set filtered products state to the updated result
         setFilteredProducts(updatedFilteredItems);
-        console.log(filteredItems);
 
         // Set success or error message based on the number of filtered items
         if (updatedFilteredItems.length === 0) {
@@ -114,19 +114,12 @@ export default function SearchbarComponent() {
 
     // function so we can go to product page
     const handleViewProduct = async (productId) => {
-        console.log('handle view product');
         // Fetch individual product data
         try {
-            const response = await fetch(`/api/products/${productId}`);
-            if (!response.ok) {
-                throw new Error('Error fetching product');
-            }
-            const productData = await response.json();
+            await fetch(`/api/products/${productId}`);
             // Now you have the product data, you can navigate to the product page
             navigate(`/Productpage/${productId}`);
-            console.log('Product data:', productData);
         } catch (error) {
-            console.log('error');
             console.error('Error fetching product:', error);
         }
     };

@@ -1,3 +1,5 @@
+//reviewed
+
 import './ProductPageComponent.css';
 import { useEffect, useState, useContext } from 'react';
 import PlaceBidButton from './PlaceBidButton.jsx';
@@ -33,9 +35,6 @@ function ProductPageComponent() {
 
         // Fetch product data every 5 seconds
         const interval = setInterval(fetchProduct, 1000);
-        console.log(interval);
-        console.log(auctionEndTime);
-        console.log(currentTime);
         // Cleanup interval on component unmount
         return () => clearInterval(interval);
     }, [productId]);

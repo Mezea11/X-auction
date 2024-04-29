@@ -1,6 +1,6 @@
 import Product from '../model/Product.js';
 
-export default function (server, db) {
+export default function (server) {
     // --- GET----
     // endpoint get all products
     server.get('/api/products', async (req, res) => {
@@ -126,20 +126,19 @@ export default function (server, db) {
     });
 
     // --- PATCH ---
-    // endpoint for patch product by id
+
+    // Endpoint for patch product by id in product page
     server.patch('/api/products/:id', async (req, res) => {
-        const productId = req.params.id; // Get the product ID from the request parameters
-        const updatedData = req.body; // Get the updated data from the request body
+        const productId = req.params.id;
+        const updatedData = req.body;
 
         try {
             const existingProduct = await Product.findById(productId); // Find the product by its ID
             if (!existingProduct) {
-                // If no product found with the provided ID, return a 404 response
+                // return a 404 response if no product
                 return res.status(404).json({ message: 'Product not found' });
             }
 
-            // Update the existing product with the new data
-            // You may want to validate the updated data before applying it to the product
             Object.assign(existingProduct, updatedData);
 
             // Save the updated product to the database
@@ -147,12 +146,13 @@ export default function (server, db) {
 
             res.status(200).json(updatedProduct); // Return the updated product in the response
         } catch (error) {
-            // If an error occurs during the database query or update, return a 500 response
+            // Return 500 if update not possible
             console.error('Error updating product:', error);
             res.status(500).json({ error: 'Internal server error' });
         }
     });
 
+    // patch a product from my page when logged in
     server.patch('/api/patchproducts/:id', async (req, res) => {
         const productId = req.params.id;
         try {
@@ -169,6 +169,7 @@ export default function (server, db) {
                 }
             }
 
+            // If product IS won, dont let user patch product
             if (product.won) {
                 return res.status(400).json({
                     message:
@@ -176,6 +177,7 @@ export default function (server, db) {
                 });
             }
 
+            // If the product has bids, DON'T let the user update the time on the product
             if (product.bids.length > 0) {
                 // Check if the request body contains the end_Datetime field
                 if (req.body.end_dateTime !== undefined) {
@@ -186,7 +188,7 @@ export default function (server, db) {
                 }
             }
 
-            // Check if the request body contains the starting_price field and if there are existing bids
+            // Check if the request body contains the starting_price parameter and if there are existing bids
             else if (
                 product.bids.length > 0 &&
                 req.body.starting_price !== undefined
@@ -197,7 +199,7 @@ export default function (server, db) {
                 });
             }
 
-            // If no bids or starting_price not in request body, proceed with updating the product
+            // If no bids or starting_price not in request body, user may update the product
             const updatedProduct = await Product.findByIdAndUpdate(
                 productId,
                 req.body,
@@ -210,6 +212,7 @@ export default function (server, db) {
                 return res.status(404).json({ message: 'Product not found' });
             }
 
+            // Return 200 response if the successful
             res.status(200).json(updatedProduct);
         } catch (error) {
             console.error('Error updating product:', error);

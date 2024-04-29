@@ -1,48 +1,39 @@
-// ScrollToTopButton.js
-import React from 'react';
+//reviewed
 
-class ScrollToTopButton extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      showButton: false
+import React, { useState, useEffect } from 'react';
+
+export default function ScrollToTopButton() {
+    const [showButton, setShowButton] = useState(false);
+
+    useEffect(() => {
+        function handleScroll() {
+            const scrollY = window.scrollY;
+            if (scrollY > 200) {
+                setShowButton(true);
+            } else {
+                setShowButton(false);
+            }
+        }
+
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []); // Empty dependency array ensures the effect runs only once on mount
+
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        });
     };
-  }
 
-  componentDidMount() {
-    window.addEventListener('scroll', this.handleScroll);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll);
-  }
-
-  handleScroll = () => {
-    const scrollY = window.scrollY;
-    if (scrollY > 200) { // Adjust 200 to the point where you want the button to appear
-      this.setState({ showButton: true });
-    } else {
-      this.setState({ showButton: false });
-    }
-  };
-
-  scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-  };
-
-  render() {
     return (
-      <button
-        className={`scroll-to-top-btn ${this.state.showButton ? 'show' : ''}`}
-        onClick={this.scrollToTop}
-      >
-        ↑
-      </button>
+        <button
+            className={`scroll-to-top-btn ${showButton ? 'show' : ''}`}
+            onClick={scrollToTop}
+        >
+            ↑
+        </button>
     );
-  }
 }
-
-export default ScrollToTopButton;

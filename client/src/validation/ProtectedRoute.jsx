@@ -1,3 +1,5 @@
+//reviewed
+
 import { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
 import { GlobalContext } from '../GlobalContext.jsx';

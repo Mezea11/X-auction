@@ -25,50 +25,9 @@ html {
     align-items: center;
     justify-content: center;
 }
-/* ICON */
-#home-icon {
-    width: 7em;
-    height: auto;
-}
 
 .mockdataoutput h6 {
     border-bottom: 1px dotted black;
-}
-
-/* HOMEPAGE */
-#home-card-container {
-    display: flex;
-    width: 100%;
-    padding: 2rem;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 2rem;
-    display: flex;
-    width: 100%;
-    padding: 2rem;
-    padding-bottom: 0;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 2rem;
-    #homepage-products-container {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 2rem;
-        background-color: #f8f9fa;
-        padding: 2rem;
-        padding-bottom: 1rem;
-        margin: 0 5rem 2rem 5rem;
-        .card {
-            box-shadow: 0 0 10px #719ece;
-        }
-    }
-}
-
-#home-card-btn {
-    display: flex;
-    justify-content: center;
 }
 
 /* FAQ PAGE */
@@ -112,11 +71,6 @@ html {
 /* SEARCHBAR */
 
 #searchbar-container {
-    /* #searchbar-results-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
-    background-color: red; */
     #filter-container {
         display: flex;
         flex-direction: row;

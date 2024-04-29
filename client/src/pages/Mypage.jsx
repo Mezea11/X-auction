@@ -1,13 +1,15 @@
+// reviewed
+
 import './Mypage.css';
-import PostProductButton from '../components/PostProductButton.jsx';
 import { useEffect, useState, useContext } from 'react';
-import MyAuctionObjectsList from '../components/MyAuctionObjectsList.jsx';
 import { GlobalContext } from '../GlobalContext';
-import PatchProductButton from '../components/PatchProductButton.jsx';
 import { Link } from 'react-router-dom';
+import MyAuctionObjectsList from '../components/MyAuctionObjectsList.jsx';
+import PostProductButton from '../components/PostProductButton.jsx';
+import PatchProductButton from '../components/PatchProductButton.jsx';
 import EditUserButton from '../components/EditUserInfoButton.jsx';
-import Footer from '../components/Footer';
 import ScrollToTopButton from '../components/ScrollToTopButton';
+import Footer from '../components/Footer';
 
 export default function Mypage() {
     const [products, setProducts] = useState([]);
@@ -40,46 +42,44 @@ export default function Mypage() {
         };
     }, []);
 
+    // fetch all products by seller that equals logged in user
     const fetchProducts = async () => {
         try {
-            if (user && user.username) {
-                const response = await fetch(
-                    `/api/productsbyseller?seller=${user.username}`
-                );
-                if (!response.ok) {
-                    throw new Error('Failed to fetch products');
-                }
-                const data = await response.json();
-                setProducts(data);
+            const response = await fetch(
+                `/api/productsbyseller?seller=${user.username}`
+            );
+            if (!response.ok) {
+                throw new Error('Failed to fetch products');
             }
-            console.log('fetchProducts');
+            const data = await response.json();
+            setProducts(data);
         } catch (error) {
             console.error('Error fetching products:', error);
         }
     };
 
+    // Fetch bids by the logged in user
     const fetchBids = async () => {
         try {
-            if (user && user.username) {
-                console.log(user.username);
-                const response = await fetch(
-                    `/api/productsbybids?username=${user.username}`
-                );
-                if (!response.ok) {
-                    throw new Error('Failed to fetch products');
-                }
-                const data = await response.json();
-                const activeBids = data.filter((product) => product.ongoing);
-                setActiveBids(activeBids);
-                const legacyBids = data.filter((product) => !product.ongoing);
-                setLegacyBids(legacyBids);
-                console.log('fetchBids');
+            const response = await fetch(
+                `/api/productsbybids?username=${user.username}`
+            );
+            if (!response.ok) {
+                throw new Error('Failed to fetch products');
             }
+            const data = await response.json();
+            //filter products with property ongoing = true
+            const activeBids = data.filter((product) => product.ongoing);
+            setActiveBids(activeBids);
+            //filter products with property ongoing = false
+            const legacyBids = data.filter((product) => !product.ongoing);
+            setLegacyBids(legacyBids);
         } catch (error) {
             console.error('Error fetching products:', error);
         }
     };
 
+    // Fetch auctions won by the logged in user
     const fetchWonAuctions = async () => {
         try {
             //get data from mongodb database
@@ -88,7 +88,7 @@ export default function Mypage() {
                 throw new Error('error');
             }
             const data = await response.json();
-            // Filter data from json server: Checks if won = true and user has the highest bid
+            // Filter data from database: Checks if won = true and user has the highest bid
             const wonAuctions = data.filter(
                 (product) =>
                     product.won &&
@@ -98,7 +98,6 @@ export default function Mypage() {
             );
             // Update the state with filtered products
             setWonAuctions(wonAuctions);
-            console.log('fetchWonAuctions');
             //Error handling
         } catch (error) {
             console.error('Error fetching products:', error);
@@ -287,7 +286,6 @@ export default function Mypage() {
                                         View Product
                                     </button>
                                 </Link>
-                                &nbsp;
                             </div>
                         </div>
                     ))}
@@ -376,7 +374,6 @@ export default function Mypage() {
                                         View Product
                                     </button>
                                 </Link>
-                                &nbsp;
                             </div>
                         </div>
                     ))}
@@ -393,19 +390,13 @@ export default function Mypage() {
                             <div className="bid-history-item-sub">
                                 <Link
                                     to={`/ProductPage/${legacyBid._id}`}
-                                    className="image-link"
+                                    className="product-link"
                                 >
                                     <img
                                         src={legacyBid.img_url}
                                         alt="Product Image"
                                         className="product-image"
                                     />
-                                </Link>
-
-                                <Link
-                                    to={`/ProductPage/${legacyBid._id}`}
-                                    className="product-link"
-                                >
                                     <span className="product-name">
                                         {legacyBid.productname}
                                     </span>

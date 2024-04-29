@@ -1,6 +1,7 @@
+//reviewed
+
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Home.css';
 import Footer from '../components/Footer';
 import ScrollToTopButton from '../components/ScrollToTopButton';
@@ -12,6 +13,7 @@ function Home() {
     const [mostAffordableProducts, setMostAffordableProducts] = useState([]);
     const [mostPopularProducts, setMostPopularProducts] = useState([]);
 
+    // function to render products that have been sold
     const fetchRecentlySoldProducts = async () => {
         try {
             const response = await fetch('/api/products');
@@ -20,10 +22,13 @@ function Home() {
             }
             const data = await response.json();
 
+            // create a copy of product array, but with only products someone has won
             const recentlySoldProducts = data.filter((product) => product.won);
+            //sort from most recently won
             recentlySoldProducts.sort(
                 (a, b) => new Date(a.end_dateTime) - new Date(b.end_dateTime)
             );
+            //limit result to 4
             const topFourProducts = recentlySoldProducts.slice(0, 4);
             setRecentlySoldProducts(topFourProducts);
         } catch (error) {
@@ -31,7 +36,8 @@ function Home() {
         }
     };
 
-    const filteredByLowestPriceProducts = async () => {
+    // function to render products with lowest starting price
+    const filterByLowestPriceProducts = async () => {
         try {
             const response = await fetch('/api/products');
             if (!response.ok) {
@@ -39,20 +45,24 @@ function Home() {
             }
             const data = await response.json();
 
+            //only products that are currently for sale
             const mostAffordableProducts = data.filter(
                 (product) => product.ongoing
             );
+            //sort from lowest to highest starting_price
             mostAffordableProducts.sort(
                 (a, b) => a.starting_price - b.starting_price
             );
+            //limit result to 4
             const topFourProducts = mostAffordableProducts.slice(0, 4);
             setMostAffordableProducts(topFourProducts);
         } catch (error) {
-            console.error('Error fetching products:', error);
+            console.error('Error fetching most affordable products:', error);
         }
     };
 
-    const filteredByMostPopularProducts = async () => {
+    // function  to render products with most bids
+    const filterByMostPopularProducts = async () => {
         try {
             const response = await fetch('/api/products');
             if (!response.ok) {
@@ -60,22 +70,25 @@ function Home() {
             }
             const data = await response.json();
 
+            //only products that are currently for sale
             const mostPopularProducts = data.filter(
                 (product) => product.ongoing
             );
+            //sort by highest number of bids
             mostPopularProducts.sort((a, b) => b.bids.length - a.bids.length);
+            //limit result to 4
             const topFourProducts = mostPopularProducts.slice(0, 4);
             setMostPopularProducts(topFourProducts);
         } catch (error) {
-            console.error('Error fetching products:', error);
+            console.error('Error fetching most popular products:', error);
         }
     };
 
     useEffect(() => {
         fetchAllProducts();
         fetchRecentlySoldProducts(); // Call fetchRecentlySoldProducts here
-        filteredByLowestPriceProducts(); // Call filteredByLowestPriceProducts here
-        filteredByMostPopularProducts(); // Call filteredByMostPopularProducts here
+        filterByLowestPriceProducts(); // Call filteredByLowestPriceProducts here
+        filterByMostPopularProducts(); // Call filteredByMostPopularProducts here
 
         const interval = setInterval(fetchAllProducts, 5000);
         // Cleanup interval on component unmount
@@ -84,17 +97,18 @@ function Home() {
 
     const fetchAllProducts = async () => {
         try {
-            console.log('home fetch');
             const response = await fetch('/api/products');
             if (!response.ok) {
                 throw new Error('error');
             }
             const data = await response.json();
-
+            //only products that are currently for sale
             const ongoingProducts = data.filter((product) => product.ongoing);
+            //sort by end_dateTime
             ongoingProducts.sort(
                 (a, b) => new Date(a.end_dateTime) - new Date(b.end_dateTime)
             );
+            //limit result to 20
             const shortestTimeLeftProducts = ongoingProducts.slice(0, 20);
             setProducts(shortestTimeLeftProducts);
         } catch (error) {
@@ -106,14 +120,13 @@ function Home() {
         return null;
     }
 
-    const handleViewProduct = async (productId) => {
+    // function for error handling while fetching individual product
+    const handleViewProductError = async (productId) => {
         try {
             const response = await fetch(`/api/products/${productId}`);
             if (!response.ok) {
                 throw new Error('Error fetching product');
             }
-            const productData = await response.json();
-            console.log('Product data:', productData);
         } catch (error) {
             console.error('Error fetching product:', error);
         }
@@ -220,7 +233,7 @@ function Home() {
                                         type="button"
                                         className="btn btn-primary"
                                         onClick={() =>
-                                            handleViewProduct(product._id)
+                                            handleViewProductError(product._id)
                                         }
                                         id="home-card-btn"
                                     >
@@ -278,7 +291,9 @@ function Home() {
                                         <Link
                                             to={`productpage/${product._id}`}
                                             onClick={() =>
-                                                handleViewProduct(product._id)
+                                                handleViewProductError(
+                                                    product._id
+                                                )
                                             }
                                             className="btn btn-primary"
                                         >
@@ -317,7 +332,7 @@ function Home() {
                                             <Link
                                                 to={`productpage/${product._id}`}
                                                 onClick={() =>
-                                                    handleViewProduct(
+                                                    handleViewProductError(
                                                         product._id
                                                     )
                                                 }
@@ -344,7 +359,7 @@ function Home() {
                                 <Link
                                     to={`productpage/${product._id}`}
                                     onClick={() =>
-                                        handleViewProduct(product._id)
+                                        handleViewProductError(product._id)
                                     }
                                     style={{
                                         textDecoration: 'none',
