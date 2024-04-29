@@ -67,6 +67,13 @@ export default function PatchProductModal({ closeModal }) {
             ) {
                 delete formData.starting_price;
             }
+
+            if (
+                selectedProduct &&
+                formData.end_dateTime == selectedProduct.end_dateTime
+              ) {
+                delete formData.end_dateTime;
+              }
             console.log(selectedProductId);
 
             const response = await fetch(

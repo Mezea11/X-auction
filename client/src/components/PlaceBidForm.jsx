@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { useParams } from "react-router";
 import { GlobalContext } from "../GlobalContext";
 
@@ -9,29 +9,7 @@ export default function PlaceBidFunction({ onSubmit }) {
   const [unsuccessfulBid, setUnsuccessfulBid] = useState(false);
   const { user } = useContext(GlobalContext);
 
-
-  // ta tillbaka useEffect för att kunna rendera ut budhistorik + info om bud i "produktkortet"
-  /* useEffect(() => {
-        // Fetch product details to get the starting price
-    const fetchProductDetails = async () => {
-        try {
-            console.log('PBF: fetchProductDetails step 1');
-            const response = await fetch(`/api/products/${productId}`);
-            if (!response.ok) {
-              throw new Error("Error fetching product details");
-            }
-            const data = await response.json();
-            
-        } catch (error) {
-          console.error("Error fetching product details:", error);
-        }
-    };
-
-    fetchProductDetails();
-}, [productId]); */
-
   async function handleSubmit(e) {
-    console.log("PBF: HandleSubmit: step 2")
     e.preventDefault(); // Prevent default form submission behavior
     const response = await fetch(
         `/api/products/${productId}`
@@ -46,15 +24,6 @@ export default function PlaceBidFunction({ onSubmit }) {
       const parsedBid = parseInt(bid);
 
     try {
-      
-/*       if (parsedBid < startingPrice) {
-        // Compare parsedBid with the starting price
-          setUnsuccessfulBid(true);
-          setSuccessfulBid(false);
-          alert("You cannot place bid under starting price!");
-          setBid(""); // Clear bid input field
-          return; // Exit early if bid is less than the starting price
-      } */
 
       if (bids.length === 0 && parsedBid < startingPrice) {
       // If there are no bids and bid is lower than starting price
@@ -89,7 +58,6 @@ export default function PlaceBidFunction({ onSubmit }) {
           body: JSON.stringify(updatedData),
         }
       );
-        console.log("Step 3: Patch successful!")
 
       setSuccessfulBid(true);
       if (typeof onSubmit === "function") {
@@ -126,11 +94,6 @@ export default function PlaceBidFunction({ onSubmit }) {
             Place bid
           </button>
           <div className="modal-body">
-            {/* {unsuccessfulBid && ( // Render login error message if there's a login error
-              <div className="alert alert-danger" role="alert">
-                Cannot place bid under starting price.
-              </div>
-            )} */}
           </div>
           <div className="modal-body">
             {successfulBid ? (

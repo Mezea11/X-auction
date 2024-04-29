@@ -1,15 +1,9 @@
-//import { right } from "@popperjs/core/index.js";
 import { useEffect, useState } from "react";
-import PlaceBidFunction from "./PlaceBidFunction.jsx";
+import PlaceBidFunction from "./PlaceBidForm.jsx";
 //Creates the modal component for the login form
 export default function PlaceBidModal({ closeModal }) {
   //closeModal function is passed as prop
-
-  const [bidSubmitted, setBidSubmitted] = useState(false);
-
-  const handleBidSubmit = (bidData) => {
-    console.log("Bid submitted", bidData);
-    setBidSubmitted(true);
+  const handleBidSubmit = () => {
     //close modal on successful bid after time delay
     setTimeout(() => {
       closeModal();

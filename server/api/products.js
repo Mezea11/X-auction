@@ -179,24 +179,20 @@ export default function (server) {
 
             // If the product has bids, DON'T let the user update the time on the product
             if (product.bids.length > 0) {
-                // Check if the request body contains the end_Datetime field
-                if (req.body.end_dateTime !== undefined) {
-                    return res.status(400).json({
-                        message:
-                            'Cannot update End Date Time because there are existing bids.',
-                    });
-                }
-            }
-
-            // Check if the request body contains the starting_price parameter and if there are existing bids
-            else if (
-                product.bids.length > 0 &&
-                req.body.starting_price !== undefined
-            ) {
+              // Check if the request body contains the end_Datetime field
+              if (req.body.end_dateTime !== undefined) {
                 return res.status(400).json({
-                    message:
-                        'Cannot update starting price because there are existing bids.',
+                  message:
+                    "Cannot update End Date Time because there are existing bids.",
                 });
+              } else if (req.body.starting_price !== undefined) {
+                return res.status(400).json({
+                  message:
+                    "Cannot update starting price because there are existing bids.",
+                });
+              }
+
+              // Check if the request body contains the starting_price parameter and if there are existing bids
             }
 
             // If no bids or starting_price not in request body, user may update the product

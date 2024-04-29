@@ -69,24 +69,18 @@ export default function PostProductForm({ onSubmit }) {
                     won: false,
                 }),
             });
-            console.log('step 1: entering function');
 
             const result = await response.json();
 
             if (response.status == 201) {
-                console.log(result);
-                console.log('step 2: successful post');
                 setSuccessfulPost(true);
             } else {
-                console.log('step 3: else');
                 if (response.status === 404 || response.status === 409) {
-                    console.log('step 4: 404');
                 }
                 // Handle other status codes or errors
             }
         } catch (error) {
             console.error('Error during post:', error);
-            console.log('error');
 
             // Handle network or parsing errors
         }
