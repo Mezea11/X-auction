@@ -1,5 +1,3 @@
-// reviewed
-
 import './Mypage.css';
 import { useEffect, useState, useContext } from 'react';
 import { GlobalContext } from '../GlobalContext';
@@ -107,7 +105,6 @@ export default function Mypage() {
     //deletes one product by id
     const deleteProduct = async (_id) => {
         try {
-            console.log(_id);
             const response = await fetch(`/api/products/${_id}`, {
                 method: 'DELETE',
             });

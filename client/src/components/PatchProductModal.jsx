@@ -71,10 +71,9 @@ export default function PatchProductModal({ closeModal }) {
             if (
                 selectedProduct &&
                 formData.end_dateTime == selectedProduct.end_dateTime
-              ) {
+            ) {
                 delete formData.end_dateTime;
-              }
-            console.log(selectedProductId);
+            }
 
             const response = await fetch(
                 `/api/patchproducts/${selectedProductId}`,

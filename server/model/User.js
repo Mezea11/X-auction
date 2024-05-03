@@ -1,4 +1,3 @@
-//reviewed
 import mongoose from 'mongoose';
 
 // Creates "users" schema: defines the structure of every "user" document in our database

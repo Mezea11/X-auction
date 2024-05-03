@@ -1,5 +1,3 @@
-//reviewed
-
 import { useState } from 'react';
 import SignupModal from './SignupModal.jsx';
 //creates button that handles the show/hide of signup modal

@@ -1,5 +1,3 @@
-//reviewed
-
 import { useContext } from 'react';
 import { GlobalContext } from '../GlobalContext.jsx';
 import SignupButton from '../components/SignupButton.jsx';

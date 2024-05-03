@@ -1,4 +1,3 @@
-//reviewed
 import User from '../model/User.js';
 import bcrypt from 'bcryptjs'; // Import bcrypt for password hashing
 

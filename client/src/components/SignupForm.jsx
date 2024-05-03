@@ -1,5 +1,3 @@
-//reviewed
-
 import { useState } from 'react';
 //Creates the form used for sign up new user
 export default function SignupForm({ onSubmit }) {
@@ -23,8 +21,6 @@ export default function SignupForm({ onSubmit }) {
             email: email,
             password: password,
         };
-
-        console.log(formData);
         //calling onSubmit and specifying the data passed back to the parent component
         onSubmit(username, email, password);
         //resetting all variables on submit

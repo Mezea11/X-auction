@@ -1,5 +1,3 @@
-//reviewed
-
 import './ProductPageComponent.css';
 import { useEffect, useState, useContext } from 'react';
 import PlaceBidButton from './PlaceBidButton.jsx';

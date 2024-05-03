@@ -1,5 +1,3 @@
-//reviewed
-
 import SignupForm from './SignupForm.jsx';
 import { useState, useEffect } from 'react';
 import bcrypt from 'bcryptjs'; // Import library encryption algorithm

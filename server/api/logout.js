@@ -1,5 +1,3 @@
-// reviewed
-
 export default function (server) {
     // Method to delete login, in other words logout
     server.delete('/api/login', async (req, res) => {

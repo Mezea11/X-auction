@@ -1,4 +1,3 @@
-//reviewed
 import mongoose from 'mongoose';
 
 // Creates "products" schema: defines the structure of every "product" document in our database

@@ -1,4 +1,3 @@
-//reviewed
 // Import Express to connect to web server Mongoose to interact with the MongoDB-database.
 import express from 'express';
 import mongoose from 'mongoose';

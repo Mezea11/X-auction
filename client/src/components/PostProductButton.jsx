@@ -1,5 +1,3 @@
-//reviewed
-
 import { useState } from 'react';
 import PostProductModal from './PostProductModal.jsx';
 

@@ -82,7 +82,6 @@ export default function EditUserModal({ closeModal }) {
         };
     }, [closeModal]);
 
-
     return (
         <>
             <div
@@ -112,16 +111,6 @@ export default function EditUserModal({ closeModal }) {
                             {/* adds edit user form component with function edit user to the body of the modal */}
                             <EditUserForm onSubmit={updateUser} />
                             {/* element shows if isSuccess = true */}
-                            {/* {notSuccess && (
-                <p
-                  style={{
-                    color: "red",
-                    marginTop: "1rem",
-                  }}
-                >
-                  Failed to update user information.
-                </p>
-              )} */}
                             {isSuccess && (
                                 <p
                                     style={{

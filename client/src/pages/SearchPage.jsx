@@ -1,5 +1,3 @@
-//reviewed
-
 import SearchbarComponent from '../components/Searchbar.jsx';
 import Footer from '../components/Footer';
 import ScrollToTopButton from '../components/ScrollToTopButton';

@@ -1,4 +1,3 @@
-//reviewed
 import User from '../model/User.js';
 
 export default function (server) {

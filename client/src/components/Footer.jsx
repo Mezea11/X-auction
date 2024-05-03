@@ -1,5 +1,3 @@
-//reviewed
-
 import React from 'react';
 
 const Footer = ({ position }) => {

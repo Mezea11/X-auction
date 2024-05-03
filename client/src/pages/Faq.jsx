@@ -1,5 +1,3 @@
-// reviewed
-
 import Footer from '../components/Footer';
 import ScrollToTopButton from '../components/ScrollToTopButton';
 

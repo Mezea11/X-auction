@@ -1,5 +1,3 @@
-//reviewed
-
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,7 +9,7 @@ export default function SearchbarComponent() {
     useEffect(() => {
         inputRef.current.focus(); // Focus the input field
     }, []); // Empty dependency array ensures this effect
-    
+
     /* STATE HOOK: submitted user input in searchbar */
     const [searchTerm, setSearchTerm] = useState('');
     /* STATE HOOK: data from database */
@@ -135,7 +133,7 @@ export default function SearchbarComponent() {
         <div id="searchbar-container">
             <form onSubmit={handleSubmit} className="d-flex" role="search">
                 <input
-                    ref={inputRef} 
+                    ref={inputRef}
                     className="form-control me-2"
                     type="search"
                     placeholder="Search"

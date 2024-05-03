@@ -1,5 +1,3 @@
-// reviewed
-
 import ProductPageComponent from '../components/ProductPageComponent.jsx';
 import Footer from '../components/Footer';
 import ScrollToTopButton from '../components/ScrollToTopButton';
